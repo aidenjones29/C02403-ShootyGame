@@ -10,9 +10,13 @@ void main()
 	myEngine->StartWindowed();
 
 	// Add default folder for meshes and other media
-	myEngine->AddMediaFolder( "C:\\ProgramData\\TL-Engine\\Media" );
+	myEngine->AddMediaFolder( ".\\Media" );
+	ICamera* myCam = myEngine->CreateCamera(kFPS,-5, 0, 0);
+	myCam->SetMovementSpeed(0.4f);
 
 	/**** Set up your scene here ****/
+	IMesh* marineMesh = myEngine->LoadMesh("Factory217.x");
+	IModel* marine = marineMesh->CreateModel();
 
 
 	// The main game loop, repeat until engine is stopped
@@ -22,8 +26,11 @@ void main()
 		myEngine->DrawScene();
 
 		/**** Update your scene each frame here ****/
-		//
-
+		
+		if (myEngine->KeyHit(Key_Escape))
+		{
+			myEngine->Stop();
+		}
 	}
 
 	// Delete the 3D engine now we are finished with it
