@@ -24,7 +24,8 @@ void main()
 	myCam->SetMovementSpeed(50.0f);
 
 	/**** Set up your scene here ****/
-	CreateWalls(myEngine);
+	CreateFences(myEngine);
+	CreateScene(myEngine);
 
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())

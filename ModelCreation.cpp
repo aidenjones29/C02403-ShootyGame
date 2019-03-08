@@ -2,18 +2,21 @@
 
 const int FenceAmmount = 15;
 
-void CreateWalls(I3DEngine* myEngine)
+void CreateScene(I3DEngine * myEngine)
 {
 	IMesh* skyboxMesh = myEngine->LoadMesh("Skybox.x");
 	IMesh* floorMesh = myEngine->LoadMesh("Floor.x");
-	IMesh* FenceMesh = myEngine->LoadMesh("ChainLinkFence.x");
-	
-	//IMesh* cubeM = myEngine->LoadMesh("Gate.x");
-	//IModel* cube = cubeM->CreateModel(0, 5, 0);
-	//cube->ScaleZ(0.01f);
 
 	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
 	IModel* floor = floorMesh->CreateModel();
+}
+
+
+void CreateFences(I3DEngine* myEngine)
+{
+	IMesh* FenceMesh = myEngine->LoadMesh("ChainLinkFence.x");
+	IMesh* gateMesh = myEngine->LoadMesh("Gate.x");
+
 	IModel* fenceTop[FenceAmmount];
 	IModel* fenceBottom[FenceAmmount];
 	IModel* fenceLeft[FenceAmmount];
@@ -21,15 +24,31 @@ void CreateWalls(I3DEngine* myEngine)
 	IModel* fenceInnerTop[5];
 	IModel* fenceInnerRight[5];
 	IModel* gateSides[2];
+	IModel* fenceWalkway = FenceMesh->CreateModel(108, 0, 107);
+	fenceWalkway->RotateY(-90);
+	fenceWalkway->Scale(10);
 
+	IModel* gate = gateMesh->CreateModel(121.3, 9, 94);
+	gate->ScaleZ(0.05f);
+	gate->ScaleX(1.15f);
+	gate->ScaleY(1.7f);
 
 	float fenceXStart[4] = {-5.0f, -5.0f, -15.0f, 360.0f};
 	float fenceZStart[4] = { 370.0f, -7.0f, 7.0f, 7.0f };
 
 	int currentFencePos = 0;
 
+	gateSides[0] = FenceMesh->CreateModel(112, 0, 95);
+	gateSides[1] = FenceMesh->CreateModel(130, 0, 95);
+
 	for (int i = 0; i < FenceAmmount; i++)
 	{
+		if (i < 2)
+		{
+			gateSides[i]->Scale(10);
+			gateSides[i]->ScaleX(0.25f);
+		}
+
 		if (i < 5)
 		{
 			fenceInnerTop[i] = FenceMesh->CreateModel(fenceXStart[0] + currentFencePos, 0.0f, 95);
@@ -56,5 +75,11 @@ void CreateWalls(I3DEngine* myEngine)
 
 		currentFencePos += 25;
 	}
+
+}
+
+
+void CreateWalls(I3DEngine * myEngine)
+{
 
 }
