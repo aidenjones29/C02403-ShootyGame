@@ -19,13 +19,18 @@ void main()
 
 	// Add default folder for meshes and other media
 	myEngine->AddMediaFolder( ".\\Media" );
-	ICamera* myCam = myEngine->CreateCamera(kFPS, 0, 15, 90);
+	ICamera* myCam = myEngine->CreateCamera(kManual, 0, 15, 90);
+
+	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
+	IModel* cameraDummy = dummyMesh->CreateModel(0, 0, 90);
+
+	myCam->AttachToParent(cameraDummy);
+
 
 	myCam->SetMovementSpeed(50.0f);
 
 	/**** Set up your scene here ****/
-	CreateFences(myEngine);
-	CreateScene(myEngine);
+	CreateFences(myEngine); CreateScene(myEngine); CreateWalls(myEngine);
 
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())

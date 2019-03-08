@@ -1,6 +1,7 @@
 #include "ModelCreation.h"
 
 const int FenceAmmount = 15;
+const int OuterWallAmount = 10;
 
 void CreateScene(I3DEngine * myEngine)
 {
@@ -59,7 +60,6 @@ void CreateFences(I3DEngine* myEngine)
 			fenceInnerRight[i]->RotateY(90);
 		}
 
-
 		fenceTop[i] = FenceMesh->CreateModel(fenceXStart[0] + currentFencePos, 0.0f, fenceZStart[0]);
 		fenceBottom[i] = FenceMesh->CreateModel(fenceXStart[1] + currentFencePos, 0.0f, fenceZStart[1]);
 		fenceLeft[i] = FenceMesh->CreateModel(fenceXStart[2], 0.0f, fenceZStart[2] + currentFencePos);
@@ -81,5 +81,38 @@ void CreateFences(I3DEngine* myEngine)
 
 void CreateWalls(I3DEngine * myEngine)
 {
+	IMesh* FenceMesh = myEngine->LoadMesh("ChainLinkFence.x");
+	IMesh* OuterWallMesh = myEngine->LoadMesh("OuterWall.x");
 
+	IModel* OuterWallTop[OuterWallAmount];
+	IModel* OuterWallBottom[OuterWallAmount];
+	IModel* OuterWallLeft[OuterWallAmount];
+	IModel* OuterWallRight[OuterWallAmount];
+
+	float OuterWallXStart[4] = {-100, -100, -100, 700};
+	float OuterWallZStart[4] = {-100, 800, -100, -100};
+	float outerWallY = 10.0f;
+	
+	int currentOuterWall = 0;
+
+	for (int i = 0; i < OuterWallAmount; i++)
+	{
+		OuterWallTop[i] = OuterWallMesh->CreateModel(OuterWallXStart[0] + currentOuterWall, outerWallY, OuterWallZStart[0]);
+		OuterWallBottom[i] = OuterWallMesh->CreateModel(OuterWallXStart[1] + currentOuterWall, outerWallY, OuterWallZStart[1]);
+		OuterWallLeft[i] = OuterWallMesh->CreateModel(OuterWallXStart[2], outerWallY, OuterWallZStart[2] + currentOuterWall);
+		OuterWallRight[i] = OuterWallMesh->CreateModel(OuterWallXStart[3], outerWallY, OuterWallZStart[3] + currentOuterWall);
+
+		OuterWallTop[i]->Scale(10);
+		OuterWallTop[i]->ScaleZ(0.1f);
+		OuterWallBottom[i]->Scale(10);
+		OuterWallBottom[i]->ScaleZ(0.1f);
+		OuterWallLeft[i]->Scale(10);
+		OuterWallLeft[i]->ScaleZ(0.1f);
+		OuterWallLeft[i]->RotateY(90);
+		OuterWallRight[i]->Scale(10);
+		OuterWallRight[i]->RotateY(90);
+		OuterWallRight[i]->ScaleZ(0.1f);
+
+		currentOuterWall += 100;
+	}
 }
