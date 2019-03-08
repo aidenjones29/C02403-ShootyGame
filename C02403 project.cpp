@@ -1,6 +1,7 @@
 // C02403 project.cpp: A program using the TL-Engine
 
 #include <TL-Engine.h>	// TL-Engine include file and namespace
+#include "ModelCreation.h"
 using namespace tle;
 
 void main()

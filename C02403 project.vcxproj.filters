@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="HeaderFiles">
+      <UniqueIdentifier>{d86ab076-3071-4e97-aa57-a2842a5e1e4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CPPFiles">
+      <UniqueIdentifier>{fa0c85ca-9805-460b-81db-c43dc483c025}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C02403 project.cpp">
+      <Filter>CPPFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelCreation.cpp">
+      <Filter>CPPFiles</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ModelCreation.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
