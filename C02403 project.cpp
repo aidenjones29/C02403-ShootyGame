@@ -1,6 +1,8 @@
 // C02403 project.cpp: A program using the TL-Engine
 
 #include <TL-Engine.h>	// TL-Engine include file and namespace
+#include "ModelCreation.h"
+
 using namespace tle;
 
 class Weapon
@@ -17,22 +19,12 @@ void main()
 
 	// Add default folder for meshes and other media
 	myEngine->AddMediaFolder( ".\\Media" );
-	ICamera* myCam = myEngine->CreateCamera(kFPS,0, 7, 0);
+	ICamera* myCam = myEngine->CreateCamera(kFPS, 0, 15, 90);
 
-	myEngine->AddMediaFolder(".\\Media");
-	ICamera* myCam = myEngine->CreateCamera(kFPS, 0, 7, 0);
-
-	myCam->SetMovementSpeed(5.0f);
+	myCam->SetMovementSpeed(50.0f);
 
 	/**** Set up your scene here ****/
-	IMesh* skyboxMesh = myEngine->LoadMesh("Skybox.x");
-	IMesh* floorMesh = myEngine->LoadMesh("Floor.x");
-	IMesh* FenceMesh = myEngine->LoadMesh("ChainLinkFence.x");
-
-	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
-	IModel* floor = floorMesh->CreateModel();
-	IModel* fence = FenceMesh->CreateModel();
-	fence->Scale(10);
+	CreateWalls(myEngine);
 
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())

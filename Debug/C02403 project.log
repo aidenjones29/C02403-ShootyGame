@@ -1,22 +1,5 @@
-<<<<<<< HEAD
-﻿  C02403 project.cpp
-  C02403 project.vcxproj -> D:\AJones45\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
-  Copying DLLs & shaders...
-=======
 ﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
   ModelCreation.cpp
-d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(4): error C2065: 'I3DEngine': undeclared identifier
-d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(4): error C2065: 'myEngine': undeclared identifier
-d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(4): error C2182: 'CreateModels': illegal use of type 'void'
-d:\ajones45\documents\github\c02403-shootygame\modelcreation.cpp(3): error C2065: 'I3DEngine': undeclared identifier
-d:\ajones45\documents\github\c02403-shootygame\modelcreation.cpp(3): error C2065: 'myEngine': undeclared identifier
-d:\ajones45\documents\github\c02403-shootygame\modelcreation.cpp(3): error C2182: 'CreateModels': illegal use of type 'void'
-d:\ajones45\documents\github\c02403-shootygame\modelcreation.cpp(3): error C2374: 'CreateModels': redefinition; multiple initialization
-  d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(4): note: see declaration of 'CreateModels'
-d:\ajones45\documents\github\c02403-shootygame\modelcreation.cpp(4): error C2448: 'CreateModels': function-style initializer appears to be a function definition
-  C02403 project.cpp
-d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(4): error C2065: 'I3DEngine': undeclared identifier
-d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(4): error C2065: 'myEngine': undeclared identifier
-d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(4): error C2182: 'CreateModels': illegal use of type 'void'
-  Generating Code...
->>>>>>> master
+d:\ajones45\documents\github\c02403-shootygame\modelcreation.cpp(23): warning C4101: 'gateSides': unreferenced local variable
+  C02403 project.vcxproj -> D:\AJones45\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
+  Copying DLLs & shaders...
