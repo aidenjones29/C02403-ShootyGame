@@ -5,11 +5,14 @@
 
 using namespace tle;
 
+const float movementSpeed = 0.04f;
+
 class Weapon
 {
 
 };
 
+void movement(I3DEngine* myEngine, IModel* camDummy);
 
 void main()
 {
@@ -39,12 +42,38 @@ void main()
 		myEngine->DrawScene();
 
 		/**** Update your scene each frame here ****/
-		if (myEngine->KeyHit(Key_Escape))
-		{
-			myEngine->Stop();
-		}
+		movement(myEngine, cameraDummy);
+		//END
 	}
 
 	// Delete the 3D engine now we are finished with it
 	myEngine->Delete();
+}
+
+void movement(I3DEngine* myEngine, IModel* camDummy)
+{
+	if (myEngine->KeyHeld(Key_W))
+	{
+		camDummy->MoveLocalZ(movementSpeed);
+	}
+
+	if (myEngine->KeyHeld(Key_S))
+	{
+		camDummy->MoveLocalZ(-movementSpeed);
+	}
+
+	if (myEngine->KeyHeld(Key_A))
+	{
+		camDummy->MoveLocalX(-movementSpeed);
+	}
+
+	if (myEngine->KeyHeld(Key_D))
+	{
+		camDummy->MoveLocalX(movementSpeed);
+	}
+
+	if (myEngine->KeyHeld(Key_Escape))
+	{
+		myEngine->Stop();
+	}
 }
