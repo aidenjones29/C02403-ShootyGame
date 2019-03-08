@@ -16,13 +16,12 @@ void main()
 	myEngine->StartWindowed();
 
 	// Add default folder for meshes and other media
-<<<<<<< HEAD
 	myEngine->AddMediaFolder( ".\\Media" );
 	ICamera* myCam = myEngine->CreateCamera(kFPS,0, 7, 0);
-=======
+
 	myEngine->AddMediaFolder(".\\Media");
 	ICamera* myCam = myEngine->CreateCamera(kFPS, 0, 7, 0);
->>>>>>> master
+
 	myCam->SetMovementSpeed(5.0f);
 
 	/**** Set up your scene here ****/
@@ -42,11 +41,6 @@ void main()
 		myEngine->DrawScene();
 
 		/**** Update your scene each frame here ****/
-<<<<<<< HEAD
-		
-=======
-
->>>>>>> master
 		if (myEngine->KeyHit(Key_Escape))
 		{
 			myEngine->Stop();
