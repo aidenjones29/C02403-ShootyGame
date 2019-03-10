@@ -2,36 +2,45 @@
 
 #include <TL-Engine.h>	// TL-Engine include file and namespace
 #include "ModelCreation.h"
+#include "Collisions.h"
+#include "wtypes.h" 
+#include <iostream>
 
 using namespace tle;
 
 const float movementSpeed = 0.04f;
 
-class Weapon
-{
+void movement(I3DEngine* myEngine, IModel* camDummy, float currentCamRotation, float currentCamY, float camYCounter);
 
-};
-
-void movement(I3DEngine* myEngine, IModel* camDummy);
+void desktopResolution(int& horizontal, int& vertical);
 
 void main()
 {
 	// Create a 3D engine (using TLX engine here) and open a window for it
 	I3DEngine* myEngine = New3DEngine(kTLX);
-	myEngine->StartWindowed();
+	int horizontal = 0; int vertical = 0;
+	desktopResolution(horizontal, vertical);
+	myEngine->StartWindowed(horizontal, vertical);
+	myEngine->StartMouseCapture();
 
 	// Add default folder for meshes and other media
 	myEngine->AddMediaFolder( ".\\Media" );
-	ICamera* myCam = myEngine->CreateCamera(kManual, 0, 15, 90);
+	ICamera* myCam = myEngine->CreateCamera(kManual, 0, 5, 0);
 
 	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
-	IModel* cameraDummy = dummyMesh->CreateModel(0, 0, 90);
+	IMesh* FenceMesh = myEngine->LoadMesh("ChainLinkFence.x");
 
+	IModel* fence[72];
+	IModel* cameraDummy = dummyMesh->CreateModel(0, 10, 90);
+	IModel* testDummy = dummyMesh->CreateModel();
+
+	testDummy->AttachToParent(myCam);
 	myCam->AttachToParent(cameraDummy);
+	myCam->SetMovementSpeed(0.0f);
 
-
-	myCam->SetMovementSpeed(50.0f);
-
+	float mouseMoveX = 0.0f;
+	float mouseMoveY = 0.0f;
+	float camYCounter = 0.0f;
 	/**** Set up your scene here ****/
 	CreateFences(myEngine); CreateScene(myEngine); CreateWalls(myEngine);
 
@@ -41,8 +50,14 @@ void main()
 		// Draw the scene
 		myEngine->DrawScene();
 
+		cout << FenceMesh->GetNumNodes() << endl;
 		/**** Update your scene each frame here ****/
-		movement(myEngine, cameraDummy);
+		mouseMoveX = myEngine->GetMouseMovementX();
+		mouseMoveY = myEngine->GetMouseMovementY();
+		camYCounter += mouseMoveY * 0.1f;
+
+		movement(myEngine, cameraDummy, mouseMoveX, mouseMoveY, camYCounter);
+
 		//END
 	}
 
@@ -50,8 +65,18 @@ void main()
 	myEngine->Delete();
 }
 
-void movement(I3DEngine* myEngine, IModel* camDummy)
+void movement(I3DEngine* myEngine, IModel* camDummy, float currentCamX, float currentCamY, float camYCounter)
 {
+
+	if (camYCounter < 50.0f && camYCounter > -50.0f)
+	{
+		camDummy->RotateLocalX(currentCamY * 0.1f);
+	}
+
+	camDummy->RotateY(currentCamX * 0.1f);
+
+	camDummy->SetY(10);
+
 	if (myEngine->KeyHeld(Key_W))
 	{
 		camDummy->MoveLocalZ(movementSpeed);
@@ -76,4 +101,14 @@ void movement(I3DEngine* myEngine, IModel* camDummy)
 	{
 		myEngine->Stop();
 	}
+}
+
+void desktopResolution(int& horizontal, int& vertical)
+{
+	RECT desktop;						      //Gets a handle to the current window
+	const HWND hDesktop = GetDesktopWindow(); //Gets the size and places it to a variable
+	GetWindowRect(hDesktop, &desktop);        //Gets the coordinates for the corner of the screen
+
+	horizontal = desktop.right;               //Holds the values for the screen resolution.
+	vertical = desktop.bottom;				  //Holds the values for the screen resolution.
 }

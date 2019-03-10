@@ -127,11 +127,13 @@ copy "C:\ProgramData\TL-Engine\3rd Party\TL-Xtreme\shader\*.*" "$(OutDir)" &gt; 
   <ItemGroup>
     <ClCompile Include="C02403 project.cpp" />
     <ClCompile Include="ModelCreation.cpp" />
+    <ClCompile Include="Collisions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Collisions.h" />
     <ClInclude Include="ModelCreation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

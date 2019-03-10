@@ -1,4 +1,4 @@
 ﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  C02403 project.cpp
+  ModelCreation.cpp
   C02403 project.vcxproj -> D:\AJones45\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
   Copying DLLs & shaders...
