@@ -1,4 +1,25 @@
 ﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  ModelCreation.cpp
+  C02403 project.cpp
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(53): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(54): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+TL-Engine2017Debug.lib(TL-Engine.obj) : warning LNK4099: PDB 'TL-Engine.pdb' was not found with 'TL-Engine2017Debug.lib(TL-Engine.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\TL-Engine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(Errors.obj) : warning LNK4099: PDB 'Common.pdb' was not found with 'TL-Engine2017Debug.lib(Errors.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\Common.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(TLXSprite.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXSprite.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(TLXSceneNode.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXSceneNode.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(TLXModelNode.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXModelNode.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(TLXModel.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXModel.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(TLXMesh.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXMesh.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(TLXLight.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXLight.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(TLXFont.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXFont.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(TLXEngine.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXEngine.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(TLXCamera.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXCamera.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(IrrlichtSceneNode.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtSceneNode.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(IrrlichtModel.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtModel.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(IrrlichtMesh.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtMesh.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(IrrlichtLight.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtLight.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(IrrlichtInput.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtInput.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(IrrlichtFont.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtFont.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(IrrlichtEngine.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtEngine.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
+TL-Engine2017Debug.lib(IrrlichtCamera.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtCamera.obj)' or at 'D:\AJones45\Documents\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
   C02403 project.vcxproj -> D:\AJones45\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
   Copying DLLs & shaders...

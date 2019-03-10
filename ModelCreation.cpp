@@ -13,7 +13,7 @@ void CreateScene(I3DEngine * myEngine)
 }
 
 
-void CreateFences(I3DEngine* myEngine)
+void CreateFences(I3DEngine* myEngine, unique_ptr <IModel*> fence[])
 {
 	IMesh* FenceMesh = myEngine->LoadMesh("ChainLinkFence.x");
 	IMesh* gateMesh = myEngine->LoadMesh("Gate.x");
@@ -75,7 +75,6 @@ void CreateFences(I3DEngine* myEngine)
 
 		currentFencePos += 25;
 	}
-
 }
 
 

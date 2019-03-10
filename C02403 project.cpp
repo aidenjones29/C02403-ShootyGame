@@ -28,9 +28,8 @@ void main()
 	ICamera* myCam = myEngine->CreateCamera(kManual, 0, 5, 0);
 
 	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
-	IMesh* FenceMesh = myEngine->LoadMesh("ChainLinkFence.x");
 
-	IModel* fence[72];
+	vector<IModel*> fence[80];
 	IModel* cameraDummy = dummyMesh->CreateModel(0, 10, 90);
 	IModel* testDummy = dummyMesh->CreateModel();
 
@@ -42,7 +41,7 @@ void main()
 	float mouseMoveY = 0.0f;
 	float camYCounter = 0.0f;
 	/**** Set up your scene here ****/
-	CreateFences(myEngine); CreateScene(myEngine); CreateWalls(myEngine);
+	CreateFences(myEngine, fence); CreateScene(myEngine); CreateWalls(myEngine);
 
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())
@@ -50,7 +49,6 @@ void main()
 		// Draw the scene
 		myEngine->DrawScene();
 
-		cout << FenceMesh->GetNumNodes() << endl;
 		/**** Update your scene each frame here ****/
 		mouseMoveX = myEngine->GetMouseMovementX();
 		mouseMoveY = myEngine->GetMouseMovementY();
