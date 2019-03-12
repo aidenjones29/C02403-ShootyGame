@@ -10,7 +10,7 @@ using namespace tle;
 
 const float movementSpeed = 0.04f;
 
-void movement(I3DEngine* myEngine, IModel* camDummy, float currentCamRotation, float currentCamY, float camYCounter);
+void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter);
 
 void desktopResolution(int& horizontal, int& vertical);
 
@@ -52,8 +52,9 @@ void main()
 		/**** Update your scene each frame here ****/
 		mouseMoveX = myEngine->GetMouseMovementX();
 		mouseMoveY = myEngine->GetMouseMovementY();
-		camYCounter += mouseMoveY * 0.1f;
 
+		camYCounter += mouseMoveY * 0.1f;
+		//cout << camYCounter;
 		movement(myEngine, cameraDummy, mouseMoveX, mouseMoveY, camYCounter);
 
 		//END
@@ -63,17 +64,20 @@ void main()
 	myEngine->Delete();
 }
 
-void movement(I3DEngine* myEngine, IModel* camDummy, float currentCamX, float currentCamY, float camYCounter)
+void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamX, float &mouseMoveY, float& camYCounter)
 {
 
-	if (camYCounter > -50.0f)
+	if (camYCounter > -30.0f && mouseMoveY < 0)
 	{
-		camDummy->RotateLocalX(currentCamY * 0.1f);
+		cout << camYCounter << endl;
+		camDummy->RotateLocalX(mouseMoveY * 0.1f);
 	}
 
-	if (camYCounter < 50.0f)
+	if (camYCounter < 30.0f&& mouseMoveY > 0)
 	{
-		camDummy->RotateLocalX(currentCamY * 0.1f);
+		cout << camYCounter << endl;
+
+		camDummy->RotateLocalX(mouseMoveY * 0.1f);
 	}
 
 
