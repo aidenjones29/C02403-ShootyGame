@@ -22,7 +22,7 @@ void main()
 	I3DEngine* myEngine = New3DEngine(kTLX);
 	int horizontal = 0; int vertical = 0;
 	desktopResolution(horizontal, vertical);
-	myEngine->StartFullscreen(horizontal, vertical);
+	myEngine->StartWindowed(horizontal, vertical);
 	myEngine->StartMouseCapture();
 
 	// Add default folder for meshes and other media
@@ -32,7 +32,10 @@ void main()
 	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 	IMesh* M4Mesh = myEngine->LoadMesh("M4Colt.x");
 
-	IModel* M4 = M4Mesh->CreateModel(0, 10, 80);
+	//IModel* M4Array[2];
+	IModel* M4 = M4Mesh->CreateModel(2, 8, 42);
+	M4->RotateLocalZ(90);
+	M4->RotateLocalX(180);
 	M4->Scale(13);
 	IModel* fence[80];
 	IModel* cameraDummy = dummyMesh->CreateModel(0, 15, 90);
@@ -91,8 +94,10 @@ void main()
 		}
 		if ( canCollide == true && gunInteraction(interactionDummy, M4))
 		{
+			M4->ResetOrientation();
 			M4->AttachToParent(cameraDummy);
-			M4->SetLocalPosition(2.0f, -3.0f, 7.0f);
+			M4->SetLocalPosition(2.0f, -2.0f, 7.0f);
+			M4->RotateY(-0.2f);
 		}
 
 		if (currentInteractionDistance >= 2.0f)
@@ -106,7 +111,8 @@ void main()
 		if (myEngine->KeyHit(Key_R))
 		{
 			M4->DetachFromParent();
-			M4->SetPosition(oldPlayerX, 5, oldPlayerZ);
+			M4->SetPosition(oldPlayerX, 1, oldPlayerZ);
+			M4->RotateLocalZ(90.0f);
 		}
 
 		interactionDummy->MoveLocalZ(interactionZspeed);

@@ -7,6 +7,11 @@ void CreateScene(I3DEngine * myEngine)
 {
 	IMesh* skyboxMesh = myEngine->LoadMesh("Skybox.x");
 	IMesh* floorMesh = myEngine->LoadMesh("Floor.x");
+	IMesh* ammoCrateMesh = myEngine->LoadMesh("AmmoCrateAm.x");
+
+	IModel* ammoCrate = ammoCrateMesh->CreateModel(0.0f, 0.0f, 43.0f);
+	ammoCrate->Scale(1.5);
+	ammoCrate->ScaleX(1.7);
 
 	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
 	IModel* floor = floorMesh->CreateModel();
