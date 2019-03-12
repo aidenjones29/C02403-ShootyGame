@@ -1,5 +1,5 @@
 ﻿  C02403 project.cpp
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(53): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(54): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(55): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   C02403 project.vcxproj -> D:\AJones45\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
   C02403 project.vcxproj -> D:\AJones45\Documents\GitHub\C02403-ShootyGame\\C02403 project.pdb (Full PDB)

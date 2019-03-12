@@ -9,6 +9,8 @@
 using namespace tle;
 
 const float movementSpeed = 0.04f;
+const float upperCamYMax = -50.0f;
+const float lowerCamYMax = 50.0f;
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter);
 
@@ -53,6 +55,9 @@ void main()
 		mouseMoveX = myEngine->GetMouseMovementX();
 		mouseMoveY = myEngine->GetMouseMovementY();
 
+		if (camYCounter < upperCamYMax && mouseMoveY < 0) { mouseMoveY = 0; }
+		if (camYCounter > lowerCamYMax && mouseMoveY > 0) { mouseMoveY = 0; }
+
 		camYCounter += mouseMoveY * 0.1f;
 		//cout << camYCounter;
 		movement(myEngine, cameraDummy, mouseMoveX, mouseMoveY, camYCounter);
@@ -66,17 +71,13 @@ void main()
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamX, float &mouseMoveY, float& camYCounter)
 {
-
-	if (camYCounter > -30.0f && mouseMoveY < 0)
+	if (camYCounter > upperCamYMax && mouseMoveY < 0)
 	{
-		cout << camYCounter << endl;
 		camDummy->RotateLocalX(mouseMoveY * 0.1f);
 	}
 
-	if (camYCounter < 30.0f&& mouseMoveY > 0)
+	if (camYCounter < lowerCamYMax && mouseMoveY > 0)
 	{
-		cout << camYCounter << endl;
-
 		camDummy->RotateLocalX(mouseMoveY * 0.1f);
 	}
 
