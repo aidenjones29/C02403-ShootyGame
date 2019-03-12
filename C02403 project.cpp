@@ -29,7 +29,7 @@ void main()
 
 	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 
-	vector<IModel*> fence[80];
+	IModel* fence[80];
 	IModel* cameraDummy = dummyMesh->CreateModel(0, 10, 90);
 	IModel* testDummy = dummyMesh->CreateModel();
 
@@ -66,10 +66,16 @@ void main()
 void movement(I3DEngine* myEngine, IModel* camDummy, float currentCamX, float currentCamY, float camYCounter)
 {
 
-	if (camYCounter < 50.0f && camYCounter > -50.0f)
+	if (camYCounter > -50.0f)
 	{
 		camDummy->RotateLocalX(currentCamY * 0.1f);
 	}
+
+	if (camYCounter < 50.0f)
+	{
+		camDummy->RotateLocalX(currentCamY * 0.1f);
+	}
+
 
 	camDummy->RotateY(currentCamX * 0.1f);
 
