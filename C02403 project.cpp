@@ -11,7 +11,7 @@ using namespace tle;
 const float movementSpeed = 0.04f;
 const float upperCamYMax = -50.0f;
 const float lowerCamYMax = 50.0f;
-const int numGuns = 5;
+const int numGuns = 6;
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter);
 
@@ -36,13 +36,15 @@ void main()
 	IMesh* kalashinkovMesh = myEngine->LoadMesh("kalashinkov.x");
 	IMesh* TommyGunMesh = myEngine->LoadMesh("TommyGun.x");
 	IMesh* UziMesh = myEngine->LoadMesh("Mini_Uzi.x");
+	IMesh* machineGunMesh = myEngine->LoadMesh("MachineGun.x");
 
 	IModel* WeaponArray[numGuns];
 	WeaponArray[0] = M4Mesh->CreateModel(-3, 8, 43);
-	WeaponArray[1] = stenMK2Mesh->CreateModel(27, 8, 43);
-	WeaponArray[2] = kalashinkovMesh->CreateModel(58, 8, 43);
-	WeaponArray[3] = TommyGunMesh->CreateModel(5, 8, 43);
-	WeaponArray[4] = UziMesh->CreateModel(34, 8, 43);
+	WeaponArray[1] = stenMK2Mesh->CreateModel(5, 8, 43);
+	WeaponArray[2] = kalashinkovMesh->CreateModel(32, 8, 43);
+	WeaponArray[3] = TommyGunMesh->CreateModel(38, 8, 43);
+	WeaponArray[4] = UziMesh->CreateModel(66, 8, 43);
+	WeaponArray[5] = machineGunMesh->CreateModel(75, 8, 43);
 
 	for (int i = 0; i < numGuns; i++)
 	{
@@ -133,7 +135,7 @@ void main()
 		if (myEngine->KeyHit(Key_R))
 		{
 			WeaponArray[whichGunEquipped]->DetachFromParent();
-			WeaponArray[whichGunEquipped]->SetPosition(oldPlayerX, 1, oldPlayerZ);
+			WeaponArray[whichGunEquipped]->SetPosition(oldPlayerX, 0.2, oldPlayerZ);
 			WeaponArray[whichGunEquipped]->RotateLocalZ(90.0f);
 			whichGunEquipped = numGuns;
 		}

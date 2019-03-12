@@ -8,17 +8,30 @@ void CreateScene(I3DEngine * myEngine)
 	IMesh* skyboxMesh = myEngine->LoadMesh("Skybox.x");
 	IMesh* floorMesh = myEngine->LoadMesh("Floor.x");
 	IMesh* ammoCrateMesh = myEngine->LoadMesh("AmmoCrateAm.x");
-	IMesh* 
-
+	IMesh* BarrierMesh = myEngine->LoadMesh("CementBarrier.x");
 	IModel* ammoCrate[3];
+	IModel* barrier[3];
+
 	int currentAmmoX = 0;
+	int currentBarrierX = 0;
+
+	for (int i = 0; i < 3; i++)
+	{
+		barrier[i] = BarrierMesh->CreateModel(18 + currentBarrierX, 0, 35);
+		barrier[i]->ScaleX(1.2);
+		barrier[i]->ScaleY(2);
+		barrier[i]->ScaleZ(2);
+
+		currentBarrierX += 35;
+	}
+
 
 	for (int i = 0; i < 3; i++)
 	{
 		ammoCrate[i] = ammoCrateMesh->CreateModel(0.0f + currentAmmoX, 0.0f, 43.0f);
 		ammoCrate[i]->Scale(1.5);
 		ammoCrate[i]->ScaleX(1.6);
-		currentAmmoX += 30;
+		currentAmmoX += 35;
 	}
 
 	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
