@@ -11,6 +11,7 @@ using namespace tle;
 const float movementSpeed = 0.04f;
 const float upperCamYMax = -50.0f;
 const float lowerCamYMax = 50.0f;
+const int numGuns = 5;
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter);
 
@@ -31,21 +32,35 @@ void main()
 
 	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 	IMesh* M4Mesh = myEngine->LoadMesh("M4Colt.x");
+	IMesh* stenMK2Mesh = myEngine->LoadMesh("ar18_rifle.x");
+	IMesh* kalashinkovMesh = myEngine->LoadMesh("kalashinkov.x");
+	IMesh* TommyGunMesh = myEngine->LoadMesh("TommyGun.x");
+	IMesh* UziMesh = myEngine->LoadMesh("Mini_Uzi.x");
 
-	//IModel* M4Array[2];
-	IModel* M4 = M4Mesh->CreateModel(2, 8, 42);
-	M4->RotateLocalZ(90);
-	M4->RotateLocalX(180);
-	M4->Scale(13);
+	IModel* WeaponArray[numGuns];
+	WeaponArray[0] = M4Mesh->CreateModel(-3, 8, 43);
+	WeaponArray[1] = stenMK2Mesh->CreateModel(27, 8, 43);
+	WeaponArray[2] = kalashinkovMesh->CreateModel(58, 8, 43);
+	WeaponArray[3] = TommyGunMesh->CreateModel(5, 8, 43);
+	WeaponArray[4] = UziMesh->CreateModel(34, 8, 43);
+
+	for (int i = 0; i < numGuns; i++)
+	{
+		WeaponArray[i]->Scale(13);
+		WeaponArray[i]->RotateLocalZ(90);
+		WeaponArray[i]->RotateLocalX(180);
+	}
+
 	IModel* fence[80];
 	IModel* cameraDummy = dummyMesh->CreateModel(0, 15, 90);
 	IModel* interactionDummy = dummyMesh->CreateModel(0, 0, 0);
 
 	interactionDummy->Scale(7);
-
 	interactionDummy->AttachToParent(myCam);
+
 	myCam->AttachToParent(cameraDummy);
 	myCam->SetMovementSpeed(0.0f);
+	cameraDummy->RotateY(180);
 
 	float mouseMoveX = 0.0f;
 	float mouseMoveY = 0.0f;
@@ -57,6 +72,8 @@ void main()
 
 	float oldPlayerX = 0;
 	float oldPlayerZ = 0;
+
+	int whichGunEquipped = numGuns;
 	/**** Set up your scene here ****/
 	CreateFences(myEngine, fence); CreateScene(myEngine); CreateWalls(myEngine);
 
@@ -92,12 +109,17 @@ void main()
 			interactionZspeed = 0.01f;
 			canCollide = true;
 		}
-		if ( canCollide == true && gunInteraction(interactionDummy, M4))
+
+		for (int i = 0; i < numGuns; i++)
 		{
-			M4->ResetOrientation();
-			M4->AttachToParent(cameraDummy);
-			M4->SetLocalPosition(2.0f, -2.0f, 7.0f);
-			M4->RotateY(-0.2f);
+			if ( canCollide == true && gunInteraction(interactionDummy, WeaponArray[i]) && whichGunEquipped == numGuns)
+			{
+				whichGunEquipped = i;
+				WeaponArray[i]->ResetOrientation();
+				WeaponArray[i]->AttachToParent(cameraDummy);
+				WeaponArray[i]->SetLocalPosition(2.0f, -2.0f, 7.0f);
+				WeaponArray[i]->RotateY(-0.2f);
+			}
 		}
 
 		if (currentInteractionDistance >= 2.0f)
@@ -110,9 +132,10 @@ void main()
 
 		if (myEngine->KeyHit(Key_R))
 		{
-			M4->DetachFromParent();
-			M4->SetPosition(oldPlayerX, 1, oldPlayerZ);
-			M4->RotateLocalZ(90.0f);
+			WeaponArray[whichGunEquipped]->DetachFromParent();
+			WeaponArray[whichGunEquipped]->SetPosition(oldPlayerX, 1, oldPlayerZ);
+			WeaponArray[whichGunEquipped]->RotateLocalZ(90.0f);
+			whichGunEquipped = numGuns;
 		}
 
 		interactionDummy->MoveLocalZ(interactionZspeed);
