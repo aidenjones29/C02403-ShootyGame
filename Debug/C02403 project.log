@@ -1,5 +1,3 @@
-﻿  C02403 project.cpp
-d:\ajevison\documents\github\c02403-shootygame\c02403 project.cpp(131): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\ajevison\documents\github\c02403-shootygame\c02403 project.cpp(132): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+﻿  Bullets.cpp
   C02403 project.vcxproj -> D:\AJEvison\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
   C02403 project.vcxproj -> D:\AJEvison\Documents\GitHub\C02403-ShootyGame\\C02403 project.pdb (Full PDB)

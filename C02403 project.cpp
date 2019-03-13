@@ -10,13 +10,7 @@
 
 
 
-struct vector3D
-{
-	float x;
-	float y;
-	float z;
 
-};
 
 using namespace tle;
 
@@ -24,6 +18,7 @@ const float movementSpeed = 0.04f;
 const float upperCamYMax = -50.0f;
 const float lowerCamYMax = 50.0f;
 const int numGuns = 6;
+float time = 0;
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter);
 
@@ -89,7 +84,8 @@ void main()
 		WeaponArray[i]->RotateLocalZ(90);
 		WeaponArray[i]->RotateLocalX(180);
 	}
-	//spawnBullets(200, bulletMesh, vBullets);
+	spawnBullets(200, bulletMesh, vBullets);
+	refillNewWeapon(30, vMagazine, vBullets);
 
 	IModel* fence[80];
 	IModel* cameraDummy = dummyMesh->CreateModel(0, 15, 90);
@@ -179,9 +175,34 @@ void main()
 			WeaponArray[whichGunEquipped]->RotateLocalZ(90.0f);
 			whichGunEquipped = numGuns;
 		}
-		if(myEngine->KeyHeld(Key_Space))
+		interactionDummy->MoveLocalZ(interactionZspeed);
+		currentInteractionDistance += interactionZspeed;
+		if (myEngine->KeyHeld(Key_Space))
 		{
+
+			time = time + frameTime;
+			for (int i = 0; i < 30; i++)
+			{
+
+				if (time > 1.0f)
+				{
+					if (vMagazine[i]->isFired)
+					{
+					}
+					else
+					{
+						 /*   vMagazine[i]->tragectory.x
+							vMagazine[i]->tragectory.y
+							vMagazine[i]->tragectory.z*/
+
+						vMagazine[i]->model->SetPosition(cameraDummy->GetX(), cameraDummy->GetY(), cameraDummy->GetZ());
+						vMagazine[i]->isFired = true;
+						time = 0.0f;
+					}
+				}
+			}
 		}
+		moveBullets(30, vMagazine, frameTime);
 
 		//END
 	}

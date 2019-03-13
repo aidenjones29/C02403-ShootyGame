@@ -35,5 +35,8 @@
     <ClInclude Include="Bullets.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,16 +6,19 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include "Math.h"
 
 struct sBullet
 {
 	IModel* model;
 	float timeAlive = 0;
 	bool isFired = false;
+	vector3D tragectory;
+	
 };
 
 
 
 void spawnBullets(int maxBullets, IMesh* bulletMesh, vector<sBullet*> &vBullets);
-
-//void moveBullets()
+void refillNewWeapon(int magSize, vector<sBullet*> &vMagazine,vector<sBullet*> &vBullets);
+void moveBullets(int magSize, vector<sBullet*> &vMagazine, float frameTime);
