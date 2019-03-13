@@ -5,6 +5,18 @@
 #include "Collisions.h"
 #include "wtypes.h" 
 #include <iostream>
+#include <vector>
+#include "Bullets.h"
+
+
+
+struct vector3D
+{
+	float x;
+	float y;
+	float z;
+
+};
 
 using namespace tle;
 
@@ -17,6 +29,27 @@ void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, 
 
 void desktopResolution(int& horizontal, int& vertical);
 
+//struct test
+//{
+//	int mX;
+//	int mY;
+//
+//	test(int x, int y)
+//	{
+//		mX = x;
+//		mY = y;
+//	}
+//
+//	int DoThing()
+//	{
+//		return (mX * mY);
+//	}
+//};
+//
+//struct newTest : public test
+//{
+//};
+
 void main()
 {
 	// Create a 3D engine (using TLX engine here) and open a window for it
@@ -25,6 +58,9 @@ void main()
 	desktopResolution(horizontal, vertical);
 	myEngine->StartWindowed(horizontal, vertical);
 	myEngine->StartMouseCapture();
+	vector<sBullet*> vBullets;
+	vector<sBullet*> vMagazine;
+
 
 	// Add default folder for meshes and other media
 	myEngine->AddMediaFolder( ".\\Media" );
@@ -37,6 +73,7 @@ void main()
 	IMesh* TommyGunMesh = myEngine->LoadMesh("TommyGun.x");
 	IMesh* UziMesh = myEngine->LoadMesh("Mini_Uzi.x");
 	IMesh* machineGunMesh = myEngine->LoadMesh("MachineGun.x");
+	IMesh* bulletMesh = myEngine->LoadMesh("MachineGun.x");
 
 	IModel* WeaponArray[numGuns];
 	WeaponArray[0] = M4Mesh->CreateModel(-3, 8, 43);
@@ -52,10 +89,12 @@ void main()
 		WeaponArray[i]->RotateLocalZ(90);
 		WeaponArray[i]->RotateLocalX(180);
 	}
+	//spawnBullets(200, bulletMesh, vBullets);
 
 	IModel* fence[80];
 	IModel* cameraDummy = dummyMesh->CreateModel(0, 15, 90);
 	IModel* interactionDummy = dummyMesh->CreateModel(0, 0, 0);
+	
 
 	interactionDummy->Scale(7);
 	interactionDummy->AttachToParent(myCam);
@@ -78,10 +117,11 @@ void main()
 	int whichGunEquipped = numGuns;
 	/**** Set up your scene here ****/
 	CreateFences(myEngine, fence); CreateScene(myEngine); CreateWalls(myEngine);
-
+	myEngine->Timer();
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())
 	{
+		float frameTime = myEngine->Timer();
 		// Draw the scene
 		myEngine->DrawScene();
 		oldPlayerX = cameraDummy->GetX();
@@ -139,9 +179,9 @@ void main()
 			WeaponArray[whichGunEquipped]->RotateLocalZ(90.0f);
 			whichGunEquipped = numGuns;
 		}
-
-		interactionDummy->MoveLocalZ(interactionZspeed);
-		currentInteractionDistance += interactionZspeed;
+		if(myEngine->KeyHeld(Key_Space))
+		{
+		}
 
 		//END
 	}
