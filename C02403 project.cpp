@@ -126,7 +126,7 @@ void main()
 
 	float frameTime = myEngine->Timer();
 	float movementSpeed = frameTime;
-	float currentMoveSpeed = 0.2f;
+	float currentMoveSpeed = 50.0f;
 
 	float mouseMoveX = 0.0f;
 	float mouseMoveY = 0.0f;
@@ -146,11 +146,10 @@ void main()
 	int whichGunEquipped = numGuns;
 	/**** Set up your scene here ****/
 	CreateFences(myEngine, fence); CreateScene(myEngine); CreateWalls(myEngine);
-	myEngine->Timer();
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())
 	{
-		float frameTime = myEngine->Timer();
+		frameTime = myEngine->Timer();
 		// Draw the scene
 		myEngine->DrawScene();
 
@@ -158,6 +157,7 @@ void main()
 		oldPlayerZ = cameraDummy->GetZ();
 
 		movementSpeed = currentMoveSpeed * frameTime;
+
 		/**** Update your scene each frame here ****/
 		mouseMoveX = myEngine->GetMouseMovementX();
 		mouseMoveY = myEngine->GetMouseMovementY();
@@ -166,7 +166,6 @@ void main()
 		if (camYCounter > lowerCamYMax && mouseMoveY > 0) { mouseMoveY = 0; }
 
 		camYCounter += mouseMoveY * 0.1f;
-		//cout << camYCounter;
 
 		movement(myEngine, cameraDummy, mouseMoveX, mouseMoveY, camYCounter, currPlayerStandState, movementSpeed, currentMoveSpeed);
 
@@ -211,6 +210,10 @@ void main()
 			WeaponArray[whichGunEquipped]->weaponModel->RotateLocalZ(90.0f);
 			whichGunEquipped = numGuns;
 		}
+
+		interactionDummy->MoveLocalZ(interactionZspeed);
+		currentInteractionDistance += interactionZspeed;
+
 		if(myEngine->KeyHeld(Key_Space))
 		{
 		}
@@ -266,17 +269,17 @@ void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamX, float &
 		if (currPlayerStandState == Standing)
 		{
 			currPlayerStandState = Crouching;
-			currentMoveSpeed = 0.1f;
+			currentMoveSpeed = 25.0f;
 		}
 		else if (currPlayerStandState == Crouching)
 		{
 			currPlayerStandState = Prone;
-			currentMoveSpeed = 0.05f;
+			currentMoveSpeed = 10.0f;
 		}
 		else if (currPlayerStandState == Prone)
 		{
 			currPlayerStandState = Standing;
-			currentMoveSpeed = 0.2f;
+			currentMoveSpeed = 50.0f;
 		}
 	}
 
@@ -333,9 +336,6 @@ void gunSwapAndDrop(I3DEngine* myEngine, float& interactionZspeed, float& curren
 		whichGunEquipped = numGuns;
 	}
 }
-
-
-
 
 
 void desktopResolution(int& horizontal, int& vertical)
