@@ -22,6 +22,7 @@ const float upperCamYMax = -50.0f;
 const float lowerCamYMax = 50.0f;
 const int numGuns = 6;
 float time = 0;
+float matrix[4][4];
 
 struct Weapon
 {
@@ -85,6 +86,7 @@ void main()
 	}
 
 	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
+	IMesh* bulletMesh = myEngine->LoadMesh("kalashinkov.x");
 
 	WeaponArray[0]->weaponMesh = myEngine->LoadMesh("M4Colt.x");
 	WeaponArray[1]->weaponMesh = myEngine->LoadMesh("ar18_rifle.x");
@@ -106,8 +108,8 @@ void main()
 		WeaponArray[i]->weaponModel->RotateLocalZ(90);
 		WeaponArray[i]->weaponModel->RotateLocalX(180);
 	}
-	spawnBullets(200, bulletMesh, vBullets);
-	refillNewWeapon(30, vMagazine, vBullets);
+	spawnBullets(500, bulletMesh, vBullets);
+	refillNewWeapon(40, vMagazine, vBullets);
 
 	IModel* fence[80];
 	IModel* cameraDummy = dummyMesh->CreateModel(5, 15, 80);
@@ -215,25 +217,29 @@ void main()
 			for (int i = 0; i < 30; i++)
 			{
 
-				if (time > 1.0f)
+				if (time > 0.04f)
 				{
 					if (vMagazine[i]->isFired)
 					{
 					}
 					else
 					{
-						 /*   vMagazine[i]->tragectory.x
-							vMagazine[i]->tragectory.y
-							vMagazine[i]->tragectory.z*/
-
-						vMagazine[i]->model->SetPosition(cameraDummy->GetX(), cameraDummy->GetY(), cameraDummy->GetZ());
+						
+						//WeaponArray[whichGunEquipped]->weaponModel->GetMatrix(&matrix[0][0]);
+						//vMagazine[i]->facingVector = {matrix[2][0],matrix[2][1],matrix[2][2]};
+						vMagazine[i]->model->AttachToParent(WeaponArray[whichGunEquipped]->weaponModel);
+						vMagazine[i]->model->SetLocalPosition(0, 0, 0);
+						vMagazine[i]->model->GetMatrix(&matrix[0][0]);
+					//	vMagazine[i]->model->DetachFromParent();
+						vMagazine[i]->model->SetMatrix(&matrix[0][0]);
+						//vMagazine[i]->model->SetPosition(WeaponArray[whichGunEquipped]->weaponModel->GetX(), WeaponArray[whichGunEquipped]->weaponModel->GetY(), WeaponArray[whichGunEquipped]->weaponModel->GetZ());
 						vMagazine[i]->isFired = true;
 						time = 0.0f;
 					}
 				}
 			}
 		}
-		moveBullets(30, vMagazine, frameTime);
+		moveBullets(40, vMagazine, frameTime);
 
 		//END
 	}

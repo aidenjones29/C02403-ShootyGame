@@ -13,7 +13,7 @@ struct sBullet
 	IModel* model;
 	float timeAlive = 0;
 	bool isFired = false;
-	vector3D tragectory;
+	vector3D facingVector{ 0,0,0 };
 	
 };
 

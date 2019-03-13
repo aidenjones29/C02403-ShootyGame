@@ -30,7 +30,15 @@ void moveBullets(int magSize,vector<sBullet*> &vMagazine,float frameTime)
 		if (vMagazine[i]->isFired)
 		{ 
 			//vMagazine[i]->model->Move(vMagazine[i]->tragectory.x, vMagazine[i]->tragectory.y, vMagazine[i]->tragectory.z);
-			vMagazine[i]->model->Move(5.0f*frameTime, 5.0f*frameTime, 5.0f*frameTime);
+ 			vMagazine[i]->model->MoveLocalZ(5.0f*frameTime);
+			vMagazine[i]->timeAlive = vMagazine[i]->timeAlive + frameTime;
+		}
+		if (vMagazine[i]->timeAlive >7.0f)
+		{
+			vMagazine[i]->isFired = false;
+			vMagazine[i]->model->SetPosition(0.0f, -5.0f, 0.0f);
+			vMagazine[i]->timeAlive = 0.0f;
 		}
 	}
 }
+//void fireBullets()
