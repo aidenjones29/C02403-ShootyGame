@@ -6,6 +6,18 @@
 #include "wtypes.h" 
 #include <vector>
 #include <iostream>
+#include <vector>
+#include "Bullets.h"
+
+
+
+struct vector3D
+{
+	float x;
+	float y;
+	float z;
+
+};
 
 enum fireModes {Single, Burst, Auto};
 enum standingState {Standing, Crouching, Prone};
@@ -32,6 +44,27 @@ void gunSwapAndDrop(I3DEngine* myEngine, float& interactionZspeed, float& curren
 
 void desktopResolution(int& horizontal, int& vertical);
 
+//struct test
+//{
+//	int mX;
+//	int mY;
+//
+//	test(int x, int y)
+//	{
+//		mX = x;
+//		mY = y;
+//	}
+//
+//	int DoThing()
+//	{
+//		return (mX * mY);
+//	}
+//};
+//
+//struct newTest : public test
+//{
+//};
+
 void main()
 {
 	// Create a 3D engine (using TLX engine here) and open a window for it
@@ -40,6 +73,9 @@ void main()
 	desktopResolution(horizontal, vertical);
 	myEngine->StartWindowed(horizontal, vertical);
 	myEngine->StartMouseCapture();
+	vector<sBullet*> vBullets;
+	vector<sBullet*> vMagazine;
+
 
 	// Add default folder for meshes and other media
 	myEngine->AddMediaFolder( ".\\Media" );
@@ -75,11 +111,12 @@ void main()
 		WeaponArray[i]->weaponModel->RotateLocalZ(90);
 		WeaponArray[i]->weaponModel->RotateLocalX(180);
 	}
+	//spawnBullets(200, bulletMesh, vBullets);
 
 	IModel* fence[80];
 	IModel* cameraDummy = dummyMesh->CreateModel(5, 15, 80);
 	IModel* interactionDummy = dummyMesh->CreateModel(0, 0, 0);
-
+	
 	interactionDummy->Scale(7);
 	interactionDummy->AttachToParent(myCam);
 
@@ -109,10 +146,11 @@ void main()
 	int whichGunEquipped = numGuns;
 	/**** Set up your scene here ****/
 	CreateFences(myEngine, fence); CreateScene(myEngine); CreateWalls(myEngine);
-
+	myEngine->Timer();
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())
 	{
+		float frameTime = myEngine->Timer();
 		// Draw the scene
 		myEngine->DrawScene();
 
@@ -173,9 +211,9 @@ void main()
 			WeaponArray[whichGunEquipped]->weaponModel->RotateLocalZ(90.0f);
 			whichGunEquipped = numGuns;
 		}
-
-		interactionDummy->MoveLocalZ(interactionZspeed);
-		currentInteractionDistance += interactionZspeed;
+		if(myEngine->KeyHeld(Key_Space))
+		{
+		}
 
 		//END
 	}
