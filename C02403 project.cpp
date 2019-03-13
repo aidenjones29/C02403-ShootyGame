@@ -4,13 +4,14 @@
 #include "ModelCreation.h"
 #include "Collisions.h"
 #include "wtypes.h" 
+#include <vector>
 #include <iostream>
 
 enum fireModes {Single, Burst, Auto};
+enum standingState {Standing, Crouching, Prone};
 
 using namespace tle;
 
-const float movementSpeed = 0.04f;
 const float upperCamYMax = -50.0f;
 const float lowerCamYMax = 50.0f;
 const int numGuns = 6;
@@ -25,7 +26,7 @@ struct Weapon
 	int magAmount;
 };
 
-void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter, bool& crouched);
+void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter, standingState& currPlayerStandState, float& movementSpeed, float& currentMoveSpeed);
 
 void gunSwapAndDrop(I3DEngine* myEngine, float& interactionZspeed, float& currentInteractionDistance, IModel*& interactionDummy, bool& canCollide, Weapon* WeaponArray[], int whichGunEquipped, IModel*& cameraDummy, float& oldPlayerX, float& oldPlayerZ);
 
@@ -37,14 +38,20 @@ void main()
 	I3DEngine* myEngine = New3DEngine(kTLX);
 	int horizontal = 0; int vertical = 0;
 	desktopResolution(horizontal, vertical);
-	myEngine->StartFullscreen(horizontal, vertical);
+	myEngine->StartWindowed(horizontal, vertical);
 	myEngine->StartMouseCapture();
 
 	// Add default folder for meshes and other media
 	myEngine->AddMediaFolder( ".\\Media" );
 	ICamera* myCam = myEngine->CreateCamera(kManual, 0, 0, 0);
 	
-	Weapon* WeaponArray[numGuns];
+	vector <Weapon*> WeaponArray;
+
+	for (int i = 0; i < numGuns; i++)
+	{
+		Weapon* Gun(new Weapon);
+		WeaponArray.push_back(Gun);
+	}
 
 	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 
@@ -70,7 +77,7 @@ void main()
 	}
 
 	IModel* fence[80];
-	IModel* cameraDummy = dummyMesh->CreateModel(0, 15, 90);
+	IModel* cameraDummy = dummyMesh->CreateModel(5, 15, 80);
 	IModel* interactionDummy = dummyMesh->CreateModel(0, 0, 0);
 
 	interactionDummy->Scale(7);
@@ -79,6 +86,10 @@ void main()
 	myCam->AttachToParent(cameraDummy);
 	myCam->SetMovementSpeed(0.0f);
 	cameraDummy->RotateY(180);
+
+	float frameTime = myEngine->Timer();
+	float movementSpeed = frameTime;
+	float currentMoveSpeed = 0.2f;
 
 	float mouseMoveX = 0.0f;
 	float mouseMoveY = 0.0f;
@@ -91,7 +102,9 @@ void main()
 	float oldPlayerX = 0;
 	float oldPlayerZ = 0;
 
+	standingState currPlayerStandState = Standing;
 	bool crouched = false;
+	bool prone = false;
 
 	int whichGunEquipped = numGuns;
 	/**** Set up your scene here ****/
@@ -106,6 +119,7 @@ void main()
 		oldPlayerX = cameraDummy->GetX();
 		oldPlayerZ = cameraDummy->GetZ();
 
+		movementSpeed = currentMoveSpeed * frameTime;
 		/**** Update your scene each frame here ****/
 		mouseMoveX = myEngine->GetMouseMovementX();
 		mouseMoveY = myEngine->GetMouseMovementY();
@@ -115,7 +129,8 @@ void main()
 
 		camYCounter += mouseMoveY * 0.1f;
 		//cout << camYCounter;
-		movement(myEngine, cameraDummy, mouseMoveX, mouseMoveY, camYCounter, crouched);
+
+		movement(myEngine, cameraDummy, mouseMoveX, mouseMoveY, camYCounter, currPlayerStandState, movementSpeed, currentMoveSpeed);
 
 		if (!FenceCollision(cameraDummy))
 		{
@@ -169,7 +184,7 @@ void main()
 	myEngine->Delete();
 }
 
-void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamX, float &mouseMoveY, float& camYCounter, bool& crouched)
+void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamX, float &mouseMoveY, float& camYCounter, standingState& currPlayerStandState, float& movementSpeed, float& currentMoveSpeed)
 {
 	if (camYCounter > upperCamYMax && mouseMoveY < 0)
 	{
@@ -182,14 +197,6 @@ void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamX, float &
 	}
 
 	camDummy->RotateY(currentCamX * 0.1f);
-	if (crouched)
-	{
-		camDummy->SetY(5);
-	}
-	else
-	{
-		camDummy->SetY(15);
-	}
 
 	if (myEngine->KeyHeld(Key_W))
 	{
@@ -217,8 +224,35 @@ void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamX, float &
 	}
 
 	if (myEngine->KeyHit(Key_C))
+	{	
+		if (currPlayerStandState == Standing)
+		{
+			currPlayerStandState = Crouching;
+			currentMoveSpeed = 0.1f;
+		}
+		else if (currPlayerStandState == Crouching)
+		{
+			currPlayerStandState = Prone;
+			currentMoveSpeed = 0.05f;
+		}
+		else if (currPlayerStandState == Prone)
+		{
+			currPlayerStandState = Standing;
+			currentMoveSpeed = 0.2f;
+		}
+	}
+
+	if (currPlayerStandState == Crouching)
 	{
-		crouched != crouched;
+		camDummy->SetY(9);
+	}
+	else if (currPlayerStandState == Prone)
+	{
+		camDummy->SetY(3);
+	}
+	else if (currPlayerStandState == Standing)
+	{
+		camDummy->SetY(15);
 	}
 }
 
