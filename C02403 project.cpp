@@ -132,7 +132,7 @@ void main()
 			interactionDummy->SetLocalPosition(0, 0, 0);
 		}
 
-		if (myEngine->KeyHit(Key_R))
+		if (myEngine->KeyHit(Key_R) && whichGunEquipped < numGuns)
 		{
 			WeaponArray[whichGunEquipped]->DetachFromParent();
 			WeaponArray[whichGunEquipped]->SetPosition(oldPlayerX, 0.2, oldPlayerZ);
