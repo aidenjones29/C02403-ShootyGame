@@ -10,9 +10,6 @@
 #include "Bullets.h"
 
 
-
-
-
 enum fireModes {Single, Burst, Auto};
 enum standingState {Standing, Crouching, Prone};
 
@@ -40,27 +37,6 @@ void gunSwapAndDrop(I3DEngine* myEngine, float& interactionZspeed, float& curren
 
 void desktopResolution(int& horizontal, int& vertical);
 
-//struct test
-//{
-//	int mX;
-//	int mY;
-//
-//	test(int x, int y)
-//	{
-//		mX = x;
-//		mY = y;
-//	}
-//
-//	int DoThing()
-//	{
-//		return (mX * mY);
-//	}
-//};
-//
-//struct newTest : public test
-//{
-//};
-
 void main()
 {
 	// Create a 3D engine (using TLX engine here) and open a window for it
@@ -87,6 +63,20 @@ void main()
 
 	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 	IMesh* bulletMesh = myEngine->LoadMesh("kalashinkov.x");
+	IMesh* targetMesh = myEngine->LoadMesh("Target.x");
+
+	IModel* target[3]; // = targetMesh->CreateModel(0, 12, -5);
+
+	float currentTargetX = 0;
+
+	for (int i = 0; i < 3; i++)
+	{
+		target[i] = targetMesh->CreateModel(0.0f + currentTargetX, 12, -5);
+		target[i]->ScaleY(1.6);
+		target[i]->ScaleZ(0.1);
+		target[i]->RotateZ(180);
+		currentTargetX += 35;
+	}
 
 	WeaponArray[0]->weaponMesh = myEngine->LoadMesh("M4Colt.x");
 	WeaponArray[1]->weaponMesh = myEngine->LoadMesh("ar18_rifle.x");
@@ -144,6 +134,7 @@ void main()
 	int whichGunEquipped = numGuns;
 	/**** Set up your scene here ****/
 	CreateFences(myEngine, fence); CreateScene(myEngine); CreateWalls(myEngine);
+
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())
 	{
@@ -208,8 +199,10 @@ void main()
 			WeaponArray[whichGunEquipped]->weaponModel->RotateLocalZ(90.0f);
 			whichGunEquipped = numGuns;
 		}
+
 		interactionDummy->MoveLocalZ(interactionZspeed);
 		currentInteractionDistance += interactionZspeed;
+
 		if (myEngine->KeyHeld(Key_Space))
 		{
 
@@ -221,16 +214,16 @@ void main()
 				{
 					if (vMagazine[i]->isFired)
 					{
+
 					}
 					else
 					{
-						
 						//WeaponArray[whichGunEquipped]->weaponModel->GetMatrix(&matrix[0][0]);
 						//vMagazine[i]->facingVector = {matrix[2][0],matrix[2][1],matrix[2][2]};
 						vMagazine[i]->model->AttachToParent(WeaponArray[whichGunEquipped]->weaponModel);
 						vMagazine[i]->model->SetLocalPosition(0, 0, 0);
 						vMagazine[i]->model->GetMatrix(&matrix[0][0]);
-					//	vMagazine[i]->model->DetachFromParent();
+						//vMagazine[i]->model->DetachFromParent();
 						vMagazine[i]->model->SetMatrix(&matrix[0][0]);
 						//vMagazine[i]->model->SetPosition(WeaponArray[whichGunEquipped]->weaponModel->GetX(), WeaponArray[whichGunEquipped]->weaponModel->GetY(), WeaponArray[whichGunEquipped]->weaponModel->GetZ());
 						vMagazine[i]->isFired = true;

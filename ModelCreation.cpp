@@ -9,22 +9,17 @@ void CreateScene(I3DEngine * myEngine)
 	IMesh* floorMesh = myEngine->LoadMesh("Floor.x");
 	IMesh* ammoCrateMesh = myEngine->LoadMesh("AmmoCrateAm.x");
 	IMesh* BarrierMesh = myEngine->LoadMesh("CementBarrier.x");
+	IMesh* crateMesh = myEngine->LoadMesh("LargeCrate.x");
+
+	IModel* floor = floorMesh->CreateModel();
+	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
 	IModel* ammoCrate[3];
 	IModel* barrier[3];
+	IModel* crate[3];
 
 	int currentAmmoX = 0;
 	int currentBarrierX = 0;
-
-	for (int i = 0; i < 3; i++)
-	{
-		barrier[i] = BarrierMesh->CreateModel(18 + currentBarrierX, 0, 35);
-		barrier[i]->ScaleX(1.2);
-		barrier[i]->ScaleY(2);
-		barrier[i]->ScaleZ(2);
-
-		currentBarrierX += 35;
-	}
-
+	int currentSpawnCrate = 0;
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -32,10 +27,21 @@ void CreateScene(I3DEngine * myEngine)
 		ammoCrate[i]->Scale(1.5);
 		ammoCrate[i]->ScaleX(1.6);
 		currentAmmoX += 35;
+
+		barrier[i] = BarrierMesh->CreateModel(18 + currentBarrierX, 0, 35);
+		barrier[i]->ScaleX(1.2);
+		barrier[i]->ScaleY(2);
+		barrier[i]->ScaleZ(2);
+		currentBarrierX += 35;
+
+		crate[i] = crateMesh->CreateModel(0 + currentSpawnCrate, 0, 0);
+		crate[i]->Scale(1.5);
+		crate[i]->ScaleX(2);
+		currentSpawnCrate += 35;
 	}
 
-	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
-	IModel* floor = floorMesh->CreateModel();
+
+
 }
 
 
