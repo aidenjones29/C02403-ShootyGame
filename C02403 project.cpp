@@ -19,7 +19,7 @@ const float upperCamYMax = -50.0f;
 const float lowerCamYMax = 50.0f;
 const int numGuns = 6;
 float time = 0;
-float matrix[4][4];
+//float matrix[4][4];
 
 struct Weapon
 {
@@ -223,14 +223,10 @@ void main()
 					}
 					else
 					{
-						//WeaponArray[whichGunEquipped]->weaponModel->GetMatrix(&matrix[0][0]);
-						//vMagazine[i]->facingVector = {matrix[2][0],matrix[2][1],matrix[2][2]};
-						vMagazine[i]->model->AttachToParent(WeaponArray[whichGunEquipped]->weaponModel);
-						vMagazine[i]->model->SetLocalPosition(oldPlayerX, 15, oldPlayerZ);
-						//vMagazine[i]->model->GetMatrix(&matrix[0][0]);
-						//vMagazine[i]->model->DetachFromParent();
-						//vMagazine[i]->model->SetMatrix(&matrix[0][0]);
-						//vMagazine[i]->model->SetPosition(WeaponArray[whichGunEquipped]->weaponModel->GetX(), WeaponArray[whichGunEquipped]->weaponModel->GetY(), WeaponArray[whichGunEquipped]->weaponModel->GetZ());
+						float matrix[4][4];
+						cameraDummy->GetMatrix(&matrix[0][0]);	
+						vMagazine[i]->model->SetMatrix(&matrix[0][0]);
+						vMagazine[i]->model->MoveLocalZ(5.0f);
 						vMagazine[i]->isFired = true;
 						time = 0.0f;
 					}
