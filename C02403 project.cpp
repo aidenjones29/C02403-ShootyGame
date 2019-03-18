@@ -65,7 +65,13 @@ void main()
 	IMesh* bulletMesh = myEngine->LoadMesh("kalashinkov.x");
 	IMesh* targetMesh = myEngine->LoadMesh("Target.x");
 
-	IModel* target[3]; // = targetMesh->CreateModel(0, 12, -5);
+	IModel* target[3];
+	IModel* fence[80];
+	IModel* cameraDummy = dummyMesh->CreateModel(5, 15, 80);
+	IModel* interactionDummy = dummyMesh->CreateModel(0, 0, 0);
+	IModel* gunFireTest = dummyMesh->CreateModel(0, 0, 0);
+
+	gunFireTest->AttachToParent(cameraDummy);
 
 	float currentTargetX = 0;
 
@@ -101,9 +107,6 @@ void main()
 	spawnBullets(500, bulletMesh, vBullets);
 	refillNewWeapon(40, vMagazine, vBullets);
 
-	IModel* fence[80];
-	IModel* cameraDummy = dummyMesh->CreateModel(5, 15, 80);
-	IModel* interactionDummy = dummyMesh->CreateModel(0, 0, 0);
 	
 	interactionDummy->Scale(7);
 	interactionDummy->AttachToParent(myCam);
@@ -132,6 +135,7 @@ void main()
 	bool prone = false;
 
 	int whichGunEquipped = numGuns;
+
 	/**** Set up your scene here ****/
 	CreateFences(myEngine, fence); CreateScene(myEngine); CreateWalls(myEngine);
 
@@ -197,16 +201,17 @@ void main()
 			WeaponArray[whichGunEquipped]->weaponModel->DetachFromParent();
 			WeaponArray[whichGunEquipped]->weaponModel->SetPosition(oldPlayerX, 0.2, oldPlayerZ);
 			WeaponArray[whichGunEquipped]->weaponModel->RotateLocalZ(90.0f);
+			WeaponArray[whichGunEquipped]->weaponModel->RotateY(rand());
 			whichGunEquipped = numGuns;
 		}
 
 		interactionDummy->MoveLocalZ(interactionZspeed);
 		currentInteractionDistance += interactionZspeed;
 
-		if (myEngine->KeyHeld(Key_Space))
+		if (myEngine->KeyHeld(Mouse_LButton))
 		{
-
 			time = time + frameTime;
+			
 			for (int i = 0; i < 30; i++)
 			{
 
@@ -221,10 +226,10 @@ void main()
 						//WeaponArray[whichGunEquipped]->weaponModel->GetMatrix(&matrix[0][0]);
 						//vMagazine[i]->facingVector = {matrix[2][0],matrix[2][1],matrix[2][2]};
 						vMagazine[i]->model->AttachToParent(WeaponArray[whichGunEquipped]->weaponModel);
-						vMagazine[i]->model->SetLocalPosition(0, 0, 0);
-						vMagazine[i]->model->GetMatrix(&matrix[0][0]);
+						vMagazine[i]->model->SetLocalPosition(oldPlayerX, 15, oldPlayerZ);
+						//vMagazine[i]->model->GetMatrix(&matrix[0][0]);
 						//vMagazine[i]->model->DetachFromParent();
-						vMagazine[i]->model->SetMatrix(&matrix[0][0]);
+						//vMagazine[i]->model->SetMatrix(&matrix[0][0]);
 						//vMagazine[i]->model->SetPosition(WeaponArray[whichGunEquipped]->weaponModel->GetX(), WeaponArray[whichGunEquipped]->weaponModel->GetY(), WeaponArray[whichGunEquipped]->weaponModel->GetZ());
 						vMagazine[i]->isFired = true;
 						time = 0.0f;
@@ -232,6 +237,7 @@ void main()
 				}
 			}
 		}
+
 		moveBullets(40, vMagazine, frameTime);
 
 		//END
