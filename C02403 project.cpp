@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include "Bullets.h"
+#include "Targets.h"
 
 
 enum fireModes {Single, Burst, Auto};
@@ -19,7 +20,7 @@ const float upperCamYMax = -50.0f;
 const float lowerCamYMax = 50.0f;
 const int numGuns = 6;
 float time = 0;
-//float matrix[4][4];
+
 
 struct Weapon
 {
@@ -30,6 +31,8 @@ struct Weapon
 	int magCapacity;
 	int magAmount;
 };
+struct AK:public Weapon{};
+
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter, standingState& currPlayerStandState, float& movementSpeed, float& currentMoveSpeed);
 
@@ -47,6 +50,7 @@ void main()
 	myEngine->StartMouseCapture();
 	vector<sBullet*> vBullets;
 	vector<sBullet*> vMagazine;
+	vector<sTarget*> vTargets;
 
 
 	// Add default folder for meshes and other media
@@ -75,14 +79,15 @@ void main()
 
 	float currentTargetX = 0;
 
-	for (int i = 0; i < 3; i++)
+	/*for (int i = 0; i < 3; i++)
 	{
 		target[i] = targetMesh->CreateModel(0.0f + currentTargetX, 12, -5);
 		target[i]->ScaleY(1.6);
 		target[i]->ScaleZ(0.1);
 		target[i]->RotateZ(180);
 		currentTargetX += 35;
-	}
+	}*/
+	spawnTargets(targetMesh, vTargets);
 
 	WeaponArray[0]->weaponMesh = myEngine->LoadMesh("M4Colt.x");
 	WeaponArray[1]->weaponMesh = myEngine->LoadMesh("ar18_rifle.x");
@@ -105,7 +110,7 @@ void main()
 		WeaponArray[i]->weaponModel->RotateLocalX(180);
 	}
 	spawnBullets(500, bulletMesh, vBullets);
-	refillNewWeapon(40, vMagazine, vBullets);
+	refillNewWeapon(100, vMagazine, vBullets);
 
 	
 	interactionDummy->Scale(7);
@@ -207,34 +212,41 @@ void main()
 
 		interactionDummy->MoveLocalZ(interactionZspeed);
 		currentInteractionDistance += interactionZspeed;
-
+		
 		if (myEngine->KeyHeld(Mouse_LButton))
 		{
 			time = time + frameTime;
 			
-			for (int i = 0; i < 30; i++)
+			for (int i = 0; i < 100; i++)
 			{
 
 				if (time > 0.04f)
 				{
-					if (vMagazine[i]->isFired)
-					{
-
-					}
-					else
+					if (vMagazine[i]->status == Reloaded)
 					{
 						float matrix[4][4];
 						cameraDummy->GetMatrix(&matrix[0][0]);	
 						vMagazine[i]->model->SetMatrix(&matrix[0][0]);
 						vMagazine[i]->model->MoveLocalZ(5.0f);
-						vMagazine[i]->isFired = true;
+						vMagazine[i]->model->Scale(46.0f);
+						vMagazine[i]->status = Fired;
+
 						time = 0.0f;
 					}
 				}
 			}
 		}
+		if (myEngine->KeyHit(Key_Space)) 
 
-		moveBullets(40, vMagazine, frameTime);
+		{
+		
+			reloadMagazine(100, vMagazine);
+		}
+	
+		moveBullets(100, vMagazine, frameTime);
+		moveTargets(vTargets, frameTime);
+		bulletToTarget(vTargets, vMagazine);
+	
 
 		//END
 	}

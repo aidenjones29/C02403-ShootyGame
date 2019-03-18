@@ -129,6 +129,7 @@ copy "C:\ProgramData\TL-Engine\3rd Party\TL-Xtreme\shader\*.*" "$(OutDir)" &gt; 
     <ClCompile Include="C02403 project.cpp" />
     <ClCompile Include="ModelCreation.cpp" />
     <ClCompile Include="Collisions.cpp" />
+    <ClCompile Include="Targets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -138,6 +139,7 @@ copy "C:\ProgramData\TL-Engine\3rd Party\TL-Xtreme\shader\*.*" "$(OutDir)" &gt; 
     <ClInclude Include="Collisions.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="ModelCreation.h" />
+    <ClInclude Include="Targets.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
