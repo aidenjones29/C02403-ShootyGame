@@ -1,12 +1,13 @@
 // C02403 project.cpp: A program using the TL-Engine
 
 #include <TL-Engine.h>	// TL-Engine include file and namespace
+#include <vector>
+#include <vector>
+#include <iostream>
+#include <sstream>
 #include "ModelCreation.h"
 #include "Collisions.h"
 #include "wtypes.h" 
-#include <vector>
-#include <iostream>
-#include <vector>
 #include "Bullets.h"
 #include "Targets.h"
 
@@ -15,6 +16,7 @@ enum fireModes { Single, Burst, Auto };
 enum standingState { Standing, Crouching, Prone };
 
 using namespace tle;
+using namespace std;
 
 const float upperCamYMax = -50.0f;
 const float lowerCamYMax = 50.0f;
@@ -46,7 +48,7 @@ void main()
 	I3DEngine* myEngine = New3DEngine(kTLX);
 	int horizontal = 0; int vertical = 0;
 	desktopResolution(horizontal, vertical);
-	myEngine->StartWindowed(horizontal, vertical);
+	myEngine->StartFullscreen(horizontal, vertical);
 	myEngine->StartMouseCapture();
 	vector<sBullet*> vBullets;
 	vector<sBullet*> vMagazine;
@@ -65,10 +67,13 @@ void main()
 		WeaponArray.push_back(Gun);
 	}
 
+	ISprite* Crosshair = myEngine->CreateSprite("crosshair.png", (horizontal / 2) - 60 , (vertical / 2) - 60);
+
+	IFont* MainFont = myEngine->LoadFont("D Day Stencil", 60);
+
 	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 	IMesh* bulletMesh = myEngine->LoadMesh("Bullet.x");
 	IMesh* targetMesh = myEngine->LoadMesh("Target.x");
-	//IMesh* bulletCasingMesh = myEngine->LoadMesh("bullet50cal.x");
 
 	IModel* target[3];
 	IModel* fence[80];
@@ -81,6 +86,8 @@ void main()
 	spawnTargets(targetMesh, vTargets);
 
 	WeaponArray[0]->weaponMesh = myEngine->LoadMesh("M4Colt.x");
+	WeaponArray[0]->magCapacity = 30;
+	WeaponArray[0]->magAmount = 30;
 	WeaponArray[1]->weaponMesh = myEngine->LoadMesh("ar18_rifle.x");
 	WeaponArray[2]->weaponMesh = myEngine->LoadMesh("kalashinkov.x");
 	WeaponArray[3]->weaponMesh = myEngine->LoadMesh("TommyGun.x");
@@ -130,6 +137,7 @@ void main()
 	bool crouched = false;
 	bool prone = false;
 
+	stringstream ammoText;
 
 	int whichGunEquipped = numGuns;
 
@@ -142,6 +150,14 @@ void main()
 		frameTime = myEngine->Timer();
 		// Draw the scene
 		myEngine->DrawScene();
+
+		if (whichGunEquipped < numGuns)
+		{
+			ammoText << WeaponArray[whichGunEquipped]->magAmount << " / " << WeaponArray[whichGunEquipped]->magCapacity;
+			MainFont -> Draw(ammoText.str(), (horizontal / 2) - 60, (vertical / 2) - 60);
+			ammoText.str("");
+		}
+
 
 		oldPlayerX = cameraDummy->GetX();
 		oldPlayerZ = cameraDummy->GetZ();
@@ -220,10 +236,9 @@ void main()
 						vMagazine[i]->model->SetMatrix(&matrix[0][0]);
 						vMagazine[i]->model->MoveLocalZ(10.0f);
 						vMagazine[i]->model->RotateLocalX(90.0f);
-
 						vMagazine[i]->model->Scale(0.004f);
 						vMagazine[i]->status = Fired;
-
+						WeaponArray[whichGunEquipped]->magAmount--;
 						time = 0.0f;
 					}
 				}
@@ -241,19 +256,12 @@ void main()
 			{
 				i->model->SetY(12);
 				i->state = Ready;
-				//if (i->state == Down)
-				//{
-					//i->state = Reset;
-				//}
 			}
-
 		}
 
 		moveBullets(100, vMagazine, frameTime);
 		moveTargets(vTargets, frameTime);
 		bulletToTarget(vTargets, vMagazine);
-
-
 		//END
 	}
 

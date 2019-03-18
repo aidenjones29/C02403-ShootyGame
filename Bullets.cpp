@@ -8,7 +8,7 @@ void spawnBullets(int maxBullets,IMesh* bulletMesh, vector<sBullet*> &vBullets)
 	for (int i = 0; i < maxBullets; i++)
 	{
 		sBullet* bullet = new sBullet;
-		bullet->model = bulletMesh->CreateModel(0, -20, 0);
+		bullet->model = bulletMesh->CreateModel(0, -30, 0);
 		vBullets.push_back(bullet);
 	}
 }
