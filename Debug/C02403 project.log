@@ -1,5 +1,5 @@
-﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  ModelCreation.cpp
-d:\ajones45\documents\github\c02403-shootygame\modelcreation.cpp(23): warning C4101: 'gateSides': unreferenced local variable
+﻿  C02403 project.cpp
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(151): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(152): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   C02403 project.vcxproj -> D:\AJones45\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
-  Copying DLLs & shaders...
+  C02403 project.vcxproj -> D:\AJones45\Documents\GitHub\C02403-ShootyGame\\C02403 project.pdb (Full PDB)
