@@ -11,8 +11,8 @@
 #include "Targets.h"
 
 
-enum fireModes {Single, Burst, Auto};
-enum standingState {Standing, Crouching, Prone};
+enum fireModes { Single, Burst, Auto };
+enum standingState { Standing, Crouching, Prone };
 
 using namespace tle;
 
@@ -31,7 +31,7 @@ struct Weapon
 	int magCapacity;
 	int magAmount;
 };
-struct AK:public Weapon{};
+struct AK :public Weapon {};
 
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter, standingState& currPlayerStandState, float& movementSpeed, float& currentMoveSpeed);
@@ -54,9 +54,9 @@ void main()
 
 
 	// Add default folder for meshes and other media
-	myEngine->AddMediaFolder( ".\\Media" );
+	myEngine->AddMediaFolder(".\\Media");
 	ICamera* myCam = myEngine->CreateCamera(kManual, 0, 0, 0);
-	
+
 	vector <Weapon*> WeaponArray;
 
 	for (int i = 0; i < numGuns; i++)
@@ -66,8 +66,9 @@ void main()
 	}
 
 	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
-	IMesh* bulletMesh = myEngine->LoadMesh("kalashinkov.x");
+	IMesh* bulletMesh = myEngine->LoadMesh("Bullet.x");
 	IMesh* targetMesh = myEngine->LoadMesh("Target.x");
+	//IMesh* bulletCasingMesh = myEngine->LoadMesh("bullet50cal.x");
 
 	IModel* target[3];
 	IModel* fence[80];
@@ -77,16 +78,6 @@ void main()
 
 	gunFireTest->AttachToParent(cameraDummy);
 
-	float currentTargetX = 0;
-
-	/*for (int i = 0; i < 3; i++)
-	{
-		target[i] = targetMesh->CreateModel(0.0f + currentTargetX, 12, -5);
-		target[i]->ScaleY(1.6);
-		target[i]->ScaleZ(0.1);
-		target[i]->RotateZ(180);
-		currentTargetX += 35;
-	}*/
 	spawnTargets(targetMesh, vTargets);
 
 	WeaponArray[0]->weaponMesh = myEngine->LoadMesh("M4Colt.x");
@@ -112,7 +103,7 @@ void main()
 	spawnBullets(500, bulletMesh, vBullets);
 	refillNewWeapon(100, vMagazine, vBullets);
 
-	
+
 	interactionDummy->Scale(7);
 	interactionDummy->AttachToParent(myCam);
 
@@ -138,6 +129,7 @@ void main()
 	standingState currPlayerStandState = Standing;
 	bool crouched = false;
 	bool prone = false;
+
 
 	int whichGunEquipped = numGuns;
 
@@ -180,10 +172,10 @@ void main()
 			interactionZspeed = 0.01f;
 			canCollide = true;
 		}
-		
+
 		for (int i = 0; i < numGuns; i++)
 		{
-			if ( canCollide == true && gunInteraction(interactionDummy, WeaponArray[i]->weaponModel) && whichGunEquipped == numGuns)
+			if (canCollide == true && gunInteraction(interactionDummy, WeaponArray[i]->weaponModel) && whichGunEquipped == numGuns)
 			{
 				whichGunEquipped = i;
 				WeaponArray[i]->weaponModel->ResetOrientation();
@@ -192,7 +184,7 @@ void main()
 				WeaponArray[i]->weaponModel->RotateY(-0.2f);
 			}
 		}
-		
+
 		if (currentInteractionDistance >= 2.0f)
 		{
 			canCollide = false;
@@ -200,7 +192,7 @@ void main()
 			currentInteractionDistance = 0.0f;
 			interactionDummy->SetLocalPosition(0, 0, 0);
 		}
-		
+
 		if (myEngine->KeyHit(Key_R) && whichGunEquipped < numGuns)
 		{
 			WeaponArray[whichGunEquipped]->weaponModel->DetachFromParent();
@@ -212,23 +204,24 @@ void main()
 
 		interactionDummy->MoveLocalZ(interactionZspeed);
 		currentInteractionDistance += interactionZspeed;
-		
+
 		if (myEngine->KeyHeld(Mouse_LButton))
 		{
 			time = time + frameTime;
-			
+
 			for (int i = 0; i < 100; i++)
 			{
-
 				if (time > 0.04f)
 				{
 					if (vMagazine[i]->status == Reloaded)
 					{
 						float matrix[4][4];
-						cameraDummy->GetMatrix(&matrix[0][0]);	
+						cameraDummy->GetMatrix(&matrix[0][0]);
 						vMagazine[i]->model->SetMatrix(&matrix[0][0]);
-						vMagazine[i]->model->MoveLocalZ(5.0f);
-						vMagazine[i]->model->Scale(46.0f);
+						vMagazine[i]->model->MoveLocalZ(10.0f);
+						vMagazine[i]->model->RotateLocalX(90.0f);
+
+						vMagazine[i]->model->Scale(0.004f);
 						vMagazine[i]->status = Fired;
 
 						time = 0.0f;
@@ -236,17 +229,30 @@ void main()
 				}
 			}
 		}
-		if (myEngine->KeyHit(Key_Space)) 
 
+		if (myEngine->KeyHit(Key_Space))
 		{
-		
 			reloadMagazine(100, vMagazine);
 		}
-	
+
+		if (myEngine->KeyHit(Key_N))
+		{
+			for (auto& i : vTargets)
+			{
+				i->model->SetY(12);
+				i->state = Ready;
+				//if (i->state == Down)
+				//{
+					//i->state = Reset;
+				//}
+			}
+
+		}
+
 		moveBullets(100, vMagazine, frameTime);
 		moveTargets(vTargets, frameTime);
 		bulletToTarget(vTargets, vMagazine);
-	
+
 
 		//END
 	}
@@ -295,7 +301,7 @@ void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamX, float &
 	}
 
 	if (myEngine->KeyHit(Key_C))
-	{	
+	{
 		if (currPlayerStandState == Standing)
 		{
 			currPlayerStandState = Crouching;

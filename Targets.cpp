@@ -1,6 +1,7 @@
 
 #include "Targets.h"
 float targetWorldPositions[numTargets][4] = { {0,12,-5,180}, {35,12,-5,180}, {70,12,-5,180} };
+
 void spawnTargets(IMesh* targetMesh, vector<sTarget*> &vTargets) 
 {
 
@@ -34,7 +35,12 @@ void moveTargets(vector<sTarget*> &vTargets,float frameTime)
 			break;
 		case Down:
 			break;
-
+		case Reset:
+			vTargets[i]->model->MoveY(50.0f * frameTime);
+			if (vTargets[i]->model->GetY() >= 12.0f)
+			{
+				vTargets[i]->state = Ready;
+			}
 		default:
 			break;
 		}

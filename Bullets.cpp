@@ -8,8 +8,7 @@ void spawnBullets(int maxBullets,IMesh* bulletMesh, vector<sBullet*> &vBullets)
 	for (int i = 0; i < maxBullets; i++)
 	{
 		sBullet* bullet = new sBullet;
-		bullet->model = bulletMesh->CreateModel(0, -15, 0);
-		bullet->model->Scale(46.0f);
+		bullet->model = bulletMesh->CreateModel(0, -20, 0);
 		vBullets.push_back(bullet);
 	}
 }
@@ -26,18 +25,20 @@ void refillNewWeapon(int magSize,vector<sBullet*> &vMagazine,vector<sBullet*> &v
 void moveBullets(int magSize,vector<sBullet*> &vMagazine,float frameTime) 
 {
 	
-	for (int i=0; i<magSize;i++) 
+	for (int i=0; i < magSize;i++) 
 	{
 		if (vMagazine[i]->status == Fired)
 		{ 
 			//vMagazine[i]->model->Move(vMagazine[i]->tragectory.x, vMagazine[i]->tragectory.y, vMagazine[i]->tragectory.z);
- 			vMagazine[i]->model->MoveLocalZ(2.0f*frameTime);
+ 			vMagazine[i]->model->MoveLocalY(100000.0f*frameTime);
 			vMagazine[i]->timeAlive = vMagazine[i]->timeAlive + frameTime;
 		}
-		if (vMagazine[i]->timeAlive > 7.0f)
+		if (vMagazine[i]->timeAlive > 4.0f && vMagazine[i]->status != Spent)
 		{
 			vMagazine[i]->status = Spent;
+			vMagazine[i]->model->Scale(2);
 			vMagazine[i]->model->SetY(0.2f);
+			
 			
 		}
 	}

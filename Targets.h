@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 #include "Math.h"
-enum targetStates{Ready, Hit, Down};
+enum targetStates{Ready, Hit, Down, Reset};
 struct sTarget
 {
 	IMesh* targetMesh;
