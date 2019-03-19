@@ -50,7 +50,7 @@ void reloadMagazine(int magSize, vector<sBullet*> &vMagazine)
 	{
 		
 			vMagazine[i]->status = Reloaded;
-			vMagazine[i]->model->SetPosition(0.0f, -15.0f, 0.0f);
+			vMagazine[i]->model->SetPosition(0.0f, -25.0f, 0.0f);
 			vMagazine[i]->timeAlive = 0.0f;
 		
 	}

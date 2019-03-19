@@ -225,7 +225,7 @@ void main()
 		{
 			time = time + frameTime;
 
-			for (int i = 0; i < 100; i++)
+			for (int i = 0; i < WeaponArray[whichGunEquipped]->magCapacity; i++)
 			{
 				if (time > 0.04f)
 				{
@@ -248,6 +248,7 @@ void main()
 		if (myEngine->KeyHit(Key_Space))
 		{
 			reloadMagazine(100, vMagazine);
+			WeaponArray[whichGunEquipped]->magAmount = WeaponArray[whichGunEquipped]->magCapacity;
 		}
 
 		if (myEngine->KeyHit(Key_N))
