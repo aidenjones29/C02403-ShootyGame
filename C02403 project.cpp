@@ -10,7 +10,11 @@
 #include "wtypes.h" 
 #include "Bullets.h"
 #include "Targets.h"
-#include "Engine.h"
+#include <stdlib.h> // General console window includes
+#include <conio.h>
+#include <ctype.h>
+#include <time.h>
+#include <SFML/Audio.hpp>
 
 void Fire(IModel* &cameraDummy,float frametime);
 
@@ -23,6 +27,10 @@ using namespace std;
 const float upperCamYMax = -50.0f;
 const float lowerCamYMax = 50.0f;
 const int numGuns = 6;
+
+float Time = 0;
+float countDownTime = 1.0f;
+
 float time = 0;
 bool canShoot = true;
 
@@ -36,9 +44,9 @@ struct Weapon
 	fireModes fireMode;
 	int magCapacity;
 	int magAmount;
+	sf::SoundBuffer shootingbuffer;
+	sf::Sound shootingsound;
 };
-struct AK :public Weapon {};
-
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter, standingState& currPlayerStandState, float& movementSpeed, float& currentMoveSpeed);
 
@@ -54,9 +62,10 @@ vector <Weapon*> WeaponArray;
 int whichGunEquipped = numGuns;
 fireModes CurrentMode = Auto;
 I3DEngine* myEngine = New3DEngine(kTLX);
+
+
 void main()
 {
-	
 	// Create a 3D engine (using TLX engine here) and open a window for it
     
 	int horizontal = 0; int vertical = 0;
@@ -81,8 +90,10 @@ void main()
 
 	ISprite* Crosshair = myEngine->CreateSprite("crosshair.png", (horizontal / 2) - 60 , (vertical / 2) - 60);
 	ISprite* ammoUI = myEngine->CreateSprite("ammoUIPNG.png", 10 , vertical - 150);
+	ISprite* fireModeSemi = myEngine->CreateSprite("SemiAutoUI.png", 13, vertical - 105);
+	//ISprite* fireModeFull = myEngine->CreateSprite("FullAutoUI.png", 28, vertical - 105);
 
-	IFont* MainFont = myEngine->LoadFont("D Day Stencil", 50);
+	IFont* MainFont = myEngine->LoadFont("D Day Stencil", 60);
 
 	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 	IMesh* bulletMesh = myEngine->LoadMesh("Bullet.x");
@@ -98,31 +109,67 @@ void main()
 
 	spawnTargets(targetMesh, vTargets);
 
+	WeaponArray[0]->shootingbuffer.loadFromFile("soundeffects\\gunshot.wav");
+	WeaponArray[0]->shootingsound.setBuffer(WeaponArray[0]->shootingbuffer);
+	WeaponArray[0]->shootingsound.setPitch(1.0);
+	WeaponArray[0]->shootingsound.setVolume(20.0f);
+
+	/*WeaponArray[1]->shootingbuffer1.loadFromFile("soundeffects\\gunshot.wav");
+	WeaponArray[1]->shootingsound.setBuffer(WeaponArray[1]->shootingbuffer1);
+	WeaponArray[1]->shootingsound.setPitch(1.0);
+	WeaponArray[1]->shootingsound.setVolume(20.0f);
+
+	WeaponArray[2]->shootingbuffer2.loadFromFile("soundeffects\\gunshot.wav");
+	WeaponArray[2]->shootingsound.setBuffer(WeaponArray[2]->shootingbuffer2);
+	WeaponArray[2]->shootingsound.setPitch(1.0);
+	WeaponArray[2]->shootingsound.setVolume(20.0f);
+
+	WeaponArray[3]->shootingbuffer3.loadFromFile("soundeffects\\gunshot.wav");
+	WeaponArray[3]->shootingsound.setBuffer(WeaponArray[3]->shootingbuffer3);
+
+	WeaponArray[3]->shootingsound.setPitch(1.0);
+	WeaponArray[3]->shootingsound.setVolume(20.0f);
+
+	WeaponArray[4]->shootingbuffer4.loadFromFile("soundeffects\\gunshot.wav");
+	WeaponArray[4]->shootingsound.setBuffer(WeaponArray[4]->shootingbuffer4);
+	WeaponArray[4]->shootingsound.setPitch(1.0);
+	WeaponArray[4]->shootingsound.setVolume(20.0f);
+
+	WeaponArray[5]->shootingbuffer5.loadFromFile("soundeffects\\gunshot.wav");
+	WeaponArray[5]->shootingsound.setBuffer(WeaponArray[5]->shootingbuffer5);
+	WeaponArray[5]->shootingsound.setPitch(1.0);
+	WeaponArray[5]->shootingsound.setVolume(20.0f);*/
+
 	WeaponArray[0]->weaponMesh = myEngine->LoadMesh("M4Colt.x");
 	WeaponArray[0]->name = "M4";
 	WeaponArray[0]->magCapacity = 30;
 	WeaponArray[0]->magAmount = 30;
 	WeaponArray[0]->fireRate = 0.04f;
+
 	WeaponArray[1]->weaponMesh = myEngine->LoadMesh("ar18_rifle.x");
 	WeaponArray[1]->name = "AR-18";
 	WeaponArray[1]->magCapacity = 20;
 	WeaponArray[1]->magAmount = 20;
 	WeaponArray[1]->fireRate = 0.2f;
+
 	WeaponArray[2]->weaponMesh = myEngine->LoadMesh("kalashinkov.x");
 	WeaponArray[2]->name = "AK-47";
 	WeaponArray[2]->magCapacity = 30;
 	WeaponArray[2]->magAmount = 30;
 	WeaponArray[2]->fireRate = 0.04f;
+
 	WeaponArray[3]->weaponMesh = myEngine->LoadMesh("TommyGun.x");
 	WeaponArray[3]->name = "Thompson";
 	WeaponArray[3]->magCapacity = 20;
 	WeaponArray[3]->magAmount = 20;
 	WeaponArray[3]->fireRate = 0.07f;
+
 	WeaponArray[4]->weaponMesh = myEngine->LoadMesh("Mini_Uzi.x");
 	WeaponArray[4]->name = "Uzi";
 	WeaponArray[4]->magCapacity = 25;
 	WeaponArray[4]->magAmount = 25;
 	WeaponArray[4]->fireRate = 0.03f;
+
 	WeaponArray[5]->weaponMesh = myEngine->LoadMesh("MachineGun.x");
 	WeaponArray[5]->name = "MP5";
 	WeaponArray[5]->magCapacity = 25;
@@ -155,6 +202,7 @@ void main()
 
 	float frameTime = myEngine->Timer();
 	float movementSpeed = frameTime;
+	float shoottimer = 0.04f;
 	float currentMoveSpeed = 50.0f;
 
 	float mouseMoveX = 0.0f;
@@ -191,8 +239,7 @@ void main()
 		if (whichGunEquipped < numGuns)
 		{
 			ammoText << WeaponArray[whichGunEquipped]->magAmount << " / " << WeaponArray[whichGunEquipped]->magCapacity;
-			MainFont -> Draw(ammoText.str(), 160, vertical - 70, kWhite, kCentre);
-			MainFont->Draw(WeaponArray[whichGunEquipped]->name, 160, vertical - 110, kWhite, kCentre);
+			MainFont->Draw(ammoText.str(), 100, vertical - 90, kWhite);
 			ammoText.str("");
 		}
 
@@ -276,6 +323,7 @@ void main()
 				CurrentMode = Auto;
 
 			}	
+			
 		}
 			
 		
@@ -301,6 +349,11 @@ void main()
 			}
 		}
 	    Fire(cameraDummy,frameTime);
+			//		if (shoottimer <= 0 && WeaponArray[whichGunEquipped]->magAmount > 0)
+			//{
+			//	WeaponArray[whichGunEquipped]->shootingsound.play();
+			//	shoottimer = WeaponArray[whichGunEquipped]->fireRate * 3;
+			//}
 		moveBullets(100, vMagazine, frameTime);
 		moveTargets(vTargets, frameTime);
 		bulletToTarget(vTargets, vMagazine);

@@ -24,4 +24,12 @@ TL-Engine2017Debug.lib(IrrlichtFont.obj) : warning LNK4099: PDB '3DEngine.pdb' w
 TL-Engine2017Debug.lib(IrrlichtEngine.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtEngine.obj)' or at 'D:\AJEvison\Desktop\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
 TL-Engine2017Debug.lib(IrrlichtCamera.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtCamera.obj)' or at 'D:\AJEvison\Desktop\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
   C02403 project.vcxproj -> D:\AJEvison\Desktop\C02403-ShootyGame\\C02403 projectDebug.exe
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(71): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(72): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(73): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(194): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(195): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(245): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(82): warning C4101: 'target': unreferenced local variable
+  C02403 project.vcxproj -> D:\AJones45\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
   Copying DLLs & shaders...
