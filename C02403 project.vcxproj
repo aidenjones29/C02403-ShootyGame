@@ -137,6 +137,7 @@ copy "C:\ProgramData\TL-Engine\3rd Party\TL-Xtreme\shader\*.*" "$(OutDir)" &gt; 
   <ItemGroup>
     <ClInclude Include="Bullets.h" />
     <ClInclude Include="Collisions.h" />
+    <ClInclude Include="Engine.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="ModelCreation.h" />
     <ClInclude Include="Targets.h" />

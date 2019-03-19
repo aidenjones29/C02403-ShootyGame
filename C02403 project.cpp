@@ -58,17 +58,19 @@ vector<sBullet*> vBullets;
 vector<sBullet*> vMagazine;
 vector<sTarget*> vTargets;	
 vector <Weapon*> WeaponArray;
-I3DEngine* myEngine = New3DEngine(kTLX);
+
 
 int whichGunEquipped = numGuns;
 fireModes CurrentFireMode = Auto;
+I3DEngine* myEngine = New3DEngine(kTLX);
 
 
 void main()
 {
 	// Create a 3D engine (using TLX engine here) and open a window for it
-
+    
 	int horizontal = 0; int vertical = 0;
+	float reloadTimer=0;
 	desktopResolution(horizontal, vertical);
 	myEngine->StartFullscreen(horizontal, vertical);
 	myEngine->StartMouseCapture();
@@ -339,10 +341,15 @@ void main()
 			}
 		}
 
-		if (myEngine->KeyHit(Key_R))
+		if (myEngine->KeyHeld(Key_R))
 		{
-			reloadMagazine(WeaponArray[whichGunEquipped]->magCapacity, vMagazine);
-			WeaponArray[whichGunEquipped]->magAmount = WeaponArray[whichGunEquipped]->magCapacity;
+			reloadTimer += frameTime;
+			if (reloadTimer > 1.2f)
+			{
+				reloadMagazine(WeaponArray[whichGunEquipped]->magCapacity, vMagazine);
+				WeaponArray[whichGunEquipped]->magAmount = WeaponArray[whichGunEquipped]->magCapacity;
+				reloadTimer = 0;
+			}
 		}
 
 		if (myEngine->KeyHit(Key_N))
