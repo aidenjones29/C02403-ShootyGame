@@ -44,5 +44,8 @@
     <ClInclude Include="Targets.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
