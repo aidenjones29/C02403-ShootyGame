@@ -10,6 +10,42 @@ void CreateScene(I3DEngine * myEngine)
 	IMesh* ammoCrateMesh = myEngine->LoadMesh("AmmoCrateAm.x");
 	IMesh* BarrierMesh = myEngine->LoadMesh("CementBarrier.x");
 	IMesh* crateMesh = myEngine->LoadMesh("LargeCrate.x");
+	IMesh* armyTruckMesh = myEngine->LoadMesh("army_truck.x");
+	IMesh* transportTruckMesh = myEngine->LoadMesh("transportTruck.x");
+	IMesh* apacheMesh = myEngine->LoadMesh("apache.x");
+	IMesh* hueyMesh = myEngine->LoadMesh("huey.x");
+
+	IModel* huey = hueyMesh->CreateModel(200, 14, 650);
+	huey->RotateY(-180);
+	huey->RotateLocalX(-2);
+	huey->Scale(10);
+
+	IModel* hueyTwo = hueyMesh->CreateModel(300, 14, 650);
+	hueyTwo->RotateY(-180);
+	hueyTwo->RotateLocalX(-2);
+	hueyTwo->Scale(10);
+
+	IModel* apache = apacheMesh->CreateModel(0, 14, 650);
+	apache->RotateY(-180);
+	apache->RotateLocalX(-2);
+	apache->Scale(10);
+
+	IModel* apacheTwo = apacheMesh->CreateModel(100, 14, 650);
+	apacheTwo->RotateY(-180);
+	apacheTwo->RotateLocalX(-2);
+	apacheTwo->Scale(10);
+
+	IModel* tTruckOne = transportTruckMesh->CreateModel(170, 0, -50);
+	tTruckOne->Scale(10);
+	tTruckOne->RotateY(90);
+
+	IModel* armyTruck = armyTruckMesh->CreateModel(-10, 0, -60);
+	armyTruck->Scale(10);
+	armyTruck->RotateY(90);
+
+	IModel* armyTruckTwo = armyTruckMesh->CreateModel(80, 0, -45);
+	armyTruckTwo->Scale(10);
+	armyTruckTwo->RotateY(90);
 
 	IModel* floor = floorMesh->CreateModel();
 	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
@@ -146,4 +182,7 @@ void CreateWalls(I3DEngine * myEngine)
 
 		currentOuterWall += 100;
 	}
+
+	OuterWallTop[5]->SetY(60);
+	OuterWallTop[5]->ScaleY(0.2f);
 }
