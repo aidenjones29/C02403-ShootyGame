@@ -1,5 +1,5 @@
 // C02403 project.cpp: A program using the TL-Engine
-
+#pragma once
 #include <TL-Engine.h>	// TL-Engine include file and namespace
 #include <vector>
 #include <vector>
@@ -9,16 +9,19 @@
 #include "Collisions.h"
 #include "wtypes.h" 
 #include "Bullets.h"
+#include "Weapons.h"
 #include "Targets.h"
 #include <stdlib.h> // General console window includes
 #include <conio.h>
 #include <ctype.h>
 #include <time.h>
+#include"Weapons.h"
 //#include <SFML/Audio.hpp>
+I3DEngine* myEngine = New3DEngine(kTLX);
 
 void Fire(IModel* &cameraDummy,float frametime);
 
-enum fireModes { Single, Burst, Auto };
+//enum fireModes { Single, Burst, Auto };
 enum standingState { Standing, Crouching, Prone };
 
 using namespace tle;
@@ -58,11 +61,12 @@ vector<sBullet*> vBullets;
 vector<sBullet*> vMagazine;
 vector<sTarget*> vTargets;	
 vector <Weapon*> WeaponArray;
+vector <sWeapon*> vGuns;
 
 
 int whichGunEquipped = numGuns;
 fireModes CurrentFireMode = Auto;
-I3DEngine* myEngine = New3DEngine(kTLX);
+
 
 
 void main()
@@ -111,7 +115,7 @@ void main()
 	gunFireTest->AttachToParent(cameraDummy);
 
 	spawnTargets(targetMesh, vTargets);
-
+	spawnGuns(vGuns);
 
 	/*WeaponArray[1]->shootingbuffer1.loadFromFile("soundeffects\\gunshot.wav");
 	WeaponArray[1]->shootingsound.setBuffer(WeaponArray[1]->shootingbuffer1);
@@ -138,7 +142,7 @@ void main()
 	WeaponArray[5]->shootingsound.setBuffer(WeaponArray[5]->shootingbuffer5);
 	WeaponArray[5]->shootingsound.setPitch(1.0);
 	WeaponArray[5]->shootingsound.setVolume(20.0f);*/
-
+	
 	WeaponArray[0]->weaponMesh = myEngine->LoadMesh("M4Colt.x");
 	WeaponArray[0]->name = "M4";
 	WeaponArray[0]->magCapacity = 30;
@@ -185,6 +189,7 @@ void main()
 	WeaponArray[3]->weaponModel = WeaponArray[3]->weaponMesh->CreateModel(38, 8, 43);
 	WeaponArray[4]->weaponModel = WeaponArray[4]->weaponMesh->CreateModel(66, 8, 43);
 	WeaponArray[5]->weaponModel = WeaponArray[5]->weaponMesh->CreateModel(75, 8, 43);
+	
 
 	for (int i = 0; i < numGuns; i++)
 	{

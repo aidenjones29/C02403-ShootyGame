@@ -6,6 +6,7 @@
 #include <vector>
 #include <memory>
 #include "Math.h"
+#include "Engine.h"
 
 enum bulletStatus{Reloaded,Fired,Spent};
 struct sBullet

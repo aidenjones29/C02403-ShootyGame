@@ -1,5 +1,6 @@
 #pragma once
 
 #include "TL-Engine.h"
+using namespace tle;
 
-//extern tle::I3DEngine* myEngine;
+extern I3DEngine* myEngine;
