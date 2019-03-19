@@ -86,8 +86,10 @@ void main()
 		WeaponArray.push_back(Gun);
 	}
 
-	ISprite* Crosshair = myEngine->CreateSprite("crosshair.png", (horizontal / 2) - 60, (vertical / 2) - 60);
-	ISprite* ammoUI = myEngine->CreateSprite("ammoUIPNG.png", 10, vertical - 150);
+	ISprite* Crosshair = myEngine->CreateSprite("crosshair.png", (horizontal / 2) - 60 , (vertical / 2) - 60);
+	ISprite* ammoUI = myEngine->CreateSprite("ammoUIPNG.png", 10 , vertical - 150);
+	ISprite* fireModeSemi = myEngine->CreateSprite("SemiAutoUI.png", 13, vertical - 105);
+	//ISprite* fireModeFull = myEngine->CreateSprite("FullAutoUI.png", 28, vertical - 105);
 
 	IFont* MainFont = myEngine->LoadFont("D Day Stencil", 60);
 
