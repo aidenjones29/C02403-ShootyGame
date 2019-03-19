@@ -11,6 +11,7 @@
 #include "Bullets.h"
 #include "Targets.h"
 
+void Fire(IModel* &cameraDummy,float frametime);
 
 enum fireModes { Single, Burst, Auto };
 enum standingState { Standing, Crouching, Prone };
@@ -22,8 +23,9 @@ const float upperCamYMax = -50.0f;
 const float lowerCamYMax = 50.0f;
 const int numGuns = 6;
 float time = 0;
+bool canShoot = true;
 
-
+int bulletsFired = 0;
 struct Weapon
 {
 	string name;
@@ -42,25 +44,32 @@ void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, 
 void gunSwapAndDrop(I3DEngine* myEngine, float& interactionZspeed, float& currentInteractionDistance, IModel*& interactionDummy, bool& canCollide, Weapon* WeaponArray[], int whichGunEquipped, IModel*& cameraDummy, float& oldPlayerX, float& oldPlayerZ);
 
 void desktopResolution(int& horizontal, int& vertical);
+vector<sBullet*> vBullets;
+vector<sBullet*> vMagazine;
+vector<sTarget*> vTargets;	
+vector <Weapon*> WeaponArray;
+I3DEngine* myEngine = New3DEngine(kTLX);
+
+int whichGunEquipped = numGuns;
+fireModes CurrentMode = Auto;
 
 void main()
 {
+	
 	// Create a 3D engine (using TLX engine here) and open a window for it
-	I3DEngine* myEngine = New3DEngine(kTLX);
+
 	int horizontal = 0; int vertical = 0;
 	desktopResolution(horizontal, vertical);
 	myEngine->StartFullscreen(horizontal, vertical);
 	myEngine->StartMouseCapture();
-	vector<sBullet*> vBullets;
-	vector<sBullet*> vMagazine;
-	vector<sTarget*> vTargets;
+	
 
 
 	// Add default folder for meshes and other media
 	myEngine->AddMediaFolder(".\\Media");
 	ICamera* myCam = myEngine->CreateCamera(kManual, 0, 0, 0);
 
-	vector <Weapon*> WeaponArray;
+
 
 	for (int i = 0; i < numGuns; i++)
 	{
@@ -77,7 +86,7 @@ void main()
 	IMesh* bulletMesh = myEngine->LoadMesh("Bullet.x");
 	IMesh* targetMesh = myEngine->LoadMesh("Target.x");
 
-	IModel* target[3];
+	
 	IModel* fence[80];
 	IModel* cameraDummy = dummyMesh->CreateModel(5, 15, 80);
 	IModel* interactionDummy = dummyMesh->CreateModel(0, 0, 0);
@@ -163,7 +172,8 @@ void main()
 
 	stringstream ammoText;
 
-	int whichGunEquipped = numGuns;
+	
+
 
 	/**** Set up your scene here ****/
 	CreateFences(myEngine, fence); CreateScene(myEngine); CreateWalls(myEngine);
@@ -171,6 +181,7 @@ void main()
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())
 	{
+		time = time + frameTime;
 		frameTime = myEngine->Timer();
 		// Draw the scene
 		myEngine->DrawScene();
@@ -247,29 +258,27 @@ void main()
 		interactionDummy->MoveLocalZ(interactionZspeed);
 		currentInteractionDistance += interactionZspeed;
 
-		if (myEngine->KeyHeld(Mouse_LButton))
+		
+		if (myEngine->KeyHit(Key_X) )
 		{
-			time = time + frameTime;
-
-			for (int i = 0; i < WeaponArray[whichGunEquipped]->magCapacity; i++)
+			if (CurrentMode == Auto)
 			{
-				if (time > WeaponArray[whichGunEquipped]->fireRate)
-				{
-					if (vMagazine[i]->status == Reloaded)
-					{
-						float matrix[4][4];
-						cameraDummy->GetMatrix(&matrix[0][0]);
-						vMagazine[i]->model->SetMatrix(&matrix[0][0]);
-						vMagazine[i]->model->MoveLocalZ(10.0f);
-						vMagazine[i]->model->RotateLocalX(90.0f);
-						vMagazine[i]->model->Scale(0.004f);
-						vMagazine[i]->status = Fired;
-						WeaponArray[whichGunEquipped]->magAmount--;
-						time = 0.0f;
-					}
-				}
+			CurrentMode = Burst;
 			}
+			else if (CurrentMode == Burst)
+			{
+				CurrentMode = Single;
+			}
+			else if (CurrentMode == Single)
+			{
+				CurrentMode = Auto;
+			}
+			
+		
 		}
+			
+		
+	
 
 		if (myEngine->KeyHit(Key_R))
 		{
@@ -285,7 +294,7 @@ void main()
 				i->state = Ready;
 			}
 		}
-
+	    Fire(cameraDummy,frameTime);
 		moveBullets(100, vMagazine, frameTime);
 		moveTargets(vTargets, frameTime);
 		bulletToTarget(vTargets, vMagazine);
@@ -417,5 +426,104 @@ void desktopResolution(int& horizontal, int& vertical)
 
 	horizontal = desktop.right;               //Holds the values for the screen resolution.
 	vertical = desktop.bottom;				  //Holds the values for the screen resolution.
+}
+void Fire(IModel* &cameraDummy, float frameTime)
+{
+	switch (CurrentMode)
+	{
+	case Auto:
+		if (myEngine->KeyHeld(Mouse_LButton))
+		{
+
+			for (int i = 0; i < WeaponArray[whichGunEquipped]->magCapacity; i++)
+			{
+				if (time > WeaponArray[whichGunEquipped]->fireRate)
+				{
+					if (vMagazine[i]->status == Reloaded)
+					{
+						float matrix[4][4];
+						cameraDummy->GetMatrix(&matrix[0][0]);
+						vMagazine[i]->model->SetMatrix(&matrix[0][0]);
+						vMagazine[i]->model->MoveLocalZ(10.0f);
+						vMagazine[i]->model->RotateLocalX(90.0f);
+						vMagazine[i]->model->Scale(0.004f);
+						vMagazine[i]->status = Fired;
+						WeaponArray[whichGunEquipped]->magAmount--;
+						time = 0.0f;
+
+					}
+				}
+
+			}
+		}
+		break;
+	case Burst:
+		
+		if (myEngine->KeyHit(Mouse_LButton))
+		{
+			canShoot = false;
+		}
+		
+		if (!canShoot)
+		{
+			for (int i = 0; i < WeaponArray[whichGunEquipped]->magCapacity; i++)
+			{
+				if (time > (WeaponArray[whichGunEquipped]->fireRate / 2))
+				{
+					if (vMagazine[i]->status == Reloaded)
+					{
+						float matrix[4][4];
+						cameraDummy->GetMatrix(&matrix[0][0]);
+						vMagazine[i]->model->SetMatrix(&matrix[0][0]);
+						vMagazine[i]->model->MoveLocalZ(10.0f);
+						vMagazine[i]->model->RotateLocalX(90.0f);
+						vMagazine[i]->model->Scale(0.004f);
+						vMagazine[i]->status = Fired;
+						WeaponArray[whichGunEquipped]->magAmount--;
+						time = 0.0f;
+						bulletsFired++;
+					}
+
+				}
+			}
+		}
+		if (bulletsFired == 3)
+		{
+			canShoot = true;
+			bulletsFired = 0;
+		}
+
+
+
+		break;
+	case Single:
+		if (myEngine->KeyHit(Mouse_LButton))
+		{
+			for (int i = 0; i < WeaponArray[whichGunEquipped]->magCapacity; i++)
+			{
+
+				if (vMagazine[i]->status == Reloaded)
+				{
+					float matrix[4][4];
+					cameraDummy->GetMatrix(&matrix[0][0]);
+					vMagazine[i]->model->SetMatrix(&matrix[0][0]);
+					vMagazine[i]->model->MoveLocalZ(10.0f);
+					vMagazine[i]->model->RotateLocalX(90.0f);
+					vMagazine[i]->model->Scale(0.004f);
+					vMagazine[i]->status = Fired;
+					WeaponArray[whichGunEquipped]->magAmount--;
+					break;
+				}
+
+			}
+
+
+
+			break;
+
+		}
+		
+
+	}
 }
 
