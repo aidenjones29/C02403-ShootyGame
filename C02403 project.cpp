@@ -88,11 +88,27 @@ void main()
 	WeaponArray[0]->weaponMesh = myEngine->LoadMesh("M4Colt.x");
 	WeaponArray[0]->magCapacity = 30;
 	WeaponArray[0]->magAmount = 30;
+	WeaponArray[0]->fireRate = 0.04f;
 	WeaponArray[1]->weaponMesh = myEngine->LoadMesh("ar18_rifle.x");
+	WeaponArray[1]->magCapacity = 20;
+	WeaponArray[1]->magAmount = 20;
+	WeaponArray[1]->fireRate = 0.2f;
 	WeaponArray[2]->weaponMesh = myEngine->LoadMesh("kalashinkov.x");
+	WeaponArray[2]->magCapacity = 30;
+	WeaponArray[2]->magAmount = 30;
+	WeaponArray[2]->fireRate = 0.04f;
 	WeaponArray[3]->weaponMesh = myEngine->LoadMesh("TommyGun.x");
+	WeaponArray[3]->magCapacity = 20;
+	WeaponArray[3]->magAmount = 20;
+	WeaponArray[3]->fireRate = 0.07f;
 	WeaponArray[4]->weaponMesh = myEngine->LoadMesh("Mini_Uzi.x");
+	WeaponArray[4]->magCapacity = 25;
+	WeaponArray[4]->magAmount = 25;
+	WeaponArray[4]->fireRate = 0.03f;
 	WeaponArray[5]->weaponMesh = myEngine->LoadMesh("MachineGun.x");
+	WeaponArray[5]->magCapacity = 25;
+	WeaponArray[5]->magAmount = 25;
+	WeaponArray[5]->fireRate = 0.07f;
 
 	WeaponArray[0]->weaponModel = WeaponArray[0]->weaponMesh->CreateModel(-3, 8, 43);
 	WeaponArray[1]->weaponModel = WeaponArray[1]->weaponMesh->CreateModel(5, 8, 43);
@@ -154,7 +170,7 @@ void main()
 		if (whichGunEquipped < numGuns)
 		{
 			ammoText << WeaponArray[whichGunEquipped]->magAmount << " / " << WeaponArray[whichGunEquipped]->magCapacity;
-			MainFont -> Draw(ammoText.str(), (horizontal / 2) - 60, (vertical / 2) - 60);
+			MainFont -> Draw(ammoText.str(), 10, vertical - 60, kWhite);
 			ammoText.str("");
 		}
 
@@ -198,6 +214,8 @@ void main()
 				WeaponArray[i]->weaponModel->AttachToParent(cameraDummy);
 				WeaponArray[i]->weaponModel->SetLocalPosition(2.0f, -2.0f, 7.0f);
 				WeaponArray[i]->weaponModel->RotateY(-0.2f);
+				reloadMagazine(WeaponArray[whichGunEquipped]->magCapacity, vMagazine);
+				WeaponArray[whichGunEquipped]->magAmount = WeaponArray[whichGunEquipped]->magCapacity;
 			}
 		}
 
@@ -209,7 +227,7 @@ void main()
 			interactionDummy->SetLocalPosition(0, 0, 0);
 		}
 
-		if (myEngine->KeyHit(Key_R) && whichGunEquipped < numGuns)
+		if (myEngine->KeyHit(Key_Q) && whichGunEquipped < numGuns)
 		{
 			WeaponArray[whichGunEquipped]->weaponModel->DetachFromParent();
 			WeaponArray[whichGunEquipped]->weaponModel->SetPosition(oldPlayerX, 0.2, oldPlayerZ);
@@ -227,7 +245,7 @@ void main()
 
 			for (int i = 0; i < WeaponArray[whichGunEquipped]->magCapacity; i++)
 			{
-				if (time > 0.04f)
+				if (time > WeaponArray[whichGunEquipped]->fireRate)
 				{
 					if (vMagazine[i]->status == Reloaded)
 					{
@@ -245,9 +263,9 @@ void main()
 			}
 		}
 
-		if (myEngine->KeyHit(Key_Space))
+		if (myEngine->KeyHit(Key_R))
 		{
-			reloadMagazine(100, vMagazine);
+			reloadMagazine(WeaponArray[whichGunEquipped]->magCapacity, vMagazine);
 			WeaponArray[whichGunEquipped]->magAmount = WeaponArray[whichGunEquipped]->magCapacity;
 		}
 
