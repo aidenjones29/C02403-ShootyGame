@@ -26,6 +26,7 @@ float time = 0;
 
 struct Weapon
 {
+	string name;
 	IMesh* weaponMesh;
 	IModel* weaponModel;
 	float fireRate;
@@ -68,6 +69,7 @@ void main()
 	}
 
 	ISprite* Crosshair = myEngine->CreateSprite("crosshair.png", (horizontal / 2) - 60 , (vertical / 2) - 60);
+	ISprite* ammoUI = myEngine->CreateSprite("ammoUIPNG.png", 10 , vertical - 150);
 
 	IFont* MainFont = myEngine->LoadFont("D Day Stencil", 60);
 
@@ -86,26 +88,32 @@ void main()
 	spawnTargets(targetMesh, vTargets);
 
 	WeaponArray[0]->weaponMesh = myEngine->LoadMesh("M4Colt.x");
+	WeaponArray[0]->name = "M4";
 	WeaponArray[0]->magCapacity = 30;
 	WeaponArray[0]->magAmount = 30;
 	WeaponArray[0]->fireRate = 0.04f;
 	WeaponArray[1]->weaponMesh = myEngine->LoadMesh("ar18_rifle.x");
+	WeaponArray[1]->name = "AR-18";
 	WeaponArray[1]->magCapacity = 20;
 	WeaponArray[1]->magAmount = 20;
 	WeaponArray[1]->fireRate = 0.2f;
 	WeaponArray[2]->weaponMesh = myEngine->LoadMesh("kalashinkov.x");
+	WeaponArray[2]->name = "AK-47";
 	WeaponArray[2]->magCapacity = 30;
 	WeaponArray[2]->magAmount = 30;
 	WeaponArray[2]->fireRate = 0.04f;
 	WeaponArray[3]->weaponMesh = myEngine->LoadMesh("TommyGun.x");
+	WeaponArray[3]->name = "Thompson";
 	WeaponArray[3]->magCapacity = 20;
 	WeaponArray[3]->magAmount = 20;
 	WeaponArray[3]->fireRate = 0.07f;
 	WeaponArray[4]->weaponMesh = myEngine->LoadMesh("Mini_Uzi.x");
+	WeaponArray[4]->name = "Uzi";
 	WeaponArray[4]->magCapacity = 25;
 	WeaponArray[4]->magAmount = 25;
 	WeaponArray[4]->fireRate = 0.03f;
 	WeaponArray[5]->weaponMesh = myEngine->LoadMesh("MachineGun.x");
+	WeaponArray[5]->name = "MP5";
 	WeaponArray[5]->magCapacity = 25;
 	WeaponArray[5]->magAmount = 25;
 	WeaponArray[5]->fireRate = 0.07f;
@@ -170,10 +178,9 @@ void main()
 		if (whichGunEquipped < numGuns)
 		{
 			ammoText << WeaponArray[whichGunEquipped]->magAmount << " / " << WeaponArray[whichGunEquipped]->magCapacity;
-			MainFont -> Draw(ammoText.str(), 10, vertical - 60, kWhite);
+			MainFont -> Draw(ammoText.str(), 100, vertical - 90, kWhite);
 			ammoText.str("");
 		}
-
 
 		oldPlayerX = cameraDummy->GetX();
 		oldPlayerZ = cameraDummy->GetZ();
