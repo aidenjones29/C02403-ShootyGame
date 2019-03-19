@@ -71,7 +71,7 @@ void main()
 	ISprite* Crosshair = myEngine->CreateSprite("crosshair.png", (horizontal / 2) - 60 , (vertical / 2) - 60);
 	ISprite* ammoUI = myEngine->CreateSprite("ammoUIPNG.png", 10 , vertical - 150);
 
-	IFont* MainFont = myEngine->LoadFont("D Day Stencil", 60);
+	IFont* MainFont = myEngine->LoadFont("D Day Stencil", 50);
 
 	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 	IMesh* bulletMesh = myEngine->LoadMesh("Bullet.x");
@@ -178,7 +178,8 @@ void main()
 		if (whichGunEquipped < numGuns)
 		{
 			ammoText << WeaponArray[whichGunEquipped]->magAmount << " / " << WeaponArray[whichGunEquipped]->magCapacity;
-			MainFont -> Draw(ammoText.str(), 100, vertical - 90, kWhite);
+			MainFont -> Draw(ammoText.str(), 160, vertical - 70, kWhite, kCentre);
+			MainFont->Draw(WeaponArray[whichGunEquipped]->name, 160, vertical - 110, kWhite, kCentre);
 			ammoText.str("");
 		}
 
