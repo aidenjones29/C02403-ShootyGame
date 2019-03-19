@@ -14,7 +14,7 @@
 #include <conio.h>
 #include <ctype.h>
 #include <time.h>
-#include <SFML/Audio.hpp>
+//#include <SFML/Audio.hpp>
 
 void Fire(IModel* &cameraDummy,float frametime);
 
@@ -26,12 +26,13 @@ using namespace std;
 
 const float upperCamYMax = -50.0f;
 const float lowerCamYMax = 50.0f;
+
 const int numGuns = 6;
 
 float Time = 0;
 float countDownTime = 1.0f;
 
-float time = 0;
+float WeaponTime = 0;
 bool canShoot = true;
 
 int bulletsFired = 0;
@@ -44,8 +45,8 @@ struct Weapon
 	fireModes fireMode;
 	int magCapacity;
 	int magAmount;
-	sf::SoundBuffer shootingbuffer;
-	sf::Sound shootingsound;
+	//sf::SoundBuffer shootingbuffer;
+	//sf::Sound shootingsound;
 };
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter, standingState& currPlayerStandState, float& movementSpeed, float& currentMoveSpeed);
@@ -60,7 +61,7 @@ vector <Weapon*> WeaponArray;
 I3DEngine* myEngine = New3DEngine(kTLX);
 
 int whichGunEquipped = numGuns;
-fireModes CurrentMode = Auto;
+fireModes CurrentFireMode = Auto;
 
 
 void main()
@@ -88,8 +89,10 @@ void main()
 
 	ISprite* Crosshair = myEngine->CreateSprite("crosshair.png", (horizontal / 2) - 60 , (vertical / 2) - 60);
 	ISprite* ammoUI = myEngine->CreateSprite("ammoUIPNG.png", 10 , vertical - 150);
+
 	ISprite* fireModeSemi = myEngine->CreateSprite("SemiAutoUI.png", 13, vertical - 105);
-	//ISprite* fireModeFull = myEngine->CreateSprite("FullAutoUI.png", 28, vertical - 105);
+	ISprite* fireModeBurstUI = myEngine->CreateSprite("burstFireUI.png", 29, vertical - 105);
+	ISprite* fireModeFullUI = myEngine->CreateSprite("FullAutoUI.png", 43, vertical - 105);
 
 	IFont* MainFont = myEngine->LoadFont("D Day Stencil", 60);
 
@@ -107,10 +110,6 @@ void main()
 
 	spawnTargets(targetMesh, vTargets);
 
-	WeaponArray[0]->shootingbuffer.loadFromFile("soundeffects\\gunshot.wav");
-	WeaponArray[0]->shootingsound.setBuffer(WeaponArray[0]->shootingbuffer);
-	WeaponArray[0]->shootingsound.setPitch(1.0);
-	WeaponArray[0]->shootingsound.setVolume(20.0f);
 
 	/*WeaponArray[1]->shootingbuffer1.loadFromFile("soundeffects\\gunshot.wav");
 	WeaponArray[1]->shootingsound.setBuffer(WeaponArray[1]->shootingbuffer1);
@@ -143,6 +142,10 @@ void main()
 	WeaponArray[0]->magCapacity = 30;
 	WeaponArray[0]->magAmount = 30;
 	WeaponArray[0]->fireRate = 0.04f;
+	//WeaponArray[0]->shootingbuffer.loadFromFile("soundeffects\\gunshot.wav");
+	//WeaponArray[0]->shootingsound.setBuffer(WeaponArray[0]->shootingbuffer);
+	//WeaponArray[0]->shootingsound.setPitch(1.0);
+	//WeaponArray[0]->shootingsound.setVolume(20.0f);
 
 	WeaponArray[1]->weaponMesh = myEngine->LoadMesh("ar18_rifle.x");
 	WeaponArray[1]->name = "AR-18";
@@ -190,7 +193,6 @@ void main()
 	spawnBullets(500, bulletMesh, vBullets);
 	refillNewWeapon(100, vMagazine, vBullets);
 
-
 	interactionDummy->Scale(7);
 	interactionDummy->AttachToParent(myCam);
 
@@ -229,10 +231,25 @@ void main()
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())
 	{
-		time = time + frameTime;
+		WeaponTime = WeaponTime + frameTime;
 		frameTime = myEngine->Timer();
 		// Draw the scene
 		myEngine->DrawScene();
+
+		if (CurrentFireMode == Auto)
+		{
+			fireModeBurstUI->SetPosition(29, vertical - 105);
+			fireModeFullUI->SetPosition(43, vertical - 105);
+		}
+		else if (CurrentFireMode == Burst)
+		{
+			fireModeFullUI->SetPosition(-28, vertical - 105);
+		}
+		else
+		{
+			fireModeFullUI->SetPosition(-28, vertical - 105);
+			fireModeBurstUI->SetPosition(-28, vertical - 105);
+		}
 
 		if (whichGunEquipped < numGuns)
 		{
@@ -308,22 +325,19 @@ void main()
 		
 		if (myEngine->KeyHit(Key_X) )
 		{
-			if (CurrentMode == Auto)
+			if (CurrentFireMode == Auto)
 			{
-			CurrentMode = Burst;
+			CurrentFireMode = Burst;
 			}
-			else if (CurrentMode == Burst)
+			else if (CurrentFireMode == Burst)
 			{
-				CurrentMode = Single;
+				CurrentFireMode = Single;
 			}
-			else if (CurrentMode == Single)
+			else if (CurrentFireMode == Single)
 			{
-				CurrentMode = Auto;
+				CurrentFireMode = Auto;
 			}
 		}
-			
-		
-	
 
 		if (myEngine->KeyHit(Key_R))
 		{
@@ -339,12 +353,18 @@ void main()
 				i->state = Ready;
 			}
 		}
-	    Fire(cameraDummy,frameTime);
-			//		if (shoottimer <= 0 && WeaponArray[whichGunEquipped]->magAmount > 0)
+
+		if (whichGunEquipped != numGuns)
+		{
+			Fire(cameraDummy,frameTime);
+		}
+
+			//if (shoottimer <= 0 && WeaponArray[whichGunEquipped]->magAmount > 0)
 			//{
-			//	WeaponArray[whichGunEquipped]->shootingsound.play();
+			//  WeaponArray[whichGunEquipped]->shootingsound.play();
 			//	shoottimer = WeaponArray[whichGunEquipped]->fireRate * 3;
 			//}
+
 		moveBullets(100, vMagazine, frameTime);
 		moveTargets(vTargets, frameTime);
 		bulletToTarget(vTargets, vMagazine);
@@ -477,9 +497,10 @@ void desktopResolution(int& horizontal, int& vertical)
 	horizontal = desktop.right;               //Holds the values for the screen resolution.
 	vertical = desktop.bottom;				  //Holds the values for the screen resolution.
 }
+
 void Fire(IModel* &cameraDummy, float frameTime)
 {
-	switch (CurrentMode)
+	switch (CurrentFireMode)
 	{
 	case Auto:
 		if (myEngine->KeyHeld(Mouse_LButton))
@@ -487,7 +508,7 @@ void Fire(IModel* &cameraDummy, float frameTime)
 
 			for (int i = 0; i < WeaponArray[whichGunEquipped]->magCapacity; i++)
 			{
-				if (time > WeaponArray[whichGunEquipped]->fireRate)
+				if (WeaponTime > WeaponArray[whichGunEquipped]->fireRate)
 				{
 					if (vMagazine[i]->status == Reloaded)
 					{
@@ -499,7 +520,7 @@ void Fire(IModel* &cameraDummy, float frameTime)
 						vMagazine[i]->model->Scale(0.004f);
 						vMagazine[i]->status = Fired;
 						WeaponArray[whichGunEquipped]->magAmount--;
-						time = 0.0f;
+						WeaponTime = 0.0f;
 
 					}
 				}
@@ -518,7 +539,7 @@ void Fire(IModel* &cameraDummy, float frameTime)
 		{
 			for (int i = 0; i < WeaponArray[whichGunEquipped]->magCapacity; i++)
 			{
-				if (time > (WeaponArray[whichGunEquipped]->fireRate / 2))
+				if (WeaponTime > (WeaponArray[whichGunEquipped]->fireRate / 2))
 				{
 					if (vMagazine[i]->status == Reloaded)
 					{
@@ -530,7 +551,7 @@ void Fire(IModel* &cameraDummy, float frameTime)
 						vMagazine[i]->model->Scale(0.004f);
 						vMagazine[i]->status = Fired;
 						WeaponArray[whichGunEquipped]->magAmount--;
-						time = 0.0f;
+						WeaponTime = 0.0f;
 						bulletsFired++;
 					}
 

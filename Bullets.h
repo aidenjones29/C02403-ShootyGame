@@ -14,7 +14,6 @@ struct sBullet
 	float timeAlive = 0;
 	bulletStatus status = Reloaded;
 	vector3D facingVector{ 0,0,0 };
-	
 };
 
 
