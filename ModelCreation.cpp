@@ -208,8 +208,8 @@ void CreateWalls(I3DEngine * myEngine)
 
 	IMesh* FenceMesh = myEngine->LoadMesh("ChainLinkFence.x");
 	IMesh* OuterWallMesh = myEngine->LoadMesh("OuterWall.x");
-	IMesh* CourseWallMesh = myEngine->LoadMesh("OuterWall.x");
-	IMesh* CourseWallInnerMesh = myEngine->LoadMesh("OuterWall.x");
+	IMesh* CourseWallMesh = myEngine->LoadMesh("OuterWall2.x");
+	IMesh* CourseWallInnerMesh = myEngine->LoadMesh("OuterWall2.x");
 
 	IModel* OuterWallTop[OuterWallAmount];
 	IModel* OuterWallBottom[OuterWallAmount];
