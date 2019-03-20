@@ -115,33 +115,6 @@ void main()
 
 	spawnTargets(targetMesh, vTargets);
 
-
-	/*WeaponArray[1]->shootingbuffer1.loadFromFile("soundeffects\\gunshot.wav");
-	WeaponArray[1]->shootingsound.setBuffer(WeaponArray[1]->shootingbuffer1);
-	WeaponArray[1]->shootingsound.setPitch(1.0);
-	WeaponArray[1]->shootingsound.setVolume(20.0f);
-
-	WeaponArray[2]->shootingbuffer2.loadFromFile("soundeffects\\gunshot.wav");
-	WeaponArray[2]->shootingsound.setBuffer(WeaponArray[2]->shootingbuffer2);
-	WeaponArray[2]->shootingsound.setPitch(1.0);
-	WeaponArray[2]->shootingsound.setVolume(20.0f);
-
-	WeaponArray[3]->shootingbuffer3.loadFromFile("soundeffects\\gunshot.wav");
-	WeaponArray[3]->shootingsound.setBuffer(WeaponArray[3]->shootingbuffer3);
-
-	WeaponArray[3]->shootingsound.setPitch(1.0);
-	WeaponArray[3]->shootingsound.setVolume(20.0f);
-
-	WeaponArray[4]->shootingbuffer4.loadFromFile("soundeffects\\gunshot.wav");
-	WeaponArray[4]->shootingsound.setBuffer(WeaponArray[4]->shootingbuffer4);
-	WeaponArray[4]->shootingsound.setPitch(1.0);
-	WeaponArray[4]->shootingsound.setVolume(20.0f);
-
-	WeaponArray[5]->shootingbuffer5.loadFromFile("soundeffects\\gunshot.wav");
-	WeaponArray[5]->shootingsound.setBuffer(WeaponArray[5]->shootingbuffer5);
-	WeaponArray[5]->shootingsound.setPitch(1.0);
-	WeaponArray[5]->shootingsound.setVolume(20.0f);*/
-
 	WeaponArray[0]->weaponMesh = myEngine->LoadMesh("M4Colt.x");
 	WeaponArray[0]->name = "M4";
 	WeaponArray[0]->magCapacity = 30;
@@ -157,30 +130,50 @@ void main()
 	WeaponArray[1]->magCapacity = 20;
 	WeaponArray[1]->magAmount = 20;
 	WeaponArray[1]->fireRate = 0.2f;
+	//WeaponArray[1]->shootingbuffer1.loadFromFile("soundeffects\\gunshot.wav");
+	//WeaponArray[1]->shootingsound.setBuffer(WeaponArray[1]->shootingbuffer1);
+	//WeaponArray[1]->shootingsound.setPitch(1.0);
+	//WeaponArray[1]->shootingsound.setVolume(20.0f);
 
 	WeaponArray[2]->weaponMesh = myEngine->LoadMesh("kalashinkov.x");
 	WeaponArray[2]->name = "AK-47";
 	WeaponArray[2]->magCapacity = 30;
 	WeaponArray[2]->magAmount = 30;
 	WeaponArray[2]->fireRate = 0.04f;
+	//WeaponArray[2]->shootingbuffer2.loadFromFile("soundeffects\\gunshot.wav");
+	//WeaponArray[2]->shootingsound.setBuffer(WeaponArray[2]->shootingbuffer2);
+	//WeaponArray[2]->shootingsound.setPitch(1.0);
+	//WeaponArray[2]->shootingsound.setVolume(20.0f);
 
 	WeaponArray[3]->weaponMesh = myEngine->LoadMesh("TommyGun.x");
 	WeaponArray[3]->name = "Thompson";
 	WeaponArray[3]->magCapacity = 20;
 	WeaponArray[3]->magAmount = 20;
 	WeaponArray[3]->fireRate = 0.07f;
+	//WeaponArray[3]->shootingbuffer3.loadFromFile("soundeffects\\gunshot.wav");
+	//WeaponArray[3]->shootingsound.setBuffer(WeaponArray[3]->shootingbuffer3);
+	//WeaponArray[3]->shootingsound.setPitch(1.0);
+	//WeaponArray[3]->shootingsound.setVolume(20.0f);
 
 	WeaponArray[4]->weaponMesh = myEngine->LoadMesh("Mini_Uzi.x");
 	WeaponArray[4]->name = "Uzi";
 	WeaponArray[4]->magCapacity = 25;
 	WeaponArray[4]->magAmount = 25;
 	WeaponArray[4]->fireRate = 0.03f;
+	//WeaponArray[4]->shootingbuffer4.loadFromFile("soundeffects\\gunshot.wav");
+	//WeaponArray[4]->shootingsound.setBuffer(WeaponArray[4]->shootingbuffer4);
+	//WeaponArray[4]->shootingsound.setPitch(1.0);
+	//WeaponArray[4]->shootingsound.setVolume(20.0f);
 
 	WeaponArray[5]->weaponMesh = myEngine->LoadMesh("MachineGun.x");
 	WeaponArray[5]->name = "MP5";
 	WeaponArray[5]->magCapacity = 25;
 	WeaponArray[5]->magAmount = 25;
 	WeaponArray[5]->fireRate = 0.07f;
+	//WeaponArray[5]->shootingbuffer5.loadFromFile("soundeffects\\gunshot.wav");
+	//WeaponArray[5]->shootingsound.setBuffer(WeaponArray[5]->shootingbuffer5);
+	//WeaponArray[5]->shootingsound.setPitch(1.0);
+	//WeaponArray[5]->shootingsound.setVolume(20.0f);
 
 	WeaponArray[0]->weaponModel = WeaponArray[0]->weaponMesh->CreateModel(-3, 8, 43);
 	WeaponArray[1]->weaponModel = WeaponArray[1]->weaponMesh->CreateModel(5, 8, 43);
@@ -226,9 +219,6 @@ void main()
 	bool prone = false;
 
 	stringstream ammoText;
-
-	
-
 
 	/**** Set up your scene here ****/
 	CreateFences(myEngine, fence); CreateScene(myEngine); CreateWalls(myEngine);
