@@ -14,16 +14,15 @@
 #include <stdlib.h> // General console window includes
 #include <conio.h>
 #include <ctype.h>
+#include <memory>
 #include <time.h>
 #include"Weapons.h"
 //#include <SFML/Audio.hpp>
 I3DEngine* myEngine = New3DEngine(kTLX);
 
-void Fire(IModel* &cameraDummy,float frametime);
 
 //enum fireModes { Single, Burst, Auto };
 enum standingState { Standing, Crouching, Prone };
-
 using namespace tle;
 using namespace std;
 
@@ -53,15 +52,16 @@ struct Weapon
 };
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter, standingState& currPlayerStandState, float& movementSpeed, float& currentMoveSpeed);
-
+void Fire(IModel* &cameraDummy,float frametime);
 void gunSwapAndDrop(I3DEngine* myEngine, float& interactionZspeed, float& currentInteractionDistance, IModel*& interactionDummy, bool& canCollide, Weapon* WeaponArray[], int whichGunEquipped, IModel*& cameraDummy, float& oldPlayerX, float& oldPlayerZ);
-
 void desktopResolution(int& horizontal, int& vertical);
 vector<sBullet*> vBullets;
 vector<sBullet*> vMagazine;
 vector<sTarget*> vTargets;	
 vector <Weapon*> WeaponArray;
-vector <sWeapon*> vGuns;
+deque <unique_ptr<sWeapon>> vGuns;
+sWeapon* currentGun =nullptr;
+
 
 
 int whichGunEquipped = numGuns;
@@ -80,8 +80,7 @@ void main()
 	myEngine->StartMouseCapture();
 	
 
-
-	// Add default folder for meshes and other media
+		// Add default folder for meshes and other media
 	myEngine->AddMediaFolder(".\\Media");
 	ICamera* myCam = myEngine->CreateCamera(kManual, 0, 0, 0);
 
@@ -104,7 +103,6 @@ void main()
 
 	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 	IMesh* bulletMesh = myEngine->LoadMesh("Bullet.x");
-	IMesh* targetMesh = myEngine->LoadMesh("Target.x");
 
 	
 	IModel* fence[80];
@@ -114,89 +112,8 @@ void main()
 
 	gunFireTest->AttachToParent(cameraDummy);
 
-	spawnTargets(targetMesh, vTargets);
+	spawnTargets(vTargets);
 	spawnGuns(vGuns);
-
-	/*WeaponArray[1]->shootingbuffer1.loadFromFile("soundeffects\\gunshot.wav");
-	WeaponArray[1]->shootingsound.setBuffer(WeaponArray[1]->shootingbuffer1);
-	WeaponArray[1]->shootingsound.setPitch(1.0);
-	WeaponArray[1]->shootingsound.setVolume(20.0f);
-
-	WeaponArray[2]->shootingbuffer2.loadFromFile("soundeffects\\gunshot.wav");
-	WeaponArray[2]->shootingsound.setBuffer(WeaponArray[2]->shootingbuffer2);
-	WeaponArray[2]->shootingsound.setPitch(1.0);
-	WeaponArray[2]->shootingsound.setVolume(20.0f);
-
-	WeaponArray[3]->shootingbuffer3.loadFromFile("soundeffects\\gunshot.wav");
-	WeaponArray[3]->shootingsound.setBuffer(WeaponArray[3]->shootingbuffer3);
-
-	WeaponArray[3]->shootingsound.setPitch(1.0);
-	WeaponArray[3]->shootingsound.setVolume(20.0f);
-
-	WeaponArray[4]->shootingbuffer4.loadFromFile("soundeffects\\gunshot.wav");
-	WeaponArray[4]->shootingsound.setBuffer(WeaponArray[4]->shootingbuffer4);
-	WeaponArray[4]->shootingsound.setPitch(1.0);
-	WeaponArray[4]->shootingsound.setVolume(20.0f);
-
-	WeaponArray[5]->shootingbuffer5.loadFromFile("soundeffects\\gunshot.wav");
-	WeaponArray[5]->shootingsound.setBuffer(WeaponArray[5]->shootingbuffer5);
-	WeaponArray[5]->shootingsound.setPitch(1.0);
-	WeaponArray[5]->shootingsound.setVolume(20.0f);*/
-	
-	WeaponArray[0]->weaponMesh = myEngine->LoadMesh("M4Colt.x");
-	WeaponArray[0]->name = "M4";
-	WeaponArray[0]->magCapacity = 30;
-	WeaponArray[0]->magAmount = 30;
-	WeaponArray[0]->fireRate = 0.04f;
-	//WeaponArray[0]->shootingbuffer.loadFromFile("soundeffects\\gunshot.wav");
-	//WeaponArray[0]->shootingsound.setBuffer(WeaponArray[0]->shootingbuffer);
-	//WeaponArray[0]->shootingsound.setPitch(1.0);
-	//WeaponArray[0]->shootingsound.setVolume(20.0f);
-
-	WeaponArray[1]->weaponMesh = myEngine->LoadMesh("ar18_rifle.x");
-	WeaponArray[1]->name = "AR-18";
-	WeaponArray[1]->magCapacity = 20;
-	WeaponArray[1]->magAmount = 20;
-	WeaponArray[1]->fireRate = 0.2f;
-
-	WeaponArray[2]->weaponMesh = myEngine->LoadMesh("kalashinkov.x");
-	WeaponArray[2]->name = "AK-47";
-	WeaponArray[2]->magCapacity = 30;
-	WeaponArray[2]->magAmount = 30;
-	WeaponArray[2]->fireRate = 0.04f;
-
-	WeaponArray[3]->weaponMesh = myEngine->LoadMesh("TommyGun.x");
-	WeaponArray[3]->name = "Thompson";
-	WeaponArray[3]->magCapacity = 20;
-	WeaponArray[3]->magAmount = 20;
-	WeaponArray[3]->fireRate = 0.07f;
-
-	WeaponArray[4]->weaponMesh = myEngine->LoadMesh("Mini_Uzi.x");
-	WeaponArray[4]->name = "Uzi";
-	WeaponArray[4]->magCapacity = 25;
-	WeaponArray[4]->magAmount = 25;
-	WeaponArray[4]->fireRate = 0.03f;
-
-	WeaponArray[5]->weaponMesh = myEngine->LoadMesh("MachineGun.x");
-	WeaponArray[5]->name = "MP5";
-	WeaponArray[5]->magCapacity = 25;
-	WeaponArray[5]->magAmount = 25;
-	WeaponArray[5]->fireRate = 0.07f;
-
-	WeaponArray[0]->weaponModel = WeaponArray[0]->weaponMesh->CreateModel(-3, 8, 43);
-	WeaponArray[1]->weaponModel = WeaponArray[1]->weaponMesh->CreateModel(5, 8, 43);
-	WeaponArray[2]->weaponModel = WeaponArray[2]->weaponMesh->CreateModel(32, 8, 43);
-	WeaponArray[3]->weaponModel = WeaponArray[3]->weaponMesh->CreateModel(38, 8, 43);
-	WeaponArray[4]->weaponModel = WeaponArray[4]->weaponMesh->CreateModel(66, 8, 43);
-	WeaponArray[5]->weaponModel = WeaponArray[5]->weaponMesh->CreateModel(75, 8, 43);
-	
-
-	for (int i = 0; i < numGuns; i++)
-	{
-		WeaponArray[i]->weaponModel->Scale(13);
-		WeaponArray[i]->weaponModel->RotateLocalZ(90);
-		WeaponArray[i]->weaponModel->RotateLocalX(180);
-	}
 	spawnBullets(500, bulletMesh, vBullets);
 	refillNewWeapon(100, vMagazine, vBullets);
 
@@ -258,9 +175,9 @@ void main()
 			fireModeBurstUI->SetPosition(-28, vertical - 105);
 		}
 
-		if (whichGunEquipped < numGuns)
+		if (currentGun != nullptr)
 		{
-			ammoText << WeaponArray[whichGunEquipped]->magAmount << " / " << WeaponArray[whichGunEquipped]->magCapacity;
+			ammoText <<currentGun->magAmount << " / " <<currentGun->magCapacity;
 			MainFont->Draw(ammoText.str(), 100, vertical - 90, kWhite);
 			ammoText.str("");
 		}
@@ -295,19 +212,21 @@ void main()
 			canCollide = true;
 		}
 
-		for (int i = 0; i < numGuns; i++)
+		for (auto& Guns:vGuns)
 		{
-			if (canCollide == true && gunInteraction(interactionDummy, WeaponArray[i]->weaponModel) && whichGunEquipped == numGuns)
+			if (canCollide == true && gunInteraction(interactionDummy, Guns->weaponModel) && currentGun == nullptr)
 			{
-				whichGunEquipped = i;
-				WeaponArray[i]->weaponModel->ResetOrientation();
-				WeaponArray[i]->weaponModel->AttachToParent(cameraDummy);
-				WeaponArray[i]->weaponModel->SetLocalPosition(2.0f, -2.0f, 7.0f);
-				WeaponArray[i]->weaponModel->RotateY(-0.2f);
-				reloadMagazine(WeaponArray[whichGunEquipped]->magCapacity, vMagazine);
-				WeaponArray[whichGunEquipped]->magAmount = WeaponArray[whichGunEquipped]->magCapacity;
+				Guns->weaponModel->ResetOrientation();
+				Guns->weaponModel->AttachToParent(cameraDummy);
+				Guns->weaponModel->SetLocalPosition(2.0f, -2.0f, 7.0f);
+				Guns->weaponModel->RotateY(-0.2f);
+				currentGun=(Guns.get());
+				reloadMagazine(currentGun->magCapacity, vMagazine);
+				currentGun->magAmount = currentGun->magCapacity;
+				
 			}
 		}
+		
 
 		if (currentInteractionDistance >= 2.0f)
 		{
@@ -317,13 +236,13 @@ void main()
 			interactionDummy->SetLocalPosition(0, 0, 0);
 		}
 
-		if (myEngine->KeyHit(Key_Q) && whichGunEquipped < numGuns)
+		if (myEngine->KeyHit(Key_Q) && currentGun !=nullptr)
 		{
-			WeaponArray[whichGunEquipped]->weaponModel->DetachFromParent();
-			WeaponArray[whichGunEquipped]->weaponModel->SetPosition(oldPlayerX, 0.2, oldPlayerZ);
-			WeaponArray[whichGunEquipped]->weaponModel->RotateLocalZ(90.0f);
-			WeaponArray[whichGunEquipped]->weaponModel->RotateY(rand());
-			whichGunEquipped = numGuns;
+			currentGun->weaponModel->DetachFromParent();
+			currentGun->weaponModel->SetPosition(oldPlayerX, 0.2, oldPlayerZ);
+			currentGun->weaponModel->RotateLocalZ(90.0f);
+			currentGun->weaponModel->RotateY(rand());
+			currentGun = nullptr;
 		}
 
 		interactionDummy->MoveLocalZ(interactionZspeed);
@@ -352,7 +271,7 @@ void main()
 			if (reloadTimer > 1.2f)
 			{
 				reloadMagazine(WeaponArray[whichGunEquipped]->magCapacity, vMagazine);
-				WeaponArray[whichGunEquipped]->magAmount = WeaponArray[whichGunEquipped]->magCapacity;
+				WeaponArray[whichGunEquipped]->magAmount =currentGun->magCapacity;
 				reloadTimer = 0;
 			}
 		}
@@ -366,15 +285,15 @@ void main()
 			}
 		}
 
-		if (whichGunEquipped != numGuns)
+		if (currentGun != nullptr)
 		{
 			Fire(cameraDummy,frameTime);
 		}
 
-			//if (shoottimer <= 0 && WeaponArray[whichGunEquipped]->magAmount > 0)
+			//if (shoottimer <= 0 &&currentGun->magAmount > 0)
 			//{
-			//  WeaponArray[whichGunEquipped]->shootingsound.play();
-			//	shoottimer = WeaponArray[whichGunEquipped]->fireRate * 3;
+			// currentGun->shootingsound.play();
+			//	shoottimer =currentGun->fireRate * 3;
 			//}
 
 		moveBullets(100, vMagazine, frameTime);
@@ -518,9 +437,9 @@ void Fire(IModel* &cameraDummy, float frameTime)
 		if (myEngine->KeyHeld(Mouse_LButton))
 		{
 
-			for (int i = 0; i < WeaponArray[whichGunEquipped]->magCapacity; i++)
+			for (int i = 0; i <currentGun->magCapacity; i++)
 			{
-				if (WeaponTime > WeaponArray[whichGunEquipped]->fireRate)
+				if (WeaponTime >currentGun->fireRate)
 				{
 					if (vMagazine[i]->status == Reloaded)
 					{
@@ -531,7 +450,7 @@ void Fire(IModel* &cameraDummy, float frameTime)
 						vMagazine[i]->model->RotateLocalX(90.0f);
 						vMagazine[i]->model->Scale(0.004f);
 						vMagazine[i]->status = Fired;
-						WeaponArray[whichGunEquipped]->magAmount--;
+						currentGun->magAmount--;
 						WeaponTime = 0.0f;
 
 					}
@@ -549,9 +468,9 @@ void Fire(IModel* &cameraDummy, float frameTime)
 		
 		if (!canShoot)
 		{
-			for (int i = 0; i < WeaponArray[whichGunEquipped]->magCapacity; i++)
+			for (int i = 0; i <currentGun->magCapacity; i++)
 			{
-				if (WeaponTime > (WeaponArray[whichGunEquipped]->fireRate / 2))
+				if (WeaponTime > (currentGun->fireRate / 2))
 				{
 					if (vMagazine[i]->status == Reloaded)
 					{
@@ -562,7 +481,7 @@ void Fire(IModel* &cameraDummy, float frameTime)
 						vMagazine[i]->model->RotateLocalX(90.0f);
 						vMagazine[i]->model->Scale(0.004f);
 						vMagazine[i]->status = Fired;
-						WeaponArray[whichGunEquipped]->magAmount--;
+						currentGun->magAmount--;
 						WeaponTime = 0.0f;
 						bulletsFired++;
 					}
@@ -582,7 +501,7 @@ void Fire(IModel* &cameraDummy, float frameTime)
 	case Single:
 		if (myEngine->KeyHit(Mouse_LButton))
 		{
-			for (int i = 0; i < WeaponArray[whichGunEquipped]->magCapacity; i++)
+			for (int i = 0; i < currentGun->magCapacity; i++)
 			{
 
 				if (vMagazine[i]->status == Reloaded)

@@ -1,6 +1,7 @@
 #pragma once
 #include "Engine.h"
 #include <vector>
+#include <SFML/Audio.hpp>
 using namespace tle;
 enum fireModes { Single, Burst, Auto };
 struct sWeapon
@@ -12,6 +13,8 @@ struct sWeapon
 	int magCapacity;
 	int magAmount;
 	float fireRate;
+	sf::SoundBuffer shootingBuffer;
+	sf::Sound shootingSound;
 };
 struct M4 :public sWeapon 
 {	
@@ -26,6 +29,9 @@ struct M4 :public sWeapon
 		magCapacity = 30;
 		magAmount = 30;
 		fireRate = 0.04f;
+		shootingBuffer.loadFromFile("");
+		shootingSound.setBuffer(shootingBuffer);
+		shootingSound.setVolume(20);
 	}
 };
 struct AK :public sWeapon
@@ -45,24 +51,18 @@ struct AK :public sWeapon
 };
 struct AR_18 :public sWeapon
 {
-	string name = "AR-18";
-	IMesh* weaponMesh = myEngine->LoadMesh("ar18_rifle.x");
-	IModel* weaponModel;
-	fireModes fireMode;
-	int magCapacity = 20;
-	int magAmount = 20;
-	float fireRate = 0.2f;
+
 	AR_18(int spawnX, int SpawnY, int SpawnZ)
-		{
-		 name = "AR-18";
-		 weaponMesh = myEngine->LoadMesh("ar18_rifle.x");
-	weaponModel = weaponMesh->CreateModel(spawnX, SpawnY, SpawnZ);
-	weaponModel->Scale(13);
-	weaponModel->RotateLocalZ(90);
-	weaponModel->RotateLocalX(180);
-	 magCapacity = 20;
-	 magAmount = 20;
-	 fireRate = 0.2f;
+	{
+		name = "AR-18";
+		weaponMesh = myEngine->LoadMesh("ar18_rifle.x");
+		weaponModel = weaponMesh->CreateModel(spawnX, SpawnY, SpawnZ);
+		weaponModel->Scale(13);
+		weaponModel->RotateLocalZ(90);
+		weaponModel->RotateLocalX(180);
+		magCapacity = 20;
+		magAmount = 20;
+		fireRate = 0.2f;
 	}
 };
 struct MINI_UZI :public sWeapon
@@ -111,8 +111,22 @@ struct MP5 :public sWeapon
 		fireRate = 0.07f;
 	}
 };
-
-void spawnGuns(vector <sWeapon*> &vGuns);
+struct  Glock:public sWeapon
+{
+	Glock(int spawnX, int SpawnY, int SpawnZ)
+	{
+		name = "Cock";
+		weaponMesh = myEngine->LoadMesh("glock.x");
+		weaponModel = weaponMesh->CreateModel(spawnX, SpawnY, SpawnZ);
+		weaponModel->Scale(13);
+		weaponModel->RotateLocalZ(90);
+		weaponModel->RotateLocalX(180);
+		magCapacity = 7;
+		magAmount = 7;
+		fireRate = 0.3f;
+	}
+};
+void spawnGuns(deque <unique_ptr<sWeapon>> &vGuns);
 
 
 //struct / :public sWeapon
