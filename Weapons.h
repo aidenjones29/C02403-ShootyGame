@@ -29,7 +29,7 @@ struct M4 :public sWeapon
 		magCapacity = 30;
 		magAmount = 30;
 		fireRate = 0.04f;
-		shootingBuffer.loadFromFile("");
+		shootingBuffer.loadFromFile("soundeffects\\gunshot.wav");
 		shootingSound.setBuffer(shootingBuffer);
 		shootingSound.setVolume(20);
 	}
