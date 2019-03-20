@@ -116,6 +116,7 @@ void main()
 	WeaponArray[0]->magCapacity = 30;
 	WeaponArray[0]->magAmount = 30;
 	WeaponArray[0]->fireRate = 0.04f;
+
 	WeaponArray[0]->shootingbuffer.loadFromFile("soundeffects\\gunshot.wav");
 	WeaponArray[0]->shootingsound.setBuffer(WeaponArray[0]->shootingbuffer);
 	WeaponArray[0]->shootingsound.setPitch(1.0);
