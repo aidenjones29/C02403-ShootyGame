@@ -95,6 +95,9 @@ void main()
 	ISprite* fireModeBurstUI = myEngine->CreateSprite("burstFireUI.png", -29, vertical - 105);
 	ISprite* fireModeFullUI = myEngine->CreateSprite("FullAutoUI.png", -43, vertical - 105);
 
+	ISprite* menuSelectionUI = myEngine->CreateSprite("menuSelectionUISprite.png", 0, 0);
+	ISprite* menuUI = myEngine->CreateSprite("mainMenuUI.jpg", 0, 0);
+
 	IFont* MainFont = myEngine->LoadFont("Stencil STD", 60);
 
 	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
@@ -255,6 +258,7 @@ void main()
 		{
 			if (spritesInPosition == false)
 			{
+				menuUI->SetX(-10000);
 				Crosshair->SetPosition((horizontal / 2) - 60, (vertical / 2) - 60);
 				ammoUI->SetPosition(10, vertical - 150);
 				spritesInPosition = true;
