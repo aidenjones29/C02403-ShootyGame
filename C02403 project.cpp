@@ -14,9 +14,8 @@
 #include <conio.h>
 #include <ctype.h>
 #include <time.h>
-//#include <SFML/Audio.hpp>
+#include <SFML/Audio.hpp>
 
-void Fire(IModel* &cameraDummy,float frametime);
 
 enum fireModes { Single, Burst, Auto };
 enum standingState { Standing, Crouching, Prone };
@@ -45,15 +44,19 @@ struct Weapon
 	fireModes fireMode;
 	int magCapacity;
 	int magAmount;
-	//sf::SoundBuffer shootingbuffer;
-	//sf::Sound shootingsound;
+	sf::SoundBuffer shootingbuffer;
+	sf::Sound shootingsound;
 };
+
+
+void Fire(IModel* &cameraDummy, float& frametime, float& shoottimer);
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter, standingState& currPlayerStandState, float& movementSpeed, float& currentMoveSpeed);
 
 void gunSwapAndDrop(I3DEngine* myEngine, float& interactionZspeed, float& currentInteractionDistance, IModel*& interactionDummy, bool& canCollide, Weapon* WeaponArray[], int whichGunEquipped, IModel*& cameraDummy, float& oldPlayerX, float& oldPlayerZ);
 
 void desktopResolution(int& horizontal, int& vertical);
+
 vector<sBullet*> vBullets;
 vector<sBullet*> vMagazine;
 vector<sTarget*> vTargets;	
@@ -144,10 +147,10 @@ void main()
 	WeaponArray[0]->magCapacity = 30;
 	WeaponArray[0]->magAmount = 30;
 	WeaponArray[0]->fireRate = 0.04f;
-	//WeaponArray[0]->shootingbuffer.loadFromFile("soundeffects\\gunshot.wav");
-	//WeaponArray[0]->shootingsound.setBuffer(WeaponArray[0]->shootingbuffer);
-	//WeaponArray[0]->shootingsound.setPitch(1.0);
-	//WeaponArray[0]->shootingsound.setVolume(20.0f);
+	WeaponArray[0]->shootingbuffer.loadFromFile("soundeffects\\gunshot.wav");
+	WeaponArray[0]->shootingsound.setBuffer(WeaponArray[0]->shootingbuffer);
+	WeaponArray[0]->shootingsound.setPitch(1.0);
+	WeaponArray[0]->shootingsound.setVolume(20.0f);
 
 	WeaponArray[1]->weaponMesh = myEngine->LoadMesh("ar18_rifle.x");
 	WeaponArray[1]->name = "AR-18";
@@ -276,10 +279,10 @@ void main()
 
 		movement(myEngine, cameraDummy, mouseMoveX, mouseMoveY, camYCounter, currPlayerStandState, movementSpeed, currentMoveSpeed);
 
-		if (!FenceCollision(cameraDummy))
-		{
-			cameraDummy->SetPosition(oldPlayerX, 15, oldPlayerZ);
-		}
+		//if (!FenceCollision(cameraDummy))
+		//{
+		//	cameraDummy->SetPosition(oldPlayerX, 15, oldPlayerZ);
+		//}
 
 		if (myEngine->KeyHit(Key_E))
 		{
@@ -363,14 +366,10 @@ void main()
 
 		if (whichGunEquipped != numGuns)
 		{
-			Fire(cameraDummy,frameTime);
+			Fire(cameraDummy,frameTime, shoottimer);
 		}
 
-			//if (shoottimer <= 0 && WeaponArray[whichGunEquipped]->magAmount > 0)
-			//{
-			//  WeaponArray[whichGunEquipped]->shootingsound.play();
-			//	shoottimer = WeaponArray[whichGunEquipped]->fireRate * 3;
-			//}
+
 
 		moveBullets(100, vMagazine, frameTime);
 		moveTargets(vTargets, frameTime);
@@ -505,13 +504,19 @@ void desktopResolution(int& horizontal, int& vertical)
 	vertical = desktop.bottom;				  //Holds the values for the screen resolution.
 }
 
-void Fire(IModel* &cameraDummy, float frameTime)
+void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer)
 {
 	switch (CurrentFireMode)
 	{
 	case Auto:
 		if (myEngine->KeyHeld(Mouse_LButton))
 		{
+			shoottimer -= frameTime;
+			if (shoottimer <= 0 && WeaponArray[whichGunEquipped]->magAmount > 0)
+			{
+				WeaponArray[whichGunEquipped]->shootingsound.play();
+				shoottimer = WeaponArray[whichGunEquipped]->fireRate * 3;
+			}
 
 			for (int i = 0; i < WeaponArray[whichGunEquipped]->magCapacity; i++)
 			{
@@ -550,6 +555,7 @@ void Fire(IModel* &cameraDummy, float frameTime)
 				{
 					if (vMagazine[i]->status == Reloaded)
 					{
+						WeaponArray[whichGunEquipped]->shootingsound.play();
 						float matrix[4][4];
 						cameraDummy->GetMatrix(&matrix[0][0]);
 						vMagazine[i]->model->SetMatrix(&matrix[0][0]);
@@ -577,11 +583,13 @@ void Fire(IModel* &cameraDummy, float frameTime)
 	case Single:
 		if (myEngine->KeyHit(Mouse_LButton))
 		{
+			
 			for (int i = 0; i < WeaponArray[whichGunEquipped]->magCapacity; i++)
 			{
 
 				if (vMagazine[i]->status == Reloaded)
 				{
+					WeaponArray[whichGunEquipped]->shootingsound.play();
 					float matrix[4][4];
 					cameraDummy->GetMatrix(&matrix[0][0]);
 					vMagazine[i]->model->SetMatrix(&matrix[0][0]);
