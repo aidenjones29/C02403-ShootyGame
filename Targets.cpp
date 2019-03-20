@@ -10,7 +10,6 @@ void spawnTargets(vector<sTarget*> &vTargets)
 	{
 		sTarget* target = new Terrorist_target(redTargetWorldPositions[i][0],redTargetWorldPositions[i][1],redTargetWorldPositions[i][2], redTargetWorldPositions[i][3]);
 		vTargets.push_back(target);
-		
 	}
 
 }

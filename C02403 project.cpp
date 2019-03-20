@@ -142,7 +142,7 @@ void main()
 		{
 			if (spritesInPosition == false)
 			{
-				menuUI->SetX(-10000);
+			//	menuUI->SetX(-10000);
 				Crosshair->SetPosition((horizontal / 2) - 60, (vertical / 2) - 60);
 				ammoUI->SetPosition(10, vertical - 150);
 				spritesInPosition = true;
