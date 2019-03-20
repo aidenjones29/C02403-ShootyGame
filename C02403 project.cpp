@@ -19,6 +19,7 @@
 
 enum fireModes { Single, Burst, Auto };
 enum standingState { Standing, Crouching, Prone };
+enum menuState {MainMenu, PauseMenu, GameRunning};
 
 using namespace tle;
 using namespace std;
@@ -57,16 +58,15 @@ void gunSwapAndDrop(I3DEngine* myEngine, float& interactionZspeed, float& curren
 
 void desktopResolution(int& horizontal, int& vertical);
 
-vector<sBullet*> vBullets;
-vector<sBullet*> vMagazine;
-vector<sTarget*> vTargets;	
+vector <sBullet*> vBullets;
+vector <sBullet*> vMagazine;
+vector <sTarget*> vTargets;	
 vector <Weapon*> WeaponArray;
 
 
 int whichGunEquipped = numGuns;
 fireModes CurrentFireMode = Auto;
 I3DEngine* myEngine = New3DEngine(kTLX);
-
 
 void main()
 {
@@ -77,14 +77,10 @@ void main()
 	desktopResolution(horizontal, vertical);
 	myEngine->StartFullscreen(horizontal, vertical);
 	myEngine->StartMouseCapture();
-	
-
 
 	// Add default folder for meshes and other media
 	myEngine->AddMediaFolder(".\\Media");
 	ICamera* myCam = myEngine->CreateCamera(kManual, 0, 0, 0);
-
-
 
 	for (int i = 0; i < numGuns; i++)
 	{
@@ -92,14 +88,14 @@ void main()
 		WeaponArray.push_back(Gun);
 	}
 
-	ISprite* Crosshair = myEngine->CreateSprite("crosshair.png", (horizontal / 2) - 60 , (vertical / 2) - 60);
-	ISprite* ammoUI = myEngine->CreateSprite("ammoUIPNG.png", 10 , vertical - 150);
+	ISprite* Crosshair = myEngine->CreateSprite("crosshair.png", (horizontal / 2) - 6000 , (vertical / 2) - 60);
+	ISprite* ammoUI = myEngine->CreateSprite("ammoUIPNG.png", -1000 , vertical - 150);
 
-	ISprite* fireModeSemi = myEngine->CreateSprite("SemiAutoUI.png", 13, vertical - 105);
-	ISprite* fireModeBurstUI = myEngine->CreateSprite("burstFireUI.png", 29, vertical - 105);
-	ISprite* fireModeFullUI = myEngine->CreateSprite("FullAutoUI.png", 43, vertical - 105);
+	ISprite* fireModeSemi = myEngine->CreateSprite("SemiAutoUI.png", -20, vertical - 105);
+	ISprite* fireModeBurstUI = myEngine->CreateSprite("burstFireUI.png", -29, vertical - 105);
+	ISprite* fireModeFullUI = myEngine->CreateSprite("FullAutoUI.png", -43, vertical - 105);
 
-	IFont* MainFont = myEngine->LoadFont("D Day Stencil", 60);
+	IFont* MainFont = myEngine->LoadFont("Stencil STD", 60);
 
 	IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 	IMesh* bulletMesh = myEngine->LoadMesh("Bullet.x");
@@ -146,7 +142,7 @@ void main()
 	//WeaponArray[2]->shootingsound.setVolume(20.0f);
 
 	WeaponArray[3]->weaponMesh = myEngine->LoadMesh("TommyGun.x");
-	WeaponArray[3]->name = "Thompson";
+	WeaponArray[3]->name = "Tommy";
 	WeaponArray[3]->magCapacity = 20;
 	WeaponArray[3]->magAmount = 20;
 	WeaponArray[3]->fireRate = 0.07f;
@@ -220,6 +216,9 @@ void main()
 
 	stringstream ammoText;
 
+	menuState currentGameState = MainMenu;
+	bool spritesInPosition = false;
+
 	/**** Set up your scene here ****/
 	CreateFences(myEngine, fence); CreateScene(myEngine); CreateWalls(myEngine);
 
@@ -228,28 +227,13 @@ void main()
 	{
 		WeaponTime = WeaponTime + frameTime;
 		frameTime = myEngine->Timer();
-		// Draw the scene
 		myEngine->DrawScene();
-
-		if (CurrentFireMode == Auto)
-		{
-			fireModeBurstUI->SetPosition(29, vertical - 105);
-			fireModeFullUI->SetPosition(43, vertical - 105);
-		}
-		else if (CurrentFireMode == Burst)
-		{
-			fireModeFullUI->SetPosition(-28, vertical - 105);
-		}
-		else
-		{
-			fireModeFullUI->SetPosition(-28, vertical - 105);
-			fireModeBurstUI->SetPosition(-28, vertical - 105);
-		}
 
 		if (whichGunEquipped < numGuns)
 		{
 			ammoText << WeaponArray[whichGunEquipped]->magAmount << " / " << WeaponArray[whichGunEquipped]->magCapacity;
-			MainFont->Draw(ammoText.str(), 100, vertical - 90, kWhite);
+			MainFont->Draw(ammoText.str(), 180, vertical - 75, kWhite, kCentre);
+			MainFont->Draw(WeaponArray[whichGunEquipped]->name, 180, vertical - 115, kWhite, kCentre);
 			ammoText.str("");
 		}
 
@@ -259,111 +243,145 @@ void main()
 		movementSpeed = currentMoveSpeed * frameTime;
 
 		/**** Update your scene each frame here ****/
-		mouseMoveX = myEngine->GetMouseMovementX();
-		mouseMoveY = myEngine->GetMouseMovementY();
-
-		if (camYCounter < upperCamYMax && mouseMoveY < 0) { mouseMoveY = 0; }
-		if (camYCounter > lowerCamYMax && mouseMoveY > 0) { mouseMoveY = 0; }
-
-		camYCounter += mouseMoveY * 0.1f;
-
-		movement(myEngine, cameraDummy, mouseMoveX, mouseMoveY, camYCounter, currPlayerStandState, movementSpeed, currentMoveSpeed);
-
-		//if (!FenceCollision(cameraDummy))
-		//{
-		//	cameraDummy->SetPosition(oldPlayerX, 15, oldPlayerZ);
-		//}
-
-		if (myEngine->KeyHit(Key_E))
+		if (currentGameState == MainMenu)
 		{
-			interactionZspeed = 0.0f;
-			currentInteractionDistance = 0.0f;
-			interactionDummy->SetLocalPosition(0, 0, 0);
-			interactionZspeed = 0.01f;
-			canCollide = true;
-		}
-
-		for (int i = 0; i < numGuns; i++)
-		{
-			if (canCollide == true && gunInteraction(interactionDummy, WeaponArray[i]->weaponModel) && whichGunEquipped == numGuns)
+			if (myEngine->KeyHit(Key_R))
 			{
-				whichGunEquipped = i;
-				WeaponArray[i]->weaponModel->ResetOrientation();
-				WeaponArray[i]->weaponModel->AttachToParent(cameraDummy);
-				WeaponArray[i]->weaponModel->SetLocalPosition(2.0f, -2.0f, 7.0f);
-				WeaponArray[i]->weaponModel->RotateY(-0.2f);
-				reloadMagazine(WeaponArray[whichGunEquipped]->magCapacity, vMagazine);
-				WeaponArray[whichGunEquipped]->magAmount = WeaponArray[whichGunEquipped]->magCapacity;
+				currentGameState = GameRunning;
 			}
 		}
-
-		if (currentInteractionDistance >= 2.0f)
+		else if (currentGameState == GameRunning)
 		{
-			canCollide = false;
-			interactionZspeed = 0.0f;
-			currentInteractionDistance = 0.0f;
-			interactionDummy->SetLocalPosition(0, 0, 0);
-		}
+			if (spritesInPosition == false)
+			{
+				Crosshair->SetPosition((horizontal / 2) - 60, (vertical / 2) - 60);
+				ammoUI->SetPosition(10, vertical - 150);
+				spritesInPosition = true;
+			}
 
-		if (myEngine->KeyHit(Key_Q) && whichGunEquipped < numGuns)
-		{
-			WeaponArray[whichGunEquipped]->weaponModel->DetachFromParent();
-			WeaponArray[whichGunEquipped]->weaponModel->SetPosition(oldPlayerX, 0.2, oldPlayerZ);
-			WeaponArray[whichGunEquipped]->weaponModel->RotateLocalZ(90.0f);
-			WeaponArray[whichGunEquipped]->weaponModel->RotateY(rand());
-			whichGunEquipped = numGuns;
-		}
-
-		interactionDummy->MoveLocalZ(interactionZspeed);
-		currentInteractionDistance += interactionZspeed;
-
-		
-		if (myEngine->KeyHit(Key_X) )
-		{
 			if (CurrentFireMode == Auto)
 			{
-			CurrentFireMode = Burst;
+				fireModeBurstUI->SetPosition(29, vertical - 105);
+				fireModeFullUI->SetPosition(43, vertical - 105);
+				fireModeSemi->SetPosition(13, vertical - 105);
 			}
 			else if (CurrentFireMode == Burst)
 			{
-				CurrentFireMode = Single;
+				fireModeFullUI->SetPosition(-28, vertical - 105);
+				fireModeSemi->SetPosition(13, vertical - 105);
 			}
-			else if (CurrentFireMode == Single)
+			else
 			{
-				CurrentFireMode = Auto;
+				fireModeSemi->SetPosition(13, vertical - 105);
+				fireModeFullUI->SetPosition(-28, vertical - 105);
+				fireModeBurstUI->SetPosition(-28, vertical - 105);
 			}
-		}
 
-		if (myEngine->KeyHeld(Key_R))
-		{
-			reloadTimer += frameTime;
-			if (reloadTimer > 1.2f)
+			mouseMoveX = myEngine->GetMouseMovementX();
+			mouseMoveY = myEngine->GetMouseMovementY();
+
+			if (camYCounter < upperCamYMax && mouseMoveY < 0) { mouseMoveY = 0; }
+			if (camYCounter > lowerCamYMax && mouseMoveY > 0) { mouseMoveY = 0; }
+
+			camYCounter += mouseMoveY * 0.1f;
+
+			movement(myEngine, cameraDummy, mouseMoveX, mouseMoveY, camYCounter, currPlayerStandState, movementSpeed, currentMoveSpeed);
+
+			if (!FenceCollision(cameraDummy))
 			{
-				reloadMagazine(WeaponArray[whichGunEquipped]->magCapacity, vMagazine);
-				WeaponArray[whichGunEquipped]->magAmount = WeaponArray[whichGunEquipped]->magCapacity;
-				reloadTimer = 0;
+				cameraDummy->SetPosition(oldPlayerX, 15, oldPlayerZ);
 			}
-		}
 
-		if (myEngine->KeyHit(Key_N))
-		{
-			for (auto& i : vTargets)
+			if (myEngine->KeyHit(Key_E))
 			{
-				i->model->SetY(12);
-				i->state = Ready;
+				interactionZspeed = 0.0f;
+				currentInteractionDistance = 0.0f;
+				interactionDummy->SetLocalPosition(0, 0, 0);
+				interactionZspeed = 0.01f;
+				canCollide = true;
 			}
+
+			for (int i = 0; i < numGuns; i++)
+			{
+				if (canCollide == true && gunInteraction(interactionDummy, WeaponArray[i]->weaponModel) && whichGunEquipped == numGuns)
+				{
+					whichGunEquipped = i;
+					WeaponArray[i]->weaponModel->ResetOrientation();
+					WeaponArray[i]->weaponModel->AttachToParent(cameraDummy);
+					WeaponArray[i]->weaponModel->SetLocalPosition(2.0f, -2.0f, 7.0f);
+					WeaponArray[i]->weaponModel->RotateY(-0.2f);
+					reloadMagazine(WeaponArray[whichGunEquipped]->magCapacity, vMagazine);
+					WeaponArray[whichGunEquipped]->magAmount = WeaponArray[whichGunEquipped]->magCapacity;
+				}
+			}
+
+			if (currentInteractionDistance >= 2.0f)
+			{
+				canCollide = false;
+				interactionZspeed = 0.0f;
+				currentInteractionDistance = 0.0f;
+				interactionDummy->SetLocalPosition(0, 0, 0);
+			}
+
+			if (myEngine->KeyHit(Key_Q) && whichGunEquipped < numGuns)
+			{
+				WeaponArray[whichGunEquipped]->weaponModel->DetachFromParent();
+				WeaponArray[whichGunEquipped]->weaponModel->SetPosition(oldPlayerX, 0.2, oldPlayerZ);
+				WeaponArray[whichGunEquipped]->weaponModel->RotateLocalZ(90.0f);
+				WeaponArray[whichGunEquipped]->weaponModel->RotateY(rand());
+				whichGunEquipped = numGuns;
+			}
+
+			interactionDummy->MoveLocalZ(interactionZspeed);
+			currentInteractionDistance += interactionZspeed;
+
+
+			if (myEngine->KeyHit(Key_X))
+			{
+				if (CurrentFireMode == Auto)
+				{
+					CurrentFireMode = Burst;
+				}
+				else if (CurrentFireMode == Burst)
+				{
+					CurrentFireMode = Single;
+				}
+				else if (CurrentFireMode == Single)
+				{
+					CurrentFireMode = Auto;
+				}
+			}
+
+			if (myEngine->KeyHeld(Key_R))
+			{
+				reloadTimer += frameTime;
+				if (reloadTimer > 1.2f)
+				{
+					reloadMagazine(WeaponArray[whichGunEquipped]->magCapacity, vMagazine);
+					WeaponArray[whichGunEquipped]->magAmount = WeaponArray[whichGunEquipped]->magCapacity;
+					reloadTimer = 0;
+				}
+			}
+
+			if (myEngine->KeyHit(Key_N))
+			{
+				for (auto& i : vTargets)
+				{
+					i->model->SetY(12);
+					i->state = Ready;
+				}
+			}
+
+			if (whichGunEquipped != numGuns)
+			{
+				Fire(cameraDummy, frameTime, shoottimer);
+			}
+
+			moveBullets(100, vMagazine, frameTime);
+			moveTargets(vTargets, frameTime);
+			bulletToTarget(vTargets, vMagazine);
 		}
-
-		if (whichGunEquipped != numGuns)
-		{
-			Fire(cameraDummy,frameTime, shoottimer);
-		}
-
-
-
-		moveBullets(100, vMagazine, frameTime);
-		moveTargets(vTargets, frameTime);
-		bulletToTarget(vTargets, vMagazine);
+		
 		//END
 	}
 
