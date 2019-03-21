@@ -20,45 +20,37 @@
 #include <SFML/Audio.hpp>
 
 using namespace tle;
-using namespace std;
 
-//enum fireModes { Single, Burst, Auto };
+enum menuSelection { Play, Options, Controls, Quit};
 enum standingState { Standing, Crouching, Prone };
-enum menuState {MainMenu, PauseMenu, GameRunning};
+enum menuState {MainMenu, PauseMenu, GameRunning, };
 I3DEngine* myEngine = New3DEngine(kTLX);
-
 
 const float upperCamYMax = -50.0f;
 const float lowerCamYMax = 50.0f;
 
-const int numGuns = 6;
+//const int numGuns = 6;
 
 float Time = 0;
 float countDownTime = 1.0f;
-
 float WeaponTime = 0;
-bool canShoot = true;
-
 int bulletsFired = 0;
-
+bool canShoot = true;
 
 void Fire(IModel* &cameraDummy, float& frametime, float& shoottimer);
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter, standingState& currPlayerStandState, float& movementSpeed, float& currentMoveSpeed);
-//void gunSwapAndDrop(I3DEngine* myEngine, float& interactionZspeed, float& currentInteractionDistance, IModel*& interactionDummy, bool& canCollide, Weapon* WeaponArray[], int whichGunEquipped, IModel*& cameraDummy, float& oldPlayerX, float& oldPlayerZ);
+
 void desktopResolution(int& horizontal, int& vertical);
 
 vector <sBullet*> vBullets;
 vector <sBullet*> vMagazine;
 vector <sTarget*> vTargets;
 deque <unique_ptr<sWeapon>> vGuns;
-sWeapon* currentGun =nullptr;
+sWeapon* currentGun = nullptr;
 
-
-
-int whichGunEquipped = numGuns;
+//int whichGunEquipped = numGuns;
 fireModes CurrentFireMode = Auto;
-
 
 void main()
 {
@@ -70,16 +62,14 @@ void main()
 	myEngine->StartFullscreen(horizontal, vertical);
 	myEngine->StartMouseCapture();
 
-
 	// Add default folder for meshes and other media
 	myEngine->AddMediaFolder(".\\Media");
 	ICamera* myCam = myEngine->CreateCamera(kManual, 0, 0, 0);
-
 	{
-
 		ISprite* Crosshair = myEngine->CreateSprite("crosshair.png", (horizontal / 2) - 6000, (vertical / 2) - 60);
 		ISprite* ammoUI = myEngine->CreateSprite("ammoUIPNG.png", -1000, vertical - 150);
-
+		ISprite* menuUI = myEngine->CreateSprite("mainMenuUI.jpg", 0, 0, 0.1);
+		ISprite* menuSelectionUI = myEngine->CreateSprite("menuSelectionUISprite.png", 90, 425);
 		ISprite* fireModeSemi = myEngine->CreateSprite("SemiAutoUI.png", -20, vertical - 105);
 		ISprite* fireModeBurstUI = myEngine->CreateSprite("burstFireUI.png", -29, vertical - 105);
 		ISprite* fireModeFullUI = myEngine->CreateSprite("FullAutoUI.png", -43, vertical - 105);
@@ -89,11 +79,12 @@ void main()
 		IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 		IMesh* bulletMesh = myEngine->LoadMesh("Bullet.x");
 
-
 		IModel* fence[80];
 		IModel* cameraDummy = dummyMesh->CreateModel(5, 15, 80);
 		IModel* interactionDummy = dummyMesh->CreateModel(0, 0, 0);
 		IModel* gunFireTest = dummyMesh->CreateModel(0, 0, 0);
+
+		menuSelection currentMenuSelection = Play;
 
 		gunFireTest->AttachToParent(cameraDummy);
 
@@ -140,36 +131,14 @@ void main()
 		// The main game loop, repeat until engine is stopped
 		while (myEngine->IsRunning())
 		{
-			if (spritesInPosition == false)
-			{
-			//	menuUI->SetX(-10000);
-				Crosshair->SetPosition((horizontal / 2) - 60, (vertical / 2) - 60);
-				ammoUI->SetPosition(10, vertical - 150);
-				spritesInPosition = true;
-			}
 			WeaponTime = WeaponTime + frameTime;
 			frameTime = myEngine->Timer();
 			myEngine->DrawScene();
 
-			if (CurrentFireMode == Auto)
-			{
-				fireModeBurstUI->SetPosition(29, vertical - 105);
-				fireModeFullUI->SetPosition(43, vertical - 105);
-			}
-			else if (CurrentFireMode == Burst)
-			{
-				fireModeFullUI->SetPosition(-28, vertical - 105);
-			}
-			else
-			{
-				fireModeFullUI->SetPosition(-28, vertical - 105);
-				fireModeBurstUI->SetPosition(-28, vertical - 105);
-			}
-
 			if (currentGun != nullptr)
 			{
 				ammoText << currentGun->magAmount << " / " << currentGun->magCapacity;
-				MainFont->Draw(ammoText.str(), 100, vertical - 90, kWhite, kCentre);
+				MainFont->Draw(ammoText.str(), 180, vertical - 74, kWhite, kCentre);
 				MainFont->Draw(currentGun->name, 180, vertical - 115, kWhite, kCentre);
 				ammoText.str("");
 			}
@@ -182,15 +151,91 @@ void main()
 			/**** Update your scene each frame here ****/
 			if (currentGameState == MainMenu)
 			{
-				if (myEngine->KeyHit(Key_R))
+				if (currentMenuSelection == Play)
 				{
-					currentGameState = GameRunning;
+					menuSelectionUI->SetPosition(90, 425);
 				}
+				else if (currentMenuSelection == Options)
+				{
+					menuSelectionUI->SetPosition(90, 555);
+				}
+				else if (currentMenuSelection == Controls)
+				{
+					menuSelectionUI->SetPosition(90, 680);
+				}
+				else if (currentMenuSelection == Quit)
+				{
+					menuSelectionUI->SetPosition(90, 810);
+				}
+
+				if (myEngine->KeyHit(Key_Up))
+				{
+					if (currentMenuSelection == Play)
+					{
+						currentMenuSelection = Quit;
+					}
+					else if (currentMenuSelection == Options)
+					{
+						currentMenuSelection = Play;
+					}
+					else if (currentMenuSelection == Controls)
+					{
+						currentMenuSelection = Options;
+					}
+					else if(currentMenuSelection == Quit)
+					{
+						currentMenuSelection = Controls;
+					}
+				}
+
+				if (myEngine->KeyHit(Key_Down))
+				{
+					if (currentMenuSelection == Play)
+					{
+						currentMenuSelection = Options;
+					}
+					else if (currentMenuSelection == Options)
+					{
+						currentMenuSelection = Controls;
+					}
+					else if (currentMenuSelection == Controls)
+					{
+						currentMenuSelection = Quit;
+					}
+					else if (currentMenuSelection == Quit)
+					{
+						currentMenuSelection = Play;
+					}
+				}
+
+				if (myEngine->KeyHit(Key_Return))
+				{
+					if (currentMenuSelection == Play)
+					{
+						currentGameState = GameRunning;
+					}
+					else if (currentMenuSelection == Options)
+					{
+						currentGameState = GameRunning;
+					}
+					else if (currentMenuSelection == Controls)
+					{
+						currentGameState = GameRunning;
+					}
+					else if (currentMenuSelection == Quit)
+					{
+						myEngine->Stop();
+					}
+				}
+
+				//**************************************************** end of main menu ********************************************************//
 			}
 			else if (currentGameState == GameRunning)
 			{
 				if (spritesInPosition == false)
 				{
+					menuUI->SetX(-10000);
+					menuSelectionUI->SetX(-10000);
 					Crosshair->SetPosition((horizontal / 2) - 60, (vertical / 2) - 60);
 					ammoUI->SetPosition(10, vertical - 150);
 					spritesInPosition = true;
@@ -273,7 +318,6 @@ void main()
 				interactionDummy->MoveLocalZ(interactionZspeed);
 				currentInteractionDistance += interactionZspeed;
 
-
 				if (myEngine->KeyHit(Key_X))
 				{
 					if (CurrentFireMode == Auto)
@@ -315,21 +359,18 @@ void main()
 					Fire(cameraDummy, frameTime, shoottimer);
 				}
 
-				//if (shoottimer <= 0 &&currentGun->magAmount > 0)
-				//{
-				// currentGun->shootingsound.play();
-				//	shoottimer =currentGun->fireRate * 3;
-				//}
-
 				moveBullets(100, vMagazine, frameTime);
 				moveTargets(vTargets, frameTime);
 				bulletToTarget(vTargets, vMagazine);
 				//END
 			}
-		}
-	myEngine->Delete();	// Delete the 3D engine now we are finished with it
-		
 
+			if (myEngine->KeyHeld(Key_Escape))
+			{
+				myEngine->Stop();
+			}
+		}
+		myEngine->Delete();	// Delete the 3D engine now we are finished with it
 	}
 }
 
@@ -367,11 +408,6 @@ void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamX, float &
 		camDummy->MoveLocalX(movementSpeed);
 	}
 
-	if (myEngine->KeyHeld(Key_Escape))
-	{
-		myEngine->Stop();
-	}
-
 	if (myEngine->KeyHit(Key_C))
 	{
 		if (currPlayerStandState == Standing)
@@ -405,47 +441,6 @@ void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamX, float &
 	}
 }
 
-//void gunSwapAndDrop(I3DEngine* myEngine, float& interactionZspeed, float& currentInteractionDistance, IModel*& interactionDummy, bool& canCollide, Weapon* WeaponArray[], int whichGunEquipped, IModel*& cameraDummy, float& oldPlayerX, float& oldPlayerZ)
-//{
-//	if (myEngine->KeyHit(Key_E))
-//	{
-//		interactionZspeed = 0.0f;
-//		currentInteractionDistance = 0.0f;
-//		interactionDummy->SetLocalPosition(0, 0, 0);
-//		interactionZspeed = 0.01f;
-//		canCollide = true;
-//	}
-//
-//	for (int i = 0; i < numGuns; i++)
-//	{
-//		if (canCollide == true && gunInteraction(interactionDummy, WeaponArray[i]->weaponModel) && whichGunEquipped == numGuns)
-//		{
-//			whichGunEquipped = i;
-//			WeaponArray[i]->weaponModel->ResetOrientation();
-//			WeaponArray[i]->weaponModel->AttachToParent(cameraDummy);
-//			WeaponArray[i]->weaponModel->SetLocalPosition(2.0f, -2.0f, 7.0f);
-//			WeaponArray[i]->weaponModel->RotateY(-0.2f);
-//		}
-//	}
-//
-//	if (currentInteractionDistance >= 2.0f)
-//	{
-//		canCollide = false;
-//		interactionZspeed = 0.0f;
-//		currentInteractionDistance = 0.0f;
-//		interactionDummy->SetLocalPosition(0, 0, 0);
-//	}
-//
-//	if (myEngine->KeyHit(Key_R) && whichGunEquipped < numGuns)
-//	{
-//		WeaponArray[whichGunEquipped]->weaponModel->DetachFromParent();
-//		WeaponArray[whichGunEquipped]->weaponModel->SetPosition(oldPlayerX, 0.2, oldPlayerZ);
-//		WeaponArray[whichGunEquipped]->weaponModel->RotateLocalZ(90.0f);
-//		whichGunEquipped = numGuns;
-//	}
-//}
-
-
 void desktopResolution(int& horizontal, int& vertical)
 {
 	RECT desktop;						      //Gets a handle to the current window
@@ -464,11 +459,11 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer)
 		if (myEngine->KeyHeld(Mouse_LButton))
 		{
 			shoottimer -= frameTime;
-			/*if (shoottimer <= 0 && currentGun->magAmount > 0)
+			if (shoottimer <= 0 && currentGun->magAmount > 0)
 			{
 				currentGun->shootingSound.play();
 				shoottimer = currentGun->fireRate * 3;
-			}*/
+			}
 
 			for (int i = 0; i <currentGun->magCapacity; i++)
 			{

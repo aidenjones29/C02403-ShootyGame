@@ -16,6 +16,7 @@ struct sWeapon
 	sf::SoundBuffer shootingBuffer;
 	sf::Sound shootingSound;
 };
+
 struct M4 :public sWeapon 
 {	
 	M4 (int spawnX, int SpawnY, int SpawnZ)
@@ -34,6 +35,7 @@ struct M4 :public sWeapon
 		shootingSound.setVolume(20);
 	}
 };
+
 struct AK :public sWeapon
 {
 	AK(int spawnX,int SpawnY,int SpawnZ) 
@@ -49,6 +51,7 @@ struct AK :public sWeapon
 		fireRate = 0.04f;
 	}
 };
+
 struct AR_18 :public sWeapon
 {
 
@@ -65,11 +68,11 @@ struct AR_18 :public sWeapon
 		fireRate = 0.2f;
 	}
 };
+
 struct MINI_UZI :public sWeapon
 {
 	MINI_UZI (int spawnX, int SpawnY, int SpawnZ)
 	{
-
 		name = "Uzi";
 		weaponMesh = myEngine->LoadMesh("Mini_Uzi.x");
 		weaponModel = weaponMesh->CreateModel(spawnX, SpawnY, SpawnZ);
@@ -81,6 +84,7 @@ struct MINI_UZI :public sWeapon
 		fireRate = 0.03f;
 	}
 };
+
 struct TOMMY_GUN :public sWeapon
 {
 	TOMMY_GUN (int spawnX, int SpawnY, int SpawnZ)
@@ -96,6 +100,7 @@ struct TOMMY_GUN :public sWeapon
 		fireRate = 0.07f;
 	}
 };
+
 struct MP5 :public sWeapon
 {
 	MP5 (int spawnX, int SpawnY, int SpawnZ)
@@ -111,11 +116,12 @@ struct MP5 :public sWeapon
 		fireRate = 0.07f;
 	}
 };
+
 struct  Glock:public sWeapon
 {
 	Glock(int spawnX, int SpawnY, int SpawnZ)
 	{
-		name = "Cock";
+		name = "Glock";
 		weaponMesh = myEngine->LoadMesh("glock.x");
 		weaponModel = weaponMesh->CreateModel(spawnX, SpawnY, SpawnZ);
 		weaponModel->Scale(13);
@@ -126,21 +132,5 @@ struct  Glock:public sWeapon
 		fireRate = 0.3f;
 	}
 };
+
 void spawnGuns(deque <unique_ptr<sWeapon>> &vGuns);
-
-
-//struct / :public sWeapon
-//{
-//	/(int spawnX, int SpawnY, int SpawnZ)
-//	{
-//		name = "/";
-//	weaponMesh = myEngine->LoadMesh("/.x");
-//	weaponModel = weaponMesh->CreateModel(spawnX, SpawnY, SpawnZ);
-//	weaponModel->Scale(13);
-//	weaponModel->RotateLocalZ(90);
-//	weaponModel->RotateLocalX(180);
-//	magCapacity = /;
-//	magAmount = /;
-//	fireRate = /;
-//	}
-//};
