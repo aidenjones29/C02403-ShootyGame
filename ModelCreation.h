@@ -1,4 +1,6 @@
+#pragma once
 #include <TL-Engine.h>
+
 using namespace tle;
 
 void CreateScene(I3DEngine* myEngine);

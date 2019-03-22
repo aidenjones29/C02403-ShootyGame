@@ -1,4 +1,6 @@
+#pragma once
 #include "Collisions.h"
+
 
 bool FenceCollision(IModel* cameraDummy)
 {
@@ -30,3 +32,34 @@ bool gunInteraction(IModel* gunInteractionDummy, IModel* Gun)
 
 	return false;
 }
+
+void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMagazine)
+{
+	float sRad = 0.02f;
+	float bWidth = 10.0f;
+	float bDepth = 5.0f;
+	float height = 16.0f;
+
+	for (auto& i : vTargets)
+	{
+		for (auto& x : vMagazine)
+		{
+
+			float minX = i->model->GetX() - bWidth / 2 - sRad; //Min x pos before a collision has happened
+			float maxX = i->model->GetX() + bWidth / 2 + sRad; //Max x pos before a collision has happened
+			float minZ = i->model->GetZ() - bDepth / 2 - sRad; //Min z pos before a collision has happened
+			float maxZ = i->model->GetZ() + bDepth / 2 + sRad; //Max z pos before a collision has happened
+			float minY = i->model->GetY() - height / 2 - sRad;
+			float maxY = i->model->GetY() + height / 2 + sRad;
+
+			if (x->model->GetX() > minX && x->model->GetX() < maxX && x->model->GetZ() > minZ && x->model->GetZ() < maxZ && x->model->GetY() > minY && x->model->GetY() < maxY)
+			{
+				i->state = Hit;
+				x->status = Spent;
+				x->model->SetY(0.2f);
+			}
+
+		}
+	}
+}
+
