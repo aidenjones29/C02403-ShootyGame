@@ -3,7 +3,10 @@
 #include <vector>
 #include <SFML/Audio.hpp>
 using namespace tle;
+using namespace std;
+
 enum fireModes { Single, Burst, Auto };
+
 struct sWeapon
 {
 	string name;

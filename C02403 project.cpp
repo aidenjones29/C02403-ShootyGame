@@ -20,11 +20,13 @@
 #include <SFML/Audio.hpp>
 
 using namespace tle;
+using namespace std;
 
 enum menuSelection { Play, Options, Controls, Quit};
 enum standingState { Standing, Crouching, Prone };
 enum menuState {MainMenu, PauseMenu, GameRunning, };
 enum gunState {NoGun, HoldingGun};
+
 I3DEngine* myEngine = New3DEngine(kTLX);
 
 const float upperCamYMax = -50.0f;

@@ -1,7 +1,7 @@
 #pragma once 
 #include "Weapons.h"
 
-void spawnGuns(deque <unique_ptr<sWeapon>> &vGuns)
+void spawnGuns(deque<unique_ptr<sWeapon>>& vGuns)
 {
 	unique_ptr <sWeapon> gun (new M4(-3, 8, 43));
 	vGuns.push_back(move(gun));
