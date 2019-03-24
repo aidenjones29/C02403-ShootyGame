@@ -24,6 +24,12 @@
     <ClCompile Include="Bullets.cpp">
       <Filter>CPPFiles</Filter>
     </ClCompile>
+    <ClCompile Include="Targets.cpp">
+      <Filter>CPPFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapons.cpp">
+      <Filter>CPPFiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModelCreation.h">
@@ -36,6 +42,15 @@
       <Filter>HeaderFiles</Filter>
     </ClInclude>
     <ClInclude Include="Math.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Targets.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapons.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
   </ItemGroup>
