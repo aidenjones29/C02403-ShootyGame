@@ -24,7 +24,7 @@ using namespace std;
 
 enum menuSelection { Play, Options, Controls, Quit};
 enum standingState { Standing, Crouching, Prone };
-enum menuState {MainMenu, PauseMenu, GameRunning, };
+enum menuState {MainMenu, PauseMenu, GameRunning, ControlsMenu};
 enum gunState {NoGun, HoldingGun};
 
 I3DEngine* myEngine = New3DEngine(kTLX);
@@ -40,7 +40,7 @@ float WeaponTime = 0;
 int bulletsFired = 0;
 bool canShoot = true;
 
-void Fire(IModel* &cameraDummy, float& frametime, float& shoottimer);
+void Fire(IModel* &cameraDummy, float& frametime, float& shoottimer, float& camYCounter);
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter, standingState& currPlayerStandState, float& movementSpeed, float& currentMoveSpeed);
 
@@ -154,42 +154,30 @@ void main()
 			movementSpeed = currentMoveSpeed * frameTime;
 
 			/**** Update your scene each frame here ****/
+			//**************************************************** Game Start ********************************************************//
 			if (currentGameState == MainMenu)
 			{
-				if (currentMenuSelection == Play)
-				{
-					menuSelectionUI->SetPosition(90, 425);
-				}
-				else if (currentMenuSelection == Options)
-				{
-					menuSelectionUI->SetPosition(90, 555);
-				}
-				else if (currentMenuSelection == Controls)
-				{
-					menuSelectionUI->SetPosition(90, 680);
-				}
-				else if (currentMenuSelection == Quit)
-				{
-					menuSelectionUI->SetPosition(90, 810);
-				}
-
 				if (myEngine->KeyHit(Key_Up))
 				{
 					if (currentMenuSelection == Play)
 					{
 						currentMenuSelection = Quit;
+						menuSelectionUI->SetPosition(90, 810);
 					}
 					else if (currentMenuSelection == Options)
 					{
 						currentMenuSelection = Play;
+						menuSelectionUI->SetPosition(90, 425);
 					}
 					else if (currentMenuSelection == Controls)
 					{
 						currentMenuSelection = Options;
+						menuSelectionUI->SetPosition(90, 555);
 					}
 					else if(currentMenuSelection == Quit)
 					{
 						currentMenuSelection = Controls;
+						menuSelectionUI->SetPosition(90, 680);
 					}
 				}
 
@@ -198,18 +186,22 @@ void main()
 					if (currentMenuSelection == Play)
 					{
 						currentMenuSelection = Options;
+						menuSelectionUI->SetPosition(90, 555);
 					}
 					else if (currentMenuSelection == Options)
 					{
 						currentMenuSelection = Controls;
+						menuSelectionUI->SetPosition(90, 680);
 					}
 					else if (currentMenuSelection == Controls)
 					{
 						currentMenuSelection = Quit;
+						menuSelectionUI->SetPosition(90, 810);
 					}
 					else if (currentMenuSelection == Quit)
 					{
 						currentMenuSelection = Play;
+						menuSelectionUI->SetPosition(90, 425);
 					}
 				}
 
@@ -232,9 +224,19 @@ void main()
 						myEngine->Stop();
 					}
 				}
-
-				//**************************************************** end of main menu ********************************************************//
 			}
+			//**************************************************** Controls Menu ********************************************************//
+			else if (currentGameState == ControlsMenu)
+			{
+				menuUI->SetX(-10000);
+				menuSelectionUI->SetX(-10000);
+
+				if (myEngine->KeyHit(Key_Return))
+				{
+					currentGameState = MainMenu;
+				}
+			}
+			//**************************************************** Main game ********************************************************//
 			else if (currentGameState == GameRunning)
 			{
 				if (spritesInPosition == false)
@@ -361,7 +363,7 @@ void main()
 				}
 				if (currentGun != nullptr)
 				{
-					Fire(cameraDummy, frameTime, shoottimer);
+					Fire(cameraDummy, frameTime, shoottimer, camYCounter);
 				}
 
 				moveBullets(100, vMagazine, frameTime);
@@ -456,7 +458,7 @@ void desktopResolution(int& horizontal, int& vertical)
 	vertical = desktop.bottom;				  //Holds the values for the screen resolution.
 }
 
-void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer)
+void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camYCounter)
 {
 	switch (CurrentFireMode)
 	{
@@ -467,7 +469,7 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer)
 			if (shoottimer <= 0 && currentGun->magAmount > 0)
 			{
 				currentGun->shootingSound.play();
-				shoottimer = currentGun->fireRate * 3;
+				shoottimer = currentGun->fireRate * 2;
 			}
 
 			for (int i = 0; i <currentGun->magCapacity; i++)
@@ -486,6 +488,11 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer)
 						currentGun->magAmount--;
 						WeaponTime = 0.0f;
 
+						if (camYCounter > upperCamYMax)
+						{
+							cameraDummy->RotateLocalX(-150 * frameTime);
+							camYCounter += -150 * frameTime;
+						}
 					}
 				}
 

@@ -15,6 +15,6 @@ void spawnGuns(deque<unique_ptr<sWeapon>>& vGuns)
 	vGuns.push_back(move(gun));
 	gun.reset(new MP5(75, 8, 43));
 	vGuns.push_back(move(gun));
-	gun.reset(new Glock(75, 8, 43));
+	gun.reset(new Glock(83, 8, 43));
 	vGuns.push_back(move(gun));
 }

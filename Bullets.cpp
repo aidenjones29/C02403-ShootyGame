@@ -19,8 +19,6 @@ void refillNewWeapon(int magSize,vector<sBullet*> &vMagazine,vector<sBullet*> &v
 	{
 		vMagazine[i] = move(vBullets[i]);
 	}
-	
-	
 }
 void moveBullets(int magSize,vector<sBullet*> &vMagazine,float frameTime) 
 {
@@ -55,4 +53,3 @@ void reloadMagazine(int magSize, vector<sBullet*> &vMagazine)
 		
 	}
 }
-//void fireBullets()
