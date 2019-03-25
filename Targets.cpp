@@ -1,7 +1,10 @@
 #pragma once
 #include "Targets.h"
+
 float redTargetWorldPositions[numRedTargets][4] = { {0,12,-3,180}, {35,12,-3,180}, {70,12,-3,180} };
+
 float greenTargetWorldPositions[numRedTargets][4];
+
 void spawnTargets(vector<sTarget*> &vTargets) 
 {
 	for (int i = 0; i < numRedTargets; i++)
@@ -9,8 +12,8 @@ void spawnTargets(vector<sTarget*> &vTargets)
 		sTarget* target = new Terrorist_target(redTargetWorldPositions[i][0],redTargetWorldPositions[i][1],redTargetWorldPositions[i][2], redTargetWorldPositions[i][3]);
 		vTargets.push_back(target);
 	}
-
 }
+
 void moveTargets(vector<sTarget*> &vTargets, float frameTime)
 {
 	for (auto& vTargets : vTargets)

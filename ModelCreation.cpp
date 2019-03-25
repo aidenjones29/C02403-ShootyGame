@@ -14,6 +14,7 @@ void CreateScene(I3DEngine * myEngine)
 	IMesh* transportTruckMesh = myEngine->LoadMesh("transportTruck.x");
 	IMesh* apacheMesh = myEngine->LoadMesh("apache.x");
 	IMesh* hueyMesh = myEngine->LoadMesh("huey.x");
+	IMesh* nickMesh = myEngine->LoadMesh("nick.x");
 
 	IModel* huey = hueyMesh->CreateModel(200, 14, 650);
 	huey->RotateY(-180);
@@ -52,6 +53,38 @@ void CreateScene(I3DEngine * myEngine)
 	IModel* ammoCrate[3];
 	IModel* barrier[3];
 	IModel* crate[3];
+	IModel* nickBox[5];
+
+	IModel* nick = nickMesh->CreateModel(-36, 18, 70);
+	nick->Scale(0.9);
+	nick->ScaleX(0.1f);
+
+	nickBox[0] = BarrierMesh->CreateModel(-30, 15, 70);
+	nickBox[0]->RotateLocalX(180);
+	nickBox[0]->Scale(3);
+	nickBox[0]->ScaleZ(0.5);
+	nickBox[0]->ScaleX(0.2);
+
+	nickBox[1] = BarrierMesh->CreateModel(-30, 20, 70);
+	nickBox[1]->ScaleX(0.2);
+	nickBox[1]->RotateLocalZ(45);
+	nickBox[1]->ScaleZ(0.5);
+	nickBox[1]->Scale(3);
+
+	nickBox[2] = BarrierMesh->CreateModel(-35, 10, 62);
+	nickBox[2]->RotateLocalX(90);
+	nickBox[2]->RotateLocalZ(180);
+	nickBox[2]->Scale(3);
+
+	nickBox[3] = BarrierMesh->CreateModel(-35, 10, 78);
+	nickBox[3]->RotateLocalX(270);
+	nickBox[3]->RotateLocalZ(180);
+	nickBox[3]->Scale(3);
+
+	nickBox[4] = BarrierMesh->CreateModel(-38, 25, 70);
+	nickBox[4]->RotateLocalZ(180);
+	nickBox[4]->ScaleY(8);
+	nickBox[4]->ScaleZ(2);
 
 	int currentAmmoX = 0;
 	int currentBarrierX = 0;
@@ -75,9 +108,6 @@ void CreateScene(I3DEngine * myEngine)
 		crate[i]->ScaleX(2);
 		currentSpawnCrate += 35;
 	}
-
-
-
 }
 
 

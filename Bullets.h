@@ -9,6 +9,7 @@
 #include "Engine.h"
 
 enum bulletStatus{Reloaded,Fired,Spent};
+
 struct sBullet
 {
 	IModel* model;
@@ -17,9 +18,10 @@ struct sBullet
 	vector3D facingVector{ 0,0,0 };
 };
 
-
-
 void spawnBullets(int maxBullets, IMesh* bulletMesh, vector<sBullet*> &vBullets);
+
 void refillNewWeapon(int magSize, vector<sBullet*> &vMagazine,vector<sBullet*> &vBullets);
+
 void moveBullets(int magSize, vector<sBullet*> &vMagazine, float frameTime);
+
 void reloadMagazine(int magSize, vector<sBullet*> &vMagazine);
