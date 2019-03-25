@@ -69,15 +69,17 @@ void main()
 	myEngine->AddMediaFolder(".\\Media");
 	ICamera* myCam = myEngine->CreateCamera(kManual, 0, 0, 0);
 	{
+		IFont* MainFont = myEngine->LoadFont("Stencil STD", 60);
+		
 		ISprite* Crosshair = myEngine->CreateSprite("crosshair.png", (horizontal / 2) - 6000, (vertical / 2) - 60);
-		ISprite* ammoUI = myEngine->CreateSprite("ammoUIPNG.png", -1000, vertical - 150);
-		ISprite* menuUI = myEngine->CreateSprite("mainMenuUI.jpg", 0, 0, 0.1);
+		ISprite* ammoUI = myEngine->CreateSprite("ammoUIPNG.png", -10000, vertical - 150);
+		ISprite* menuUI = myEngine->CreateSprite("mainMenuUI.jpg", -10000, 0, 0.1);
+		ISprite* torchUI = myEngine->CreateSprite("torchUI.png", 0, 0, 0.2f);
+		ISprite* controlsUI = myEngine->CreateSprite("controlsMenuUI.jpg", -10000, 0, 0.1);
 		ISprite* menuSelectionUI = myEngine->CreateSprite("menuSelectionUISprite.png", 90, 425);
 		ISprite* fireModeSemi = myEngine->CreateSprite("SemiAutoUI.png", -20, vertical - 105);
 		ISprite* fireModeBurstUI = myEngine->CreateSprite("burstFireUI.png", -29, vertical - 105);
 		ISprite* fireModeFullUI = myEngine->CreateSprite("FullAutoUI.png", -43, vertical - 105);
-
-		IFont* MainFont = myEngine->LoadFont("Stencil STD", 60);
 
 		IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 		IMesh* bulletMesh = myEngine->LoadMesh("Bullet.x");
@@ -157,6 +159,9 @@ void main()
 			//**************************************************** Game Start ********************************************************//
 			if (currentGameState == MainMenu)
 			{
+				menuUI->SetPosition(0, 0);
+				controlsUI->SetPosition(-1000, 0);
+
 				if (myEngine->KeyHit(Key_Up))
 				{
 					if (currentMenuSelection == Play)
@@ -217,7 +222,7 @@ void main()
 					}
 					else if (currentMenuSelection == Controls)
 					{
-						currentGameState = GameRunning;
+						currentGameState = ControlsMenu;
 					}
 					else if (currentMenuSelection == Quit)
 					{
@@ -230,10 +235,13 @@ void main()
 			{
 				menuUI->SetX(-10000);
 				menuSelectionUI->SetX(-10000);
+				controlsUI->SetPosition(0, 0);
 
 				if (myEngine->KeyHit(Key_Return))
 				{
 					currentGameState = MainMenu;
+					menuSelectionUI->SetPosition(90, 425);
+					currentMenuSelection = Play;
 				}
 			}
 			//**************************************************** Main game ********************************************************//
@@ -243,6 +251,7 @@ void main()
 				{
 					menuUI->SetX(-10000);
 					menuSelectionUI->SetX(-10000);
+					controlsUI->SetX(-10000);
 					Crosshair->SetPosition((horizontal / 2) - 60, (vertical / 2) - 60);
 					ammoUI->SetPosition(10, vertical - 150);
 					spritesInPosition = true;
