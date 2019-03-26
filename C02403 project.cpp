@@ -544,16 +544,12 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camY
 			canShoot = true;
 			bulletsFired = 0;
 		}
-
-
-
 		break;
 	case Single:
 		if (myEngine->KeyHit(Mouse_LButton))
 		{
 			for (int i = 0; i < currentGun->magCapacity; i++)
 			{
-
 				if (vMagazine[i]->status == Reloaded)
 				{
 					currentGun->shootingSound.play();
@@ -567,16 +563,9 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camY
 					currentGun->magAmount--;
 					break;
 				}
-
 			}
-
-
-
 			break;
-
 		}
-		
-
 	}
 }
 
