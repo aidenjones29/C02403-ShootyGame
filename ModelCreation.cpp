@@ -14,7 +14,12 @@ void CreateScene(I3DEngine * myEngine)
 	IMesh* transportTruckMesh = myEngine->LoadMesh("transportTruck.x");
 	IMesh* apacheMesh = myEngine->LoadMesh("apache.x");
 	IMesh* hueyMesh = myEngine->LoadMesh("huey.x");
-	IMesh* nickMesh = myEngine->LoadMesh("nick.x");
+	IMesh* nickMesh = myEngine->LoadMesh("nickyBoi.x");
+	IMesh* nickboxGlassMesh = myEngine->LoadMesh("glass.x");
+
+	IModel* nickboxGlass = nickboxGlassMesh->CreateModel(-26, 18, 70);
+	nickboxGlass->RotateY(90);
+	nickboxGlass->ScaleX(2);
 
 	IModel* huey = hueyMesh->CreateModel(200, 14, 650);
 	huey->RotateY(-180);
@@ -56,8 +61,8 @@ void CreateScene(I3DEngine * myEngine)
 	IModel* nickBox[5];
 
 	IModel* nick = nickMesh->CreateModel(-36, 18, 70);
-	nick->Scale(0.9);
-	nick->ScaleX(0.1f);
+	nick->RotateLocalY(270);
+	nick->RotateLocalX(180);
 
 	nickBox[0] = BarrierMesh->CreateModel(-30, 15, 70);
 	nickBox[0]->RotateLocalX(180);
@@ -81,7 +86,7 @@ void CreateScene(I3DEngine * myEngine)
 	nickBox[3]->RotateLocalZ(180);
 	nickBox[3]->Scale(3);
 
-	nickBox[4] = BarrierMesh->CreateModel(-38, 25, 70);
+	nickBox[4] = BarrierMesh->CreateModel(-45, 25, 70);
 	nickBox[4]->RotateLocalZ(180);
 	nickBox[4]->ScaleY(8);
 	nickBox[4]->ScaleZ(2);
