@@ -9,7 +9,7 @@ void CreateScene(I3DEngine * myEngine)
 	IMesh* floorMesh = myEngine->LoadMesh("Floor.x");
 	IMesh* ammoCrateMesh = myEngine->LoadMesh("AmmoCrateAm.x");
 	IMesh* BarrierMesh = myEngine->LoadMesh("CementBarrier.x");
-	IMesh* crateMesh = myEngine->LoadMesh("LargeCrate.x");
+	//IMesh* crateMesh = myEngine->LoadMesh("LargeCrate.x");
 	IMesh* armyTruckMesh = myEngine->LoadMesh("army_truck.x");
 	IMesh* transportTruckMesh = myEngine->LoadMesh("transportTruck.x");
 	IMesh* apacheMesh = myEngine->LoadMesh("apache.x");
@@ -57,7 +57,7 @@ void CreateScene(I3DEngine * myEngine)
 	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
 	IModel* ammoCrate[3];
 	IModel* barrier[3];
-	IModel* crate[3];
+	//IModel* crate[3];
 	IModel* nickBox[5];
 
 	IModel* nick = nickMesh->CreateModel(-36, 18, 70);
@@ -108,10 +108,10 @@ void CreateScene(I3DEngine * myEngine)
 		barrier[i]->ScaleZ(2);
 		currentBarrierX += 35;
 
-		crate[i] = crateMesh->CreateModel(0 + currentSpawnCrate, 0, 0);
-		crate[i]->Scale(1.5);
-		crate[i]->ScaleX(2);
-		currentSpawnCrate += 35;
+		//crate[i] = crateMesh->CreateModel(0 + currentSpawnCrate, 0, 0);
+		//crate[i]->Scale(1.5);
+		//crate[i]->ScaleX(2);
+		//currentSpawnCrate += 35;
 	}
 }
 
@@ -230,6 +230,7 @@ void CreateFences(I3DEngine* myEngine, IModel* fence[])
 
 		currentFencePos += 25;
 	}
+	fenceInnerRight[2]->SetY(-100);
 }
 
 

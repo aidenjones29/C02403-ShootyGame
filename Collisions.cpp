@@ -37,7 +37,7 @@ void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMag
 {
 	float sRad = 0.02f;
 	float bWidth = 10.0f;
-	float bDepth = 5.0f;
+	float bDepth = 10.0f;
 	float height = 16.0f;
 
 	for (auto& i : vTargets)
