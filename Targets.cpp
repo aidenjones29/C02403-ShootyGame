@@ -1,19 +1,15 @@
-
+#pragma once
 #include "Targets.h"
-float targetWorldPositions[numTargets][4] = { {0,12,-5,180}, {35,12,-5,180}, {70,12,-5,180} };
 
-void spawnTargets(IMesh* targetMesh, vector<sTarget*> &vTargets) 
+float redTargetWorldPositions[numRedTargets][4] = { {0,12,-3,180}, {35,12,-3,180}, {70,12,-3,180} };
+
+float greenTargetWorldPositions[numRedTargets][4];
+
+void spawnTargets(vector<sTarget*> &vTargets) 
 {
-
-
-	for (int i = 0; i < numTargets; i++)
+	for (int i = 0; i < numRedTargets; i++)
 	{
-		sTarget* target = new sTarget;
-		target->model = targetMesh->CreateModel(targetWorldPositions[i][0],targetWorldPositions[i][1],targetWorldPositions[i][2]);
-		target->model->RotateLocalY(targetWorldPositions[i][3]);
-		target->model->ScaleY(1.6);
-		target->model->ScaleZ(0.1);
-		target->state = Ready;
+		sTarget* target = new Terrorist_target(redTargetWorldPositions[i][0],redTargetWorldPositions[i][1],redTargetWorldPositions[i][2], redTargetWorldPositions[i][3]);
 		vTargets.push_back(target);
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -68,33 +64,32 @@ void spawnTargets(IMesh* targetMesh, vector<sTarget*> &vTargets)
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 }
-void moveTargets(vector<sTarget*> &vTargets,float frameTime)
+
+void moveTargets(vector<sTarget*> &vTargets, float frameTime)
 {
-	for (int i = 0; i < numTargets; i++)
+	for (auto& vTargets : vTargets)
 	{
-		switch (vTargets[i]->state)
+		switch (vTargets->state)
 		{
 		case Ready:
 			break;
 		case Hit:
-			vTargets[i]->model->MoveY(-50.0f*frameTime);
-			if (vTargets[i]->model->GetY() < -15.0f) 
+			vTargets->model->MoveY(-50.0f*frameTime);
+			if (vTargets->model->GetY() < -15.0f)
 			{
-				vTargets[i]->state = Down;
+				vTargets->state = Down;
 			}
 			break;
 		case Down:
 			break;
 		case Reset:
-			vTargets[i]->model->MoveY(50.0f * frameTime);
-			if (vTargets[i]->model->GetY() >= 12.0f)
+			vTargets->model->MoveY(50.0f * frameTime);
+			if (vTargets->model->GetY() >= 12.0f)
 			{
-				vTargets[i]->state = Ready;
+				vTargets->state = Ready;
 			}
 		default:
 			break;
 		}
-
 	}
-
 }
