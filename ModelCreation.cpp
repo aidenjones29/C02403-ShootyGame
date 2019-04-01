@@ -1,11 +1,15 @@
 #include "ModelCreation.h"
 
+const int FenceAmmount = 15;
+const int OuterWallAmount = 10;
+
 void CreateScene(I3DEngine * myEngine)
 {
 	IMesh* skyboxMesh = myEngine->LoadMesh("Skybox.x");
 	IMesh* floorMesh = myEngine->LoadMesh("Floor.x");
 	IMesh* ammoCrateMesh = myEngine->LoadMesh("AmmoCrateAm.x");
 	IMesh* BarrierMesh = myEngine->LoadMesh("CementBarrier.x");
+	//IMesh* crateMesh = myEngine->LoadMesh("LargeCrate.x");
 	IMesh* armyTruckMesh = myEngine->LoadMesh("army_truck.x");
 	IMesh* transportTruckMesh = myEngine->LoadMesh("transportTruck.x");
 	IMesh* apacheMesh = myEngine->LoadMesh("apache.x");
@@ -53,6 +57,7 @@ void CreateScene(I3DEngine * myEngine)
 	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
 	IModel* ammoCrate[3];
 	IModel* barrier[3];
+	//IModel* crate[3];
 	IModel* nickBox[5];
 
 	IModel* nick = nickMesh->CreateModel(-36, 18, 70);
@@ -102,27 +107,27 @@ void CreateScene(I3DEngine * myEngine)
 		barrier[i]->ScaleY(2);
 		barrier[i]->ScaleZ(2);
 		currentBarrierX += 35;
+
+		//crate[i] = crateMesh->CreateModel(0 + currentSpawnCrate, 0, 0);
+		//crate[i]->Scale(1.5);
+		//crate[i]->ScaleX(2);
+		//currentSpawnCrate += 35;
 	}
 }
+
 
 void CreateFences(I3DEngine* myEngine, IModel* fence[])
 {
 	IMesh* FenceMesh = myEngine->LoadMesh("ChainLinkFence.x");
 	IMesh* gateMesh = myEngine->LoadMesh("Gate.x");
 
-	unique_ptr<fenceStruct> tmp(new fenceStruct);
-
-	fenceStruct fenceTop[FenceAmmount];
-	fenceStruct fenceBottom[FenceAmmount];
-	fenceStruct fenceLeft[FenceAmmount];
-	fenceStruct fenceRight[FenceAmmount];
-	fenceStruct fenceInnerTop[5];
-	fenceStruct fenceInnerRight[5];
-	fenceStruct gateSides[2];
-	fenceStruct courseGates[numOfgates];
-	fenceStruct courseGateSideLeft[numOfgates];
-	fenceStruct courseGateSideRight[numOfgates];
-
+	IModel* fenceTop[FenceAmmount];
+	IModel* fenceBottom[FenceAmmount];
+	IModel* fenceLeft[FenceAmmount];
+	IModel* fenceRight[FenceAmmount];
+	IModel* fenceInnerTop[5];
+	IModel* fenceInnerRight[5];
+	IModel* gateSides[2];
 	IModel* fenceWalkway = FenceMesh->CreateModel(108, 0, 107);
 	fenceWalkway->RotateY(-90);
 	fenceWalkway->Scale(10);
@@ -137,53 +142,54 @@ void CreateFences(I3DEngine* myEngine, IModel* fence[])
 
 	int currentFencePos = 0;
 
-	gateSides[0].fenceModel = FenceMesh->CreateModel(112, 0, 95);
-	gateSides[1].fenceModel = FenceMesh->CreateModel(130, 0, 95);
+	gateSides[0] = FenceMesh->CreateModel(112, 0, 95);
+	gateSides[1] = FenceMesh->CreateModel(130, 0, 95);
+
+	const int numOfgates = 3;
+	const int numOfhallwayFences1 = 2;
+
+	IModel* courseGates[numOfgates];
+	IModel* courseGateSideLeft[numOfgates];
+	IModel* courseGateSideRight[numOfgates];
 
 	IModel* hallwayFence1[numOfhallwayFences1];
 
-	courseGates[0].fenceModel = gateMesh->CreateModel(121.3, 9, 120);
-	courseGates[1].fenceModel = gateMesh->CreateModel(133.5f, 9, 332);
-	courseGates[2].fenceModel = gateMesh->CreateModel(180.5, 9, 332);
+	courseGates[0] = gateMesh->CreateModel(121.3, 9, 120);
+	courseGates[1] = gateMesh->CreateModel(133.5f, 9, 332);
+	courseGates[2] = gateMesh->CreateModel(180.5, 9, 332);
 
-	courseGateSideLeft[0].fenceModel = FenceMesh->CreateModel(112, 0, 121);
-	courseGateSideLeft[1].fenceModel = FenceMesh->CreateModel(134.7f, 0, 341.5f);
-	courseGateSideLeft[2].fenceModel = FenceMesh->CreateModel(179.5, 0, 341);
+	courseGateSideLeft[0] = FenceMesh->CreateModel(112, 0, 121);
+	courseGateSideLeft[1] = FenceMesh->CreateModel(134.7f, 0, 341.5f);
+	courseGateSideLeft[2] = FenceMesh->CreateModel(179.5, 0, 341);
 
-	courseGateSideRight[0].fenceModel = FenceMesh->CreateModel(130, 0, 121);
-	courseGateSideRight[1].fenceModel = FenceMesh->CreateModel(134.7f, 0, 323.2f);
-	courseGateSideRight[2].fenceModel = FenceMesh->CreateModel(179.5, 0, 323);
+	courseGateSideRight[0] = FenceMesh->CreateModel(130, 0, 121);
+	courseGateSideRight[1] = FenceMesh->CreateModel(134.7f, 0, 323.2f);
+	courseGateSideRight[2] = FenceMesh->CreateModel(179.5, 0, 323);
 
 	hallwayFence1[0] = FenceMesh->CreateModel(157, 0, 347);
 	hallwayFence1[1] = FenceMesh->CreateModel(159, 0, 317);
 
-	courseGates[1].fenceModel->RotateY(90);
-	courseGates[1].fenceRotation = 90;
-	courseGateSideLeft[1].fenceModel->RotateY(90);
-	courseGateSideLeft[1].fenceRotation = 90;
-	courseGateSideRight[1].fenceModel->RotateY(90);
-	courseGateSideRight[1].fenceRotation = 90;
+	courseGates[1]->RotateY(90);
+	courseGateSideLeft[1]->RotateY(90);
+	courseGateSideRight[1]->RotateY(90);
 
-	courseGates[2].fenceModel->RotateY(90);
-	courseGates[2].fenceRotation = 90;
-	courseGateSideLeft[2].fenceModel->RotateY(-90);
-	courseGateSideLeft[2].fenceRotation = 90;
-	courseGateSideRight[2].fenceModel->RotateY(-90);
-	courseGateSideRight[2].fenceRotation = 90;
+	courseGates[2]->RotateY(90);
+	courseGateSideLeft[2]->RotateY(-90);
+	courseGateSideRight[2]->RotateY(-90);
 
 	hallwayFence1[1]->RotateY(180);
 
 	for (int i = 0; i < numOfgates; i++)
 	{
-		courseGates[i].fenceModel->ScaleZ(0.05f);
-		courseGates[i].fenceModel->ScaleX(1.15f);
-		courseGates[i].fenceModel->ScaleY(1.7f);
+		courseGates[i]->ScaleZ(0.05f);
+		courseGates[i]->ScaleX(1.15f);
+		courseGates[i]->ScaleY(1.7f);
 
-		courseGateSideLeft[i].fenceModel->Scale(10);
-		courseGateSideLeft[i].fenceModel->ScaleX(0.25f);
+		courseGateSideLeft[i]->Scale(10);
+		courseGateSideLeft[i]->ScaleX(0.25f);
 
-		courseGateSideRight[i].fenceModel->Scale(10);
-		courseGateSideRight[i].fenceModel->ScaleX(0.25f);
+		courseGateSideRight[i]->Scale(10);
+		courseGateSideRight[i]->ScaleX(0.25f);
 	}
 
 	for (int i = 0; i < numOfhallwayFences1; i++)
@@ -195,39 +201,36 @@ void CreateFences(I3DEngine* myEngine, IModel* fence[])
 	{
 		if (i < 2)
 		{
-			gateSides[i].fenceModel->Scale(10);
-			gateSides[i].fenceModel->ScaleX(0.25f);
+			gateSides[i]->Scale(10);
+			gateSides[i]->ScaleX(0.25f);
 		}
 
 		if (i < 5)
 		{
-			fenceInnerTop[i].fenceModel = FenceMesh->CreateModel(fenceXStart[0] + currentFencePos, 0.0f, 95);
-			fenceInnerTop[i].fenceModel->Scale(10);
+			fenceInnerTop[i] = FenceMesh->CreateModel(fenceXStart[0] + currentFencePos, 0.0f, 95);
+			fenceInnerTop[i]->Scale(10);
 
-			fenceInnerRight[i].fenceModel = FenceMesh->CreateModel(135.0f, 0.0f, 7.0f + currentFencePos);
-			fenceInnerRight[i].fenceModel->Scale(10);
-			fenceInnerRight[i].fenceModel->RotateY(90);
-			fenceInnerRight[i].fenceRotation = 90;
+			fenceInnerRight[i] = FenceMesh->CreateModel(135.0f, 0.0f, 7.0f + currentFencePos);
+			fenceInnerRight[i]->Scale(10);
+			fenceInnerRight[i]->RotateY(90);
 		}
 
-		fenceTop[i].fenceModel = FenceMesh->CreateModel(fenceXStart[0] + currentFencePos, 0.0f, fenceZStart[0]);
-		fenceBottom[i].fenceModel = FenceMesh->CreateModel(fenceXStart[1] + currentFencePos, 0.0f, fenceZStart[1]);
-		fenceLeft[i].fenceModel = FenceMesh->CreateModel(fenceXStart[2], 0.0f, fenceZStart[2] + currentFencePos);
-		fenceRight[i].fenceModel = FenceMesh->CreateModel(fenceXStart[3], 0.0f, fenceZStart[3] + currentFencePos);
+		fenceTop[i] = FenceMesh->CreateModel(fenceXStart[0] + currentFencePos, 0.0f, fenceZStart[0]);
+		fenceBottom[i] = FenceMesh->CreateModel(fenceXStart[1] + currentFencePos, 0.0f, fenceZStart[1]);
+		fenceLeft[i] = FenceMesh->CreateModel(fenceXStart[2], 0.0f, fenceZStart[2] + currentFencePos);
+		fenceRight[i] = FenceMesh->CreateModel(fenceXStart[3], 0.0f, fenceZStart[3] + currentFencePos);
 
-		fenceLeft[i].fenceModel->Scale(10);
-		fenceRight[i].fenceModel->Scale(10);
-		fenceTop[i].fenceModel->Scale(10);
-		fenceBottom[i].fenceModel->Scale(10);
+		fenceLeft[i]->Scale(10);
+		fenceRight[i]->Scale(10);
+		fenceTop[i]->Scale(10);
+		fenceBottom[i]->Scale(10);
 
-		fenceLeft[i].fenceModel->RotateY(90);
-		fenceLeft[i].fenceRotation = 90;
-		fenceRight[i].fenceModel->RotateY(90);
-		fenceRight[i].fenceRotation = 90;
+		fenceLeft[i]->RotateY(90);
+		fenceRight[i]->RotateY(90);
 
 		currentFencePos += 25;
 	}
-	fenceInnerRight[2].fenceModel->SetY(-100);
+	fenceInnerRight[2]->SetY(-100);
 }
 
 
