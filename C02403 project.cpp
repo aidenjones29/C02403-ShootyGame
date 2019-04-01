@@ -86,7 +86,7 @@ void main()
 		IModel* interactionDummy = dummyMesh->CreateModel(0, 0, 0);
 		IModel* gunFireTest = dummyMesh->CreateModel(0, 0, 0);
 
-		menuState currentGameState = MainMenu;
+		menuState currentGameState = GameRunning;
 		gunState currentGunState = NoGun;
 		menuSelection currentMenuSelection = Play;
 		standingState currPlayerStandState = Standing;
@@ -314,10 +314,10 @@ void main()
 					}
 				}
 
-				if (!FenceCollision(cameraDummy))
-				{
-					cameraDummy->SetPosition(oldPlayerX, 15, oldPlayerZ);
-				}
+				//if (!FenceCollision(cameraDummy))
+				//{
+				//	cameraDummy->SetPosition(oldPlayerX, 15, oldPlayerZ);
+				//}
 
 				if (myEngine->KeyHit(Key_E))
 				{

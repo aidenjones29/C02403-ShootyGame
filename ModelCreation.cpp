@@ -9,7 +9,6 @@ void CreateScene(I3DEngine * myEngine)
 	IMesh* floorMesh = myEngine->LoadMesh("Floor.x");
 	IMesh* ammoCrateMesh = myEngine->LoadMesh("AmmoCrateAm.x");
 	IMesh* BarrierMesh = myEngine->LoadMesh("CementBarrier.x");
-	//IMesh* crateMesh = myEngine->LoadMesh("LargeCrate.x");
 	IMesh* armyTruckMesh = myEngine->LoadMesh("army_truck.x");
 	IMesh* transportTruckMesh = myEngine->LoadMesh("transportTruck.x");
 	IMesh* apacheMesh = myEngine->LoadMesh("apache.x");
@@ -57,7 +56,6 @@ void CreateScene(I3DEngine * myEngine)
 	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
 	IModel* ammoCrate[3];
 	IModel* barrier[3];
-	//IModel* crate[3];
 	IModel* nickBox[5];
 
 	IModel* nick = nickMesh->CreateModel(-36, 18, 70);
@@ -107,11 +105,6 @@ void CreateScene(I3DEngine * myEngine)
 		barrier[i]->ScaleY(2);
 		barrier[i]->ScaleZ(2);
 		currentBarrierX += 35;
-
-		//crate[i] = crateMesh->CreateModel(0 + currentSpawnCrate, 0, 0);
-		//crate[i]->Scale(1.5);
-		//crate[i]->ScaleX(2);
-		//currentSpawnCrate += 35;
 	}
 }
 
@@ -146,7 +139,7 @@ void CreateFences(I3DEngine* myEngine, IModel* fence[])
 	gateSides[1] = FenceMesh->CreateModel(130, 0, 95);
 
 	const int numOfgates = 3;
-	const int numOfhallwayFences1 = 2;
+	const int numOfhallwayFences1 = 4;
 
 	IModel* courseGates[numOfgates];
 	IModel* courseGateSideLeft[numOfgates];
@@ -164,10 +157,14 @@ void CreateFences(I3DEngine* myEngine, IModel* fence[])
 
 	courseGateSideRight[0] = FenceMesh->CreateModel(130, 0, 121);
 	courseGateSideRight[1] = FenceMesh->CreateModel(134.7f, 0, 323.2f);
-	courseGateSideRight[2] = FenceMesh->CreateModel(179.5, 0, 323);
+	courseGateSideRight[2] = FenceMesh->CreateModel(179.5, 20, 323);
 
 	hallwayFence1[0] = FenceMesh->CreateModel(157, 0, 347);
 	hallwayFence1[1] = FenceMesh->CreateModel(159, 0, 317);
+	hallwayFence1[2] = FenceMesh->CreateModel(152, 0, 69);
+	hallwayFence1[2]->ScaleX(1.5);
+	hallwayFence1[3] = FenceMesh->CreateModel(152, 0, 45);
+	hallwayFence1[3]->ScaleX(1.5);
 
 	courseGates[1]->RotateY(90);
 	courseGateSideLeft[1]->RotateY(90);
@@ -343,6 +340,8 @@ void CreateWalls(I3DEngine * myEngine)
 		CourseWallsRoom2[i]->Scale(10);
 		CourseWallsRoom2[i]->ScaleZ(0.1f);
 	}
+		CourseWallsRoom2[5]->ScaleZ(1.2);
+		CourseWallsRoom2[5]->MoveZ(3);
 
 	for (int i = 0; i < numOfCourseWalls1Inner; i++)
 	{

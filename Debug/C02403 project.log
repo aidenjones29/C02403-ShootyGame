@@ -1,40 +1,5 @@
 ﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-<<<<<<< HEAD
   ModelCreation.cpp
-d:\ajones45\documents\github\c02403-shootygame\modelcreation.cpp(100): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-  LINK : D:\AJones45\Documents\GitHub\C02403-ShootyGame\C02403 projectDebug.exe not found or not built by the last incremental link; performing full link
-C02403 project.obj : error LNK2005: "class std::deque<struct fenceStruct,class std::allocator<struct fenceStruct> > allFences" (?allFences@@3V?$deque@UfenceStruct@@V?$allocator@UfenceStruct@@@std@@@std@@A) already defined in Bullets.obj
-ModelCreation.obj : error LNK2005: "class std::deque<struct fenceStruct,class std::allocator<struct fenceStruct> > allFences" (?allFences@@3V?$deque@UfenceStruct@@V?$allocator@UfenceStruct@@@std@@@std@@A) already defined in Bullets.obj
-Collisions.obj : error LNK2005: "class std::deque<struct fenceStruct,class std::allocator<struct fenceStruct> > allFences" (?allFences@@3V?$deque@UfenceStruct@@V?$allocator@UfenceStruct@@@std@@@std@@A) already defined in Bullets.obj
-Targets.obj : error LNK2005: "class std::deque<struct fenceStruct,class std::allocator<struct fenceStruct> > allFences" (?allFences@@3V?$deque@UfenceStruct@@V?$allocator@UfenceStruct@@@std@@@std@@A) already defined in Bullets.obj
-D:\AJones45\Documents\GitHub\C02403-ShootyGame\C02403 projectDebug.exe : fatal error LNK1169: one or more multiply defined symbols found
-=======
-  C02403 project.cpp
-d:\ajones45\documents\github\c02403-shootygame\weapons.h(32): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\weapons.h(51): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\weapons.h(71): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\weapons.h(90): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\weapons.h(106): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\weapons.h(125): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\weapons.h(141): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(72): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(73): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(77): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(78): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(79): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(266): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(267): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(273): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(274): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(275): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(279): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(280): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(284): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(285): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(286): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(289): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(290): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(337): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\modelcreation.cpp(103): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
   C02403 project.vcxproj -> D:\AJones45\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
   Copying DLLs & shaders...
->>>>>>> parent of f7a352c... awd
