@@ -8,7 +8,7 @@ using namespace tle;
 
 enum fireModes { Single, Burst, Auto };
 
-const int soundVolume = 10;
+const int soundVolume = 150;
 
 struct sWeapon
 {
