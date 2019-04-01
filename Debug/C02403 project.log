@@ -1,6 +1,7 @@
 ﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
   ModelCreation.cpp
 d:\ajones45\documents\github\c02403-shootygame\modelcreation.cpp(100): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+  LINK : D:\AJones45\Documents\GitHub\C02403-ShootyGame\C02403 projectDebug.exe not found or not built by the last incremental link; performing full link
 C02403 project.obj : error LNK2005: "class std::deque<struct fenceStruct,class std::allocator<struct fenceStruct> > allFences" (?allFences@@3V?$deque@UfenceStruct@@V?$allocator@UfenceStruct@@@std@@@std@@A) already defined in Bullets.obj
 ModelCreation.obj : error LNK2005: "class std::deque<struct fenceStruct,class std::allocator<struct fenceStruct> > allFences" (?allFences@@3V?$deque@UfenceStruct@@V?$allocator@UfenceStruct@@@std@@@std@@A) already defined in Bullets.obj
 Collisions.obj : error LNK2005: "class std::deque<struct fenceStruct,class std::allocator<struct fenceStruct> > allFences" (?allFences@@3V?$deque@UfenceStruct@@V?$allocator@UfenceStruct@@@std@@@std@@A) already defined in Bullets.obj
