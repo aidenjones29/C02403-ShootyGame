@@ -102,7 +102,6 @@ void main()
 		nickStartBuffer.loadFromFile("soundeffects\\NICKwelcomeRecruit.wav");
 		nickStartSound.setBuffer(nickStartBuffer);
 		nickStartSound.setVolume(soundVolume);
-		nickStartSound.setPosition(-26, 18, 70);
 
 		nickTimerBuffer.loadFromFile("soundeffects\\NICKtimerWillStart.wav");
 		nickTimerSound.setBuffer(nickTimerBuffer);
@@ -315,10 +314,10 @@ void main()
 					}
 				}
 
-				//if (!FenceCollision(cameraDummy))
-				//{
-				//	cameraDummy->SetPosition(oldPlayerX, 15, oldPlayerZ);
-				//}
+				if (!FenceCollision(cameraDummy))
+				{
+					cameraDummy->SetPosition(oldPlayerX, 15, oldPlayerZ);
+				}
 
 				if (myEngine->KeyHit(Key_E))
 				{
