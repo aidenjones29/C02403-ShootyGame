@@ -31,12 +31,16 @@ I3DEngine* myEngine = New3DEngine(kTLX);
 
 const float UPPER_CAM_Y_MAX = -50.0f;
 const float LOWER_CAM_Y_MAX = 50.0f;
+const float RECOIL_SPEED = -50;
+const float gunMovementMax = -3;
 
 float Time = 0;
 float countDownTime = 1.0f;
 float WeaponTime = 0;
 int bulletsFired = 0;
 bool canShoot = true;
+float currentGunMoveBack = 0;
+
 
 void Fire(IModel* &cameraDummy, float& frametime, float& shoottimer, float& camYCounter);
 
@@ -513,8 +517,12 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camY
 
 						if (camYCounter > UPPER_CAM_Y_MAX)
 						{
-							cameraDummy->RotateLocalX(-150 * frameTime);
-							camYCounter += -150 * frameTime;
+							for (int i = 0; i < 3; i++)
+							{
+								for (int j = 0; j < 10000; j++) {}
+								cameraDummy->RotateLocalX(RECOIL_SPEED * frameTime);
+								camYCounter += RECOIL_SPEED * frameTime;
+							}
 						}
 					}
 				}
@@ -548,6 +556,16 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camY
 						currentGun->magAmount--;
 						WeaponTime = 0.0f;
 						bulletsFired++;
+
+						if (camYCounter > UPPER_CAM_Y_MAX)
+						{
+							for (int i = 0; i < 3; i++)
+							{
+								for (int j = 0; j < 10000; j++) {}
+								cameraDummy->RotateLocalX(RECOIL_SPEED * frameTime);
+								camYCounter += RECOIL_SPEED * frameTime;
+							}
+						}
 					}
 
 				}
@@ -575,6 +593,16 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camY
 					vMagazine[i]->model->Scale(0.004f);
 					vMagazine[i]->status = Fired;
 					currentGun->magAmount--;
+
+					if (camYCounter > UPPER_CAM_Y_MAX)
+					{
+						for (int i = 0; i < 3; i++)
+						{
+							cameraDummy->RotateLocalX(RECOIL_SPEED * frameTime);
+							camYCounter += RECOIL_SPEED * frameTime;
+						}
+					}
+
 					break;
 				}
 			}
