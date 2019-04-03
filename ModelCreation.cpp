@@ -157,7 +157,7 @@ void CreateFences(I3DEngine* myEngine, IModel* fence[])
 
 	courseGateSideRight[0] = FenceMesh->CreateModel(130, 0, 121);
 	courseGateSideRight[1] = FenceMesh->CreateModel(134.7f, 0, 323.2f);
-	courseGateSideRight[2] = FenceMesh->CreateModel(179.5, 20, 323);
+	courseGateSideRight[2] = FenceMesh->CreateModel(179.5, 0, 323);
 
 	hallwayFence1[0] = FenceMesh->CreateModel(157, 0, 347);
 	hallwayFence1[1] = FenceMesh->CreateModel(159, 0, 317);
