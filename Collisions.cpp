@@ -44,11 +44,10 @@ void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMag
 	{
 		for (auto& x : vMagazine)
 		{
-
-			float minX = i->model->GetX() - bWidth / 2 - sRad; //Min x pos before a collision has happened
-			float maxX = i->model->GetX() + bWidth / 2 + sRad; //Max x pos before a collision has happened
-			float minZ = i->model->GetZ() - bDepth / 2 - sRad; //Min z pos before a collision has happened
-			float maxZ = i->model->GetZ() + bDepth / 2 + sRad; //Max z pos before a collision has happened
+			float minX = i->model->GetX() - bWidth / 2 - sRad; 
+			float maxX = i->model->GetX() + bWidth / 2 + sRad; 
+			float minZ = i->model->GetZ() - bDepth / 2 - sRad; 
+			float maxZ = i->model->GetZ() + bDepth / 2 + sRad; 
 			float minY = i->model->GetY() - height / 2 - sRad;
 			float maxY = i->model->GetY() + height / 2 + sRad;
 
@@ -63,3 +62,24 @@ void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMag
 	}
 }
 
+
+bool targetBoxCollision(std::vector<sTarget*>& vTargets, IModel* camDummy)
+{
+	float sRad = 2.0f;
+	float bWidth = 5.0f;
+	float bDepth = 5.0f;
+
+	for (auto& i : vTargets)
+	{
+		float minX = i->box->GetX() - bWidth - sRad; //Min x pos before a collision has happened
+		float maxX = i->box->GetX() + bWidth + sRad; //Max x pos before a collision has happened
+		float minZ = i->box->GetZ() - bDepth - sRad; //Min z pos before a collision has happened
+		float maxZ = i->box->GetZ() + bDepth + sRad; //Max z pos before a collision has happened
+
+		if (camDummy->GetX() > minX && camDummy->GetX() < maxX && camDummy->GetZ() > minZ && camDummy->GetZ() < maxZ)
+		{
+			return true;
+		}
+	}
+	return false;
+}

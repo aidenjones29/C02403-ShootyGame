@@ -9,3 +9,5 @@ bool FenceCollision(IModel* cameraDummy);
 bool gunInteraction(IModel* gunInteractionDummy, IModel* Gun);
 
 void bulletToTarget(vector<sTarget*> &vTargets, vector<sBullet*> &vBullets);
+
+bool targetBoxCollision(std::vector<sTarget*>& vTargets, IModel* camDummy);

@@ -85,7 +85,6 @@ void main()
 		IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 		IMesh* bulletMesh = myEngine->LoadMesh("Bullet.x");
 
-		IModel* fence[80];
 		IModel* cameraDummy = dummyMesh->CreateModel(5, 15, 80);
 		IModel* interactionDummy = dummyMesh->CreateModel(0, 0, 0);
 		IModel* gunFireTest = dummyMesh->CreateModel(0, 0, 0);
@@ -144,7 +143,7 @@ void main()
 		bool nicktimerWillstartSaid = false;
 
 		/**** Set up your scene here ****/
-		CreateFences(myEngine, fence); CreateScene(myEngine); CreateWalls(myEngine);
+		CreateFences(myEngine); CreateScene(myEngine); CreateWalls(myEngine);
 
 		// The main game loop, repeat until engine is stopped
 		while (myEngine->IsRunning())
@@ -322,6 +321,11 @@ void main()
 				//{
 				//	cameraDummy->SetPosition(oldPlayerX, 15, oldPlayerZ);
 				//}
+
+				if (targetBoxCollision(vTargets, cameraDummy))
+				{
+					cameraDummy->SetPosition(oldPlayerX, 15, oldPlayerZ);
+				}
 
 				if (myEngine->KeyHit(Key_E))
 				{
