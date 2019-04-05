@@ -7,10 +7,10 @@ const int FenceAmmount = 15;
 const int OuterWallAmount = 10;
 const int numOfgates = 3;
 const int numOfhallwayFences1 = 4;
-
 const int maxWALLLLLLLZZZ = 42;
+const int numAmmoBoxes = 3;
 
-void CreateScene(I3DEngine* myEngine);
+void CreateScene(I3DEngine* myEngine, IModel* ammoCrate[]);
 
 void CreateFences(I3DEngine* myEngine);
 

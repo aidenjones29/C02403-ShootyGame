@@ -63,11 +63,11 @@ void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMag
 }
 
 
-bool targetBoxCollision(std::vector<sTarget*>& vTargets, IModel* camDummy)
+sideHit targetBoxCollision(std::vector<sTarget*>& vTargets, IModel* camDummy, float oldPos[])
 {
 	float sRad = 2.0f;
-	float bWidth = 5.0f;
-	float bDepth = 5.0f;
+	float bWidth = 7.0f;
+	float bDepth = 7.0f;
 
 	for (auto& i : vTargets)
 	{
@@ -78,8 +78,31 @@ bool targetBoxCollision(std::vector<sTarget*>& vTargets, IModel* camDummy)
 
 		if (camDummy->GetX() > minX && camDummy->GetX() < maxX && camDummy->GetZ() > minZ && camDummy->GetZ() < maxZ)
 		{
-			return true;
+			if (oldPos[0] < minX || oldPos[0] > maxX) return LeftRight;
+			if (oldPos[1] < minZ || oldPos[1] > maxZ) return FrontBack;
 		}
 	}
-	return false;
+	return NoSide;
+}
+
+sideHit ammoBoxCollision(IModel* boxes[], IModel* camDummy, float oldPos[])
+{
+	float sRad = 2.0f;
+	float bWidth = 18.0f;
+	float bDepth = 5.0f;
+
+	for (int i = 0; i < numAmmoBoxes; i++)
+	{
+		float minX = boxes[i]->GetX() - bWidth - sRad; //Min x pos before a collision has happened
+		float maxX = boxes[i]->GetX() + bWidth + sRad; //Max x pos before a collision has happened
+		float minZ = -10.0f; //Min z pos before a collision has happened
+		float maxZ = boxes[i]->GetZ() + bDepth + sRad; //Max z pos before a collision has happened
+
+		if (camDummy->GetX() > minX && camDummy->GetX() < maxX && camDummy->GetZ() > minZ && camDummy->GetZ() < maxZ)
+		{
+			if (oldPos[0] < minX || oldPos[0] > maxX) return LeftRight;
+			if (oldPos[1] < minZ || oldPos[1] > maxZ) return FrontBack;
+		}
+	}
+	return NoSide;
 }
