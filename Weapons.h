@@ -2,10 +2,13 @@
 #include "Engine.h"
 #include <vector>
 #include <SFML/Audio.hpp>
+#include <memory>
+
 using namespace tle;
-using namespace std;
 
 enum fireModes { Single, Burst, Auto };
+
+const int soundVolume = 100;
 
 struct sWeapon
 {
@@ -35,7 +38,7 @@ struct M4 :public sWeapon
 		fireRate = 0.04f;
 		shootingBuffer.loadFromFile("soundeffects\\gunshot.wav");
 		shootingSound.setBuffer(shootingBuffer);
-		shootingSound.setVolume(20);
+		shootingSound.setVolume(soundVolume);
 	}
 };
 
@@ -52,6 +55,9 @@ struct AK :public sWeapon
 		magCapacity = 30;
 		magAmount = 30;
 		fireRate = 0.04f;
+		shootingBuffer.loadFromFile("soundeffects\\ak-47.wav");
+		shootingSound.setBuffer(shootingBuffer);
+		shootingSound.setVolume(soundVolume);
 	}
 };
 
@@ -69,6 +75,9 @@ struct AR_18 :public sWeapon
 		magCapacity = 20;
 		magAmount = 20;
 		fireRate = 0.2f;
+		shootingBuffer.loadFromFile("soundeffects\\AR18.wav");
+		shootingSound.setBuffer(shootingBuffer);
+		shootingSound.setVolume(soundVolume);
 	}
 };
 
@@ -101,6 +110,9 @@ struct TOMMY_GUN :public sWeapon
 		magCapacity = 20;
 		magAmount = 20;
 		fireRate = 0.07f;
+		shootingBuffer.loadFromFile("soundeffects\\tommy.wav");
+		shootingSound.setBuffer(shootingBuffer);
+		shootingSound.setVolume(soundVolume);
 	}
 };
 
@@ -133,6 +145,9 @@ struct  Glock:public sWeapon
 		magCapacity = 7;
 		magAmount = 7;
 		fireRate = 0.3f;
+		shootingBuffer.loadFromFile("soundeffects\\glock.wav");
+		shootingSound.setBuffer(shootingBuffer);
+		shootingSound.setVolume(soundVolume);
 	}
 };
 

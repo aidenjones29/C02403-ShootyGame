@@ -1,19 +1,21 @@
 #include "ModelCreation.h"
 
-const int FenceAmmount = 15;
-const int OuterWallAmount = 10;
-
 void CreateScene(I3DEngine * myEngine)
 {
 	IMesh* skyboxMesh = myEngine->LoadMesh("Skybox.x");
 	IMesh* floorMesh = myEngine->LoadMesh("Floor.x");
 	IMesh* ammoCrateMesh = myEngine->LoadMesh("AmmoCrateAm.x");
 	IMesh* BarrierMesh = myEngine->LoadMesh("CementBarrier.x");
-	IMesh* crateMesh = myEngine->LoadMesh("LargeCrate.x");
 	IMesh* armyTruckMesh = myEngine->LoadMesh("army_truck.x");
 	IMesh* transportTruckMesh = myEngine->LoadMesh("transportTruck.x");
 	IMesh* apacheMesh = myEngine->LoadMesh("apache.x");
 	IMesh* hueyMesh = myEngine->LoadMesh("huey.x");
+	IMesh* nickMesh = myEngine->LoadMesh("nickyBoi.x");
+	IMesh* nickboxGlassMesh = myEngine->LoadMesh("glass.x");
+
+	IModel* nickboxGlass = nickboxGlassMesh->CreateModel(-26, 18, 70);
+	nickboxGlass->RotateY(90);
+	nickboxGlass->ScaleX(2);
 
 	IModel* huey = hueyMesh->CreateModel(200, 14, 650);
 	huey->RotateY(-180);
@@ -51,7 +53,38 @@ void CreateScene(I3DEngine * myEngine)
 	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
 	IModel* ammoCrate[3];
 	IModel* barrier[3];
-	IModel* crate[3];
+	IModel* nickBox[5];
+
+	IModel* nick = nickMesh->CreateModel(-36, 18, 70);
+	nick->RotateLocalY(270);
+	nick->RotateLocalX(180);
+
+	nickBox[0] = BarrierMesh->CreateModel(-30, 15, 70);
+	nickBox[0]->RotateLocalX(180);
+	nickBox[0]->Scale(3);
+	nickBox[0]->ScaleZ(0.5);
+	nickBox[0]->ScaleX(0.2);
+
+	nickBox[1] = BarrierMesh->CreateModel(-30, 20, 70);
+	nickBox[1]->ScaleX(0.2);
+	nickBox[1]->RotateLocalZ(45);
+	nickBox[1]->ScaleZ(0.5);
+	nickBox[1]->Scale(3);
+
+	nickBox[2] = BarrierMesh->CreateModel(-35, 10, 62);
+	nickBox[2]->RotateLocalX(90);
+	nickBox[2]->RotateLocalZ(180);
+	nickBox[2]->Scale(3);
+
+	nickBox[3] = BarrierMesh->CreateModel(-35, 10, 78);
+	nickBox[3]->RotateLocalX(270);
+	nickBox[3]->RotateLocalZ(180);
+	nickBox[3]->Scale(3);
+
+	nickBox[4] = BarrierMesh->CreateModel(-45, 25, 70);
+	nickBox[4]->RotateLocalZ(180);
+	nickBox[4]->ScaleY(8);
+	nickBox[4]->ScaleZ(2);
 
 	int currentAmmoX = 0;
 	int currentBarrierX = 0;
@@ -69,19 +102,11 @@ void CreateScene(I3DEngine * myEngine)
 		barrier[i]->ScaleY(2);
 		barrier[i]->ScaleZ(2);
 		currentBarrierX += 35;
-
-		crate[i] = crateMesh->CreateModel(0 + currentSpawnCrate, 0, 0);
-		crate[i]->Scale(1.5);
-		crate[i]->ScaleX(2);
-		currentSpawnCrate += 35;
 	}
-
-
-
 }
 
 
-void CreateFences(I3DEngine* myEngine, IModel* fence[])
+void CreateFences(I3DEngine* myEngine)
 {
 	IMesh* FenceMesh = myEngine->LoadMesh("ChainLinkFence.x");
 	IMesh* gateMesh = myEngine->LoadMesh("Gate.x");
@@ -110,9 +135,6 @@ void CreateFences(I3DEngine* myEngine, IModel* fence[])
 	gateSides[0] = FenceMesh->CreateModel(112, 0, 95);
 	gateSides[1] = FenceMesh->CreateModel(130, 0, 95);
 
-	const int numOfgates = 3;
-	const int numOfhallwayFences1 = 2;
-
 	IModel* courseGates[numOfgates];
 	IModel* courseGateSideLeft[numOfgates];
 	IModel* courseGateSideRight[numOfgates];
@@ -133,6 +155,10 @@ void CreateFences(I3DEngine* myEngine, IModel* fence[])
 
 	hallwayFence1[0] = FenceMesh->CreateModel(157, 0, 347);
 	hallwayFence1[1] = FenceMesh->CreateModel(159, 0, 317);
+	hallwayFence1[2] = FenceMesh->CreateModel(152, 0, 69);
+	hallwayFence1[2]->ScaleX(1.5);
+	hallwayFence1[3] = FenceMesh->CreateModel(152, 0, 45);
+	hallwayFence1[3]->ScaleX(1.5);
 
 	courseGates[1]->RotateY(90);
 	courseGateSideLeft[1]->RotateY(90);
@@ -195,17 +221,12 @@ void CreateFences(I3DEngine* myEngine, IModel* fence[])
 
 		currentFencePos += 25;
 	}
+	fenceInnerRight[2]->SetY(-100);
 }
 
 
 void CreateWalls(I3DEngine * myEngine)
 {
-	const int numOfCourseWalls1 = 8;
-	const int numOfCourseWalls2 = 12;
-
-	const int numOfCourseWalls1Inner = 2;
-	const int numOfCourseWalls2Inner = 11;
-
 	IMesh* FenceMesh = myEngine->LoadMesh("ChainLinkFence.x");
 	IMesh* OuterWallMesh = myEngine->LoadMesh("OuterWall.x");
 	IMesh* CourseWallMesh = myEngine->LoadMesh("OuterWall2.x");
@@ -216,121 +237,34 @@ void CreateWalls(I3DEngine * myEngine)
 	IModel* OuterWallLeft[OuterWallAmount];
 	IModel* OuterWallRight[OuterWallAmount];
 
-	IModel* CourseWallsRoom1[numOfCourseWalls1];
-	IModel* CourseWallsRoom2[numOfCourseWalls2];
-
-	IModel* CourseWallsRoom1Inner[numOfCourseWalls1Inner];
-	IModel* CourseWallsRoom2Inner[numOfCourseWalls2Inner];
+	IModel* CourseWalls[maxWALLLLLLLZZZ];
 
 	float OuterWallXStart[4] = {-100, -100, -100, 700};
 	float OuterWallZStart[4] = {-100, 800, -100, -100};
 	float outerWallY = 10.0f;
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-	CourseWallsRoom1[0] = CourseWallMesh->CreateModel(58.5f, -10, 124.5f);
-	CourseWallsRoom1[1] = CourseWallMesh->CreateModel(138.7f, -10, 169.5f);
-	CourseWallsRoom1[2] = CourseWallMesh->CreateModel(3.5f, -10, 169.5f);
-	CourseWallsRoom1[3] = CourseWallMesh->CreateModel(138.7f, -10, 269.5f);
-	CourseWallsRoom1[4] = CourseWallMesh->CreateModel(94, -10, 350);
-	CourseWallsRoom1[5] = CourseWallMesh->CreateModel(19, -10, 350);
-	CourseWallsRoom1[6] = CourseWallMesh->CreateModel(3.5f, -10, 269.5f);
-	CourseWallsRoom1[7] = CourseWallMesh->CreateModel(3.5f, -10, 369.5f);
-
-	CourseWallsRoom1[1]->RotateY(90);
-	CourseWallsRoom1[2]->RotateY(90);
-	CourseWallsRoom1[3]->RotateY(90);
-	CourseWallsRoom1[6]->RotateY(90);
-	CourseWallsRoom1[7]->RotateY(90);
-
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-	CourseWallsRoom2[0] = CourseWallMesh->CreateModel(222, -10, 350);
-	CourseWallsRoom2[1] = CourseWallMesh->CreateModel(176, -10, 270);
-	CourseWallsRoom2[2] = CourseWallMesh->CreateModel(322, -10, 350);
-	CourseWallsRoom2[3] = CourseWallMesh->CreateModel(176, -10, 170);
-	CourseWallsRoom2[4] = CourseWallMesh->CreateModel(176, -10, 95);
-	CourseWallsRoom2[5] = CourseWallMesh->CreateModel(176, -10, 15);
-	CourseWallsRoom2[6] = CourseWallMesh->CreateModel(222, -10, 0);
-	CourseWallsRoom2[7] = CourseWallMesh->CreateModel(322, -10, 0);
-	CourseWallsRoom2[8] = CourseWallMesh->CreateModel(350, -10, 295);
-	CourseWallsRoom2[9] = CourseWallMesh->CreateModel(350, -10, 195);
-	CourseWallsRoom2[10] = CourseWallMesh->CreateModel(350, -10, 95);
-	CourseWallsRoom2[11] = CourseWallMesh->CreateModel(350, -10, 20);
-
-	CourseWallsRoom2[1]->RotateY(90);
-	CourseWallsRoom2[3]->RotateY(90);
-	CourseWallsRoom2[4]->RotateY(90);
-	CourseWallsRoom2[5]->RotateY(90);
-	CourseWallsRoom2[8]->RotateY(90);
-	CourseWallsRoom2[9]->RotateY(90);
-	CourseWallsRoom2[10]->RotateY(90);
-	CourseWallsRoom2[11]->RotateY(90);
-
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-	CourseWallsRoom1Inner[0] = CourseWallInnerMesh->CreateModel(60, -20, 178);
-	CourseWallsRoom1Inner[1] = CourseWallInnerMesh->CreateModel(70, -20, 230);
-
-	CourseWallsRoom1Inner[0]->RotateY(90);
-
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-	CourseWallsRoom2Inner[0] = CourseWallInnerMesh->CreateModel(230, -20, 278);
-	CourseWallsRoom2Inner[1] = CourseWallInnerMesh->CreateModel(290, -20, 278);
-	CourseWallsRoom2Inner[2] = CourseWallInnerMesh->CreateModel(302.5, -20, 230.5);
-	CourseWallsRoom2Inner[3] = CourseWallInnerMesh->CreateModel(302.5, -20, 100.5);
-	CourseWallsRoom2Inner[4] = CourseWallInnerMesh->CreateModel(230, -20, 120);
-	CourseWallsRoom2Inner[5] = CourseWallInnerMesh->CreateModel(290, -20, 120);
-	CourseWallsRoom2Inner[6] = CourseWallInnerMesh->CreateModel(250, -20, 170);
-	CourseWallsRoom2Inner[7] = CourseWallInnerMesh->CreateModel(200, -20, 170);
-	CourseWallsRoom2Inner[8] = CourseWallInnerMesh->CreateModel(240, -20, 100);
-	CourseWallsRoom2Inner[9] = CourseWallInnerMesh->CreateModel(230, -20, 82);
-	CourseWallsRoom2Inner[10] = CourseWallInnerMesh->CreateModel(190, -20, 82);
-
-	CourseWallsRoom2Inner[2]->RotateY(90);
-	CourseWallsRoom2Inner[3]->RotateY(90);
-	CourseWallsRoom2Inner[6]->RotateY(90);
-	CourseWallsRoom2Inner[8]->RotateY(90);
-
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	for (int i = 0; i < numOfCourseWalls1; i++)
+	for (int i = 0; i < maxWALLLLLLLZZZ; i++)
 	{
-		CourseWallsRoom1[i]->Scale(10);
-		CourseWallsRoom1[i]->ScaleZ(0.1f);
+		CourseWalls[i] = CourseWallMesh->CreateModel(Walls[i][1], Walls[i][2], Walls[i][3]);
+		CourseWalls[i]->RotateY(Walls[i][4]);
+		CourseWalls[i]->Scale(10);
+
+		if (i == 16 || i == 17 || i == 23)
+		{
+			CourseWalls[i]->ScaleX(0.5f);
+		}
+
+		if (Walls[i][0] == 1)
+		{
+			CourseWalls[i]->ScaleZ(0.1f);
+		}
+		else if (Walls[i][0] == 2)
+		{
+			CourseWalls[i]->ScaleZ(0.02f);
+			CourseWalls[i]->ScaleX(0.4f);
+		}
 	}
-
-	CourseWallsRoom1[5]->ScaleX(0.5f);
-
-	for (int i = 0; i < numOfCourseWalls2; i++)
-	{
-		CourseWallsRoom2[i]->Scale(10);
-		CourseWallsRoom2[i]->ScaleZ(0.1f);
-	}
-
-	for (int i = 0; i < numOfCourseWalls1Inner; i++)
-	{
-		CourseWallsRoom1Inner[i]->Scale(10);
-		CourseWallsRoom1Inner[i]->ScaleZ(0.05f);
-	}
-
-	for (int i = 0; i < numOfCourseWalls2Inner; i++)
-	{
-		CourseWallsRoom2Inner[i]->Scale(10);
-		CourseWallsRoom2Inner[i]->ScaleZ(0.05f);
-	}
-
-	CourseWallsRoom2[4]->ScaleX(0.5f);
-	CourseWallsRoom2[5]->ScaleX(0.5f);
-	CourseWallsRoom2[11]->ScaleX(0.5f);
-	CourseWallsRoom1Inner[1]->ScaleX(0.6f);
-	CourseWallsRoom2Inner[1]->ScaleX(0.2f);
-	CourseWallsRoom2Inner[5]->ScaleX(0.2f);
-	CourseWallsRoom2Inner[7]->ScaleX(0.4f);
-	CourseWallsRoom2Inner[8]->ScaleX(0.4f);
-	CourseWallsRoom2Inner[9]->ScaleX(0.2f);
-	CourseWallsRoom2Inner[10]->ScaleX(0.2f);
-
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	int currentOuterWall = 0;

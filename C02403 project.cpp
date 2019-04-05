@@ -24,23 +24,25 @@ using namespace std;
 
 enum menuSelection { Play, Options, Controls, Quit};
 enum standingState { Standing, Crouching, Prone };
-enum menuState {MainMenu, PauseMenu, GameRunning, };
+enum menuState {MainMenu, PauseMenu, GameRunning, ControlsMenu};
 enum gunState {NoGun, HoldingGun};
 
 I3DEngine* myEngine = New3DEngine(kTLX);
 
-const float upperCamYMax = -50.0f;
-const float lowerCamYMax = 50.0f;
-
-//const int numGuns = 6;
+const float UPPER_CAM_Y_MAX = -50.0f;
+const float LOWER_CAM_Y_MAX = 50.0f;
+const float RECOIL_SPEED = -50;
+const float gunMovementMax = -3;
 
 float Time = 0;
 float countDownTime = 1.0f;
 float WeaponTime = 0;
 int bulletsFired = 0;
 bool canShoot = true;
+float currentGunMoveBack = 0;
 
-void Fire(IModel* &cameraDummy, float& frametime, float& shoottimer);
+
+void Fire(IModel* &cameraDummy, float& frametime, float& shoottimer, float& camYCounter);
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter, standingState& currPlayerStandState, float& movementSpeed, float& currentMoveSpeed);
 
@@ -69,25 +71,44 @@ void main()
 	myEngine->AddMediaFolder(".\\Media");
 	ICamera* myCam = myEngine->CreateCamera(kManual, 0, 0, 0);
 	{
+		IFont* MainFont = myEngine->LoadFont("Stencil STD", 60);
+		
 		ISprite* Crosshair = myEngine->CreateSprite("crosshair.png", (horizontal / 2) - 6000, (vertical / 2) - 60);
-		ISprite* ammoUI = myEngine->CreateSprite("ammoUIPNG.png", -1000, vertical - 150);
-		ISprite* menuUI = myEngine->CreateSprite("mainMenuUI.jpg", 0, 0, 0.1);
+		ISprite* ammoUI = myEngine->CreateSprite("ammoUIPNG.png", -10000, vertical - 150);
+		ISprite* menuUI = myEngine->CreateSprite("mainMenuUI.jpg", -10000, 0, 0.1);
+		ISprite* controlsUI = myEngine->CreateSprite("controlsMenuUI.jpg", -10000, 0, 0.1);
 		ISprite* menuSelectionUI = myEngine->CreateSprite("menuSelectionUISprite.png", 90, 425);
 		ISprite* fireModeSemi = myEngine->CreateSprite("SemiAutoUI.png", -20, vertical - 105);
 		ISprite* fireModeBurstUI = myEngine->CreateSprite("burstFireUI.png", -29, vertical - 105);
 		ISprite* fireModeFullUI = myEngine->CreateSprite("FullAutoUI.png", -43, vertical - 105);
 
-		IFont* MainFont = myEngine->LoadFont("Stencil STD", 60);
-
 		IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 		IMesh* bulletMesh = myEngine->LoadMesh("Bullet.x");
 
-		IModel* fence[80];
 		IModel* cameraDummy = dummyMesh->CreateModel(5, 15, 80);
 		IModel* interactionDummy = dummyMesh->CreateModel(0, 0, 0);
 		IModel* gunFireTest = dummyMesh->CreateModel(0, 0, 0);
 
+		menuState currentGameState = GameRunning;
+		gunState currentGunState = NoGun;
 		menuSelection currentMenuSelection = Play;
+		standingState currPlayerStandState = Standing;
+		
+		stringstream ammoText;
+
+		sf::SoundBuffer nickStartBuffer;
+		sf::SoundBuffer nickTimerBuffer;
+
+		sf::Sound nickStartSound;
+		sf::Sound nickTimerSound;
+
+		nickStartBuffer.loadFromFile("soundeffects\\NICKwelcomeRecruit.wav");
+		nickStartSound.setBuffer(nickStartBuffer);
+		nickStartSound.setVolume(soundVolume);
+
+		nickTimerBuffer.loadFromFile("soundeffects\\NICKtimerWillStart.wav");
+		nickTimerSound.setBuffer(nickTimerBuffer);
+		nickTimerSound.setVolume(soundVolume);
 
 		gunFireTest->AttachToParent(cameraDummy);
 
@@ -107,31 +128,22 @@ void main()
 		float movementSpeed = frameTime;
 		float shoottimer = 0.04f;
 		float currentMoveSpeed = 50.0f;
-
 		float mouseMoveX = 0.0f;
 		float mouseMoveY = 0.0f;
 		float camYCounter = 0.0f;
-
 		float interactionZspeed = 0.0f;
 		float currentInteractionDistance = 0.0f;
-		bool canCollide = false;
-
 		float oldPlayerX = 0;
 		float oldPlayerZ = 0;
 
-		standingState currPlayerStandState = Standing;
+		bool canCollide = false;
 		bool crouched = false;
 		bool prone = false;
-
-		stringstream ammoText;
-
-		menuState currentGameState = MainMenu;
 		bool spritesInPosition = false;
-
-		gunState currentGunState = NoGun;
+		bool nicktimerWillstartSaid = false;
 
 		/**** Set up your scene here ****/
-		CreateFences(myEngine, fence); CreateScene(myEngine); CreateWalls(myEngine);
+		CreateFences(myEngine); CreateScene(myEngine); CreateWalls(myEngine);
 
 		// The main game loop, repeat until engine is stopped
 		while (myEngine->IsRunning())
@@ -154,42 +166,33 @@ void main()
 			movementSpeed = currentMoveSpeed * frameTime;
 
 			/**** Update your scene each frame here ****/
+			//**************************************************** Game Start ********************************************************//
 			if (currentGameState == MainMenu)
 			{
-				if (currentMenuSelection == Play)
-				{
-					menuSelectionUI->SetPosition(90, 425);
-				}
-				else if (currentMenuSelection == Options)
-				{
-					menuSelectionUI->SetPosition(90, 555);
-				}
-				else if (currentMenuSelection == Controls)
-				{
-					menuSelectionUI->SetPosition(90, 680);
-				}
-				else if (currentMenuSelection == Quit)
-				{
-					menuSelectionUI->SetPosition(90, 810);
-				}
+				menuUI->SetPosition(0, 0);
+				controlsUI->SetPosition(-1000, 0);
 
 				if (myEngine->KeyHit(Key_Up))
 				{
 					if (currentMenuSelection == Play)
 					{
 						currentMenuSelection = Quit;
+						menuSelectionUI->SetPosition(90, 810);
 					}
 					else if (currentMenuSelection == Options)
 					{
 						currentMenuSelection = Play;
+						menuSelectionUI->SetPosition(90, 425);
 					}
 					else if (currentMenuSelection == Controls)
 					{
 						currentMenuSelection = Options;
+						menuSelectionUI->SetPosition(90, 555);
 					}
 					else if(currentMenuSelection == Quit)
 					{
 						currentMenuSelection = Controls;
+						menuSelectionUI->SetPosition(90, 680);
 					}
 				}
 
@@ -198,18 +201,22 @@ void main()
 					if (currentMenuSelection == Play)
 					{
 						currentMenuSelection = Options;
+						menuSelectionUI->SetPosition(90, 555);
 					}
 					else if (currentMenuSelection == Options)
 					{
 						currentMenuSelection = Controls;
+						menuSelectionUI->SetPosition(90, 680);
 					}
 					else if (currentMenuSelection == Controls)
 					{
 						currentMenuSelection = Quit;
+						menuSelectionUI->SetPosition(90, 810);
 					}
 					else if (currentMenuSelection == Quit)
 					{
 						currentMenuSelection = Play;
+						menuSelectionUI->SetPosition(90, 425);
 					}
 				}
 
@@ -225,22 +232,39 @@ void main()
 					}
 					else if (currentMenuSelection == Controls)
 					{
-						currentGameState = GameRunning;
+						currentGameState = ControlsMenu;
 					}
 					else if (currentMenuSelection == Quit)
 					{
 						myEngine->Stop();
 					}
 				}
-
-				//**************************************************** end of main menu ********************************************************//
 			}
+			//**************************************************** Controls Menu ********************************************************//
+			else if (currentGameState == ControlsMenu)
+			{
+				menuUI->SetX(-10000);
+				menuSelectionUI->SetX(-10000);
+				controlsUI->SetPosition(0, 0);
+				
+				MainFont->Draw("Return - Go back", horizontal / 2, vertical - 50, kDarkGrey, kCentre);
+
+				if (myEngine->KeyHit(Key_Return))
+				{
+					currentGameState = MainMenu;
+					menuSelectionUI->SetPosition(90, 425);
+					currentMenuSelection = Play;
+				}
+			}
+			//**************************************************** Main game ********************************************************//
 			else if (currentGameState == GameRunning)
 			{
-				if (spritesInPosition == false)
+				if (!spritesInPosition)
 				{
+					nickStartSound.play();
 					menuUI->SetX(-10000);
 					menuSelectionUI->SetX(-10000);
+					controlsUI->SetX(-10000);
 					Crosshair->SetPosition((horizontal / 2) - 60, (vertical / 2) - 60);
 					ammoUI->SetPosition(10, vertical - 150);
 					spritesInPosition = true;
@@ -267,8 +291,8 @@ void main()
 				mouseMoveX = myEngine->GetMouseMovementX();
 				mouseMoveY = myEngine->GetMouseMovementY();
 
-				if (camYCounter < upperCamYMax && mouseMoveY < 0) { mouseMoveY = 0; }
-				if (camYCounter > lowerCamYMax && mouseMoveY > 0) { mouseMoveY = 0; }
+				if (camYCounter < UPPER_CAM_Y_MAX && mouseMoveY < 0) { mouseMoveY = 0; }
+				if (camYCounter > LOWER_CAM_Y_MAX && mouseMoveY > 0) { mouseMoveY = 0; }
 
 				camYCounter += mouseMoveY * 0.1f;
 
@@ -285,11 +309,20 @@ void main()
 						currentGun = (Guns.get());
 						reloadMagazine(currentGun->magCapacity, vMagazine);
 						currentGun->magAmount = currentGun->magCapacity;
-
+						if (nicktimerWillstartSaid == false)
+						{
+							nickTimerSound.play();
+							nicktimerWillstartSaid = true;
+						}
 					}
 				}
 
-				if (!FenceCollision(cameraDummy))
+				//if (!FenceCollision(cameraDummy))
+				//{
+				//	cameraDummy->SetPosition(oldPlayerX, 15, oldPlayerZ);
+				//}
+
+				if (targetBoxCollision(vTargets, cameraDummy))
 				{
 					cameraDummy->SetPosition(oldPlayerX, 15, oldPlayerZ);
 				}
@@ -361,7 +394,7 @@ void main()
 				}
 				if (currentGun != nullptr)
 				{
-					Fire(cameraDummy, frameTime, shoottimer);
+					Fire(cameraDummy, frameTime, shoottimer, camYCounter);
 				}
 
 				moveBullets(100, vMagazine, frameTime);
@@ -381,12 +414,12 @@ void main()
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamX, float &mouseMoveY, float& camYCounter, standingState& currPlayerStandState, float& movementSpeed, float& currentMoveSpeed)
 {
-	if (camYCounter > upperCamYMax && mouseMoveY < 0)
+	if (camYCounter > UPPER_CAM_Y_MAX && mouseMoveY < 0)
 	{
 		camDummy->RotateLocalX(mouseMoveY * 0.1f);
 	}
 
-	if (camYCounter < lowerCamYMax && mouseMoveY > 0)
+	if (camYCounter < LOWER_CAM_Y_MAX && mouseMoveY > 0)
 	{
 		camDummy->RotateLocalX(mouseMoveY * 0.1f);
 	}
@@ -456,7 +489,7 @@ void desktopResolution(int& horizontal, int& vertical)
 	vertical = desktop.bottom;				  //Holds the values for the screen resolution.
 }
 
-void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer)
+void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camYCounter)
 {
 	switch (CurrentFireMode)
 	{
@@ -467,7 +500,7 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer)
 			if (shoottimer <= 0 && currentGun->magAmount > 0)
 			{
 				currentGun->shootingSound.play();
-				shoottimer = currentGun->fireRate * 3;
+				shoottimer = currentGun->fireRate * 2;
 			}
 
 			for (int i = 0; i <currentGun->magCapacity; i++)
@@ -486,6 +519,15 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer)
 						currentGun->magAmount--;
 						WeaponTime = 0.0f;
 
+						if (camYCounter > UPPER_CAM_Y_MAX)
+						{
+							for (int i = 0; i < 3; i++)
+							{
+								for (int j = 0; j < 10000; j++) {}
+								cameraDummy->RotateLocalX(RECOIL_SPEED * frameTime);
+								camYCounter += RECOIL_SPEED * frameTime;
+							}
+						}
 					}
 				}
 
@@ -518,6 +560,16 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer)
 						currentGun->magAmount--;
 						WeaponTime = 0.0f;
 						bulletsFired++;
+
+						if (camYCounter > UPPER_CAM_Y_MAX)
+						{
+							for (int i = 0; i < 3; i++)
+							{
+								for (int j = 0; j < 10000; j++) {}
+								cameraDummy->RotateLocalX(RECOIL_SPEED * frameTime);
+								camYCounter += RECOIL_SPEED * frameTime;
+							}
+						}
 					}
 
 				}
@@ -528,16 +580,12 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer)
 			canShoot = true;
 			bulletsFired = 0;
 		}
-
-
-
 		break;
 	case Single:
 		if (myEngine->KeyHit(Mouse_LButton))
 		{
 			for (int i = 0; i < currentGun->magCapacity; i++)
 			{
-
 				if (vMagazine[i]->status == Reloaded)
 				{
 					currentGun->shootingSound.play();
@@ -549,18 +597,21 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer)
 					vMagazine[i]->model->Scale(0.004f);
 					vMagazine[i]->status = Fired;
 					currentGun->magAmount--;
+
+					if (camYCounter > UPPER_CAM_Y_MAX)
+					{
+						for (int i = 0; i < 3; i++)
+						{
+							cameraDummy->RotateLocalX(RECOIL_SPEED * frameTime);
+							camYCounter += RECOIL_SPEED * frameTime;
+						}
+					}
+
 					break;
 				}
-
 			}
-
-
-
 			break;
-
 		}
-		
-
 	}
 }
 
