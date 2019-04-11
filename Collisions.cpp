@@ -106,28 +106,91 @@ sideHit ammoBoxCollision(IModel* boxes[], IModel* camDummy, float oldPos[])
 	}
 	return NoSide;
 }
-//sideHit WallCollision(IModel* Walls[], IModel* camDummy, float oldPos[])
-//{
-//	float sRad = 2.0f;
-//	float oWWidth = 20.0f;
-//	float oWDepth = 4.0f;
-//
-//	for (int i = 0; i < maxWALLLLLLLZZZ; i++)
-//	{
-//		if (Walls[i][0] == 1)
-//		{
-//
-//		}
-//		float minX = Walls[i]->GetX() - oWWidth - sRad; //Min x pos before a collision has happened
-//		float maxX = Walls[i]->GetX() + oWWidth + sRad; //Max x pos before a collision has happened
-//		float minZ = -10.0f; //Min z pos before a collision has happened
-//		float maxZ = Walls[i]->GetZ() + oWDepth + sRad; //Max z pos before a collision has happened
-//
-//		if (camDummy->GetX() > minX && camDummy->GetX() < maxX && camDummy->GetZ() > minZ && camDummy->GetZ() < maxZ)
-//		{
-//			if (oldPos[0] < minX || oldPos[0] > maxX) return LeftRight;
-//			if (oldPos[1] < minZ || oldPos[1] > maxZ) return FrontBack;
-//		}
-//	}
-//	return NoSide;
-//}
+
+sideHit WallCollision(const float Walls[maxWALLLLLLLZZZ][5], IModel* camDummy, float oldPos[])
+{
+	float sRad = 2.0f;
+	float oWWidth = 50.0f;
+	float oWDepth = 4.0f;
+	float iWWidth = 20.0f;
+	float iWDepth = 2.0f;
+
+	float minX = 0;
+	float maxX = 0;
+	float minZ = 0;
+	float maxZ = 0;
+
+	for (int i = 0; i < maxWALLLLLLLZZZ; i++)
+	{
+		if (Walls[i][0] == 1)
+		{
+			if (Walls[i][4] == 0)
+			{
+				minX = Walls[i][1] - oWWidth - sRad; //Min x pos before a collision has happened
+				maxX = Walls[i][1] + oWWidth + sRad; //Max x pos before a collision has happened
+				minZ = Walls[i][3] - oWDepth - sRad;
+				maxZ = Walls[i][3] + oWDepth + sRad; //Max z pos before a collision has happened
+
+				if (camDummy->GetX() > minX && camDummy->GetX() < maxX && camDummy->GetZ() > minZ && camDummy->GetZ() < maxZ)
+				{
+					if (oldPos[0] < minX || oldPos[0] > maxX) return LeftRight;
+					if (oldPos[1] < minZ || oldPos[1] > maxZ) return FrontBack;
+				}
+			}
+			else
+			{
+				if (i == 16 || i == 17 || i == 23)
+				{
+					minX = Walls[i][1] - oWDepth - sRad;
+					maxX = Walls[i][1] + oWDepth + sRad;
+					minZ = Walls[i][3] - (oWWidth / 2) - sRad;
+					maxZ = Walls[i][3] + (oWWidth / 2) + sRad;
+				}
+				else
+				{
+					minX = Walls[i][1] - oWDepth - sRad; //Min x pos before a collision has happened
+					maxX = Walls[i][1] + oWDepth + sRad; //Max x pos before a collision has happened
+					minZ = Walls[i][3] - oWWidth - sRad;
+					maxZ = Walls[i][3] + oWWidth + sRad; //Max z pos before a collision has happened
+				}
+
+				if (camDummy->GetX() > minX && camDummy->GetX() < maxX && camDummy->GetZ() > minZ && camDummy->GetZ() < maxZ)
+				{
+					if (oldPos[0] < minX || oldPos[0] > maxX) return LeftRight;
+					if (oldPos[1] < minZ || oldPos[1] > maxZ) return FrontBack;
+				}
+			}
+		}
+		else
+		{
+			if (Walls[i][4] == 0)
+			{
+				minX = Walls[i][1] - iWWidth - sRad; //Min x pos before a collision has happened
+				maxX = Walls[i][1] + iWWidth + sRad; //Max x pos before a collision has happened
+				minZ = Walls[i][3] - iWDepth - sRad;
+				maxZ = Walls[i][3] + iWDepth + sRad; //Max z pos before a collision has happened
+
+				if (camDummy->GetX() > minX && camDummy->GetX() < maxX && camDummy->GetZ() > minZ && camDummy->GetZ() < maxZ)
+				{
+					if (oldPos[0] < minX || oldPos[0] > maxX) return LeftRight;
+					if (oldPos[1] < minZ || oldPos[1] > maxZ) return FrontBack;
+				}
+			}
+			else
+			{
+				minX = Walls[i][1] - iWDepth - sRad; //Min x pos before a collision has happened
+				maxX = Walls[i][1] + iWDepth + sRad; //Max x pos before a collision has happened
+				minZ = Walls[i][3] - iWWidth - sRad;
+				maxZ = Walls[i][3] + iWWidth + sRad; //Max z pos before a collision has happened
+
+				if (camDummy->GetX() > minX && camDummy->GetX() < maxX && camDummy->GetZ() > minZ && camDummy->GetZ() < maxZ)
+				{
+					if (oldPos[0] < minX || oldPos[0] > maxX) return LeftRight;
+					if (oldPos[1] < minZ || oldPos[1] > maxZ) return FrontBack;
+				}
+			}
+
+		}
+	}
+	return NoSide;
+}

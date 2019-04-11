@@ -1,3 +1,4 @@
-﻿  Collisions.cpp
-  C02403 project.vcxproj -> D:\MWoollett\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
-  C02403 project.vcxproj -> D:\MWoollett\Documents\GitHub\C02403-ShootyGame\\C02403 project.pdb (Full PDB)
+﻿  ModelCreation.cpp
+d:\ajones45\documents\github\c02403-shootygame\modelcreation.cpp(87): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+  C02403 project.vcxproj -> D:\AJones45\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
+  Copying DLLs & shaders...

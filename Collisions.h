@@ -17,4 +17,4 @@ sideHit targetBoxCollision(std::vector<sTarget*>& vTargets, IModel* camDummy, fl
 
 sideHit ammoBoxCollision(IModel* boxes[], IModel* camDummy, float oldPos[]);
 
-sideHit WallCollision(IModel* Walls[], IModel* camDummy, float oldPos[]);
+sideHit WallCollision(const float Walls[maxWALLLLLLLZZZ][5], IModel* camDummy, float oldPos[]);

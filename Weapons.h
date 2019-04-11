@@ -75,9 +75,6 @@ struct AR_18 :public sWeapon
 		magCapacity = 20;
 		magAmount = 20;
 		fireRate = 0.2f;
-		shootingBuffer.loadFromFile("soundeffects\\AR18.wav");
-		shootingSound.setBuffer(shootingBuffer);
-		shootingSound.setVolume(soundVolume);
 	}
 };
 

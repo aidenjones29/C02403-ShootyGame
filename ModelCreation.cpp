@@ -15,7 +15,8 @@ void CreateScene(I3DEngine* myEngine, IModel* ammoCrate[])
 
 	IModel* armyTruckTwo = armyTruckMesh->CreateModel(80, 0, -45);
 	IModel* floor = floorMesh->CreateModel();
-	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
+	IModel* skybox = skyboxMesh->CreateModel(0.0f, -3000.0f, 0.0f);
+	skybox->Scale(5);
 	IModel* barrier[3];
 	IModel* nickBox[5];
 	IModel* nick = nickMesh->CreateModel(-36, 18, 70);
