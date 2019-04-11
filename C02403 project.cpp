@@ -31,12 +31,16 @@ I3DEngine* myEngine = New3DEngine(kTLX);
 
 const float UPPER_CAM_Y_MAX = -50.0f;
 const float LOWER_CAM_Y_MAX = 50.0f;
+const float RECOIL_SPEED = -50;
+const float gunMovementMax = -3;
 
 float Time = 0;
 float countDownTime = 1.0f;
 float WeaponTime = 0;
 int bulletsFired = 0;
 bool canShoot = true;
+float currentGunMoveBack = 0;
+
 
 void Fire(IModel* &cameraDummy, float& frametime, float& shoottimer, float& camYCounter);
 
@@ -49,8 +53,6 @@ vector <sBullet*> vMagazine;
 vector <sTarget*> vTargets;
 deque <unique_ptr<sWeapon>> vGuns;
 sWeapon* currentGun = nullptr;
-
-//int whichGunEquipped = numGuns;
 fireModes CurrentFireMode = Auto;
 
 void main()
@@ -86,7 +88,7 @@ void main()
 		IModel* gunFireTest = dummyMesh->CreateModel(0, 0, 0);
 		IModel* ammoCrate[numAmmoBoxes];
 
-		menuState currentGameState = GameRunning;
+		menuState currentGameState = MainMenu;
 		gunState currentGunState = NoGun;
 		menuSelection currentMenuSelection = Play;
 		standingState currPlayerStandState = Standing;
@@ -314,10 +316,17 @@ void main()
 					}
 				}
 
-				//if (!FenceCollision(cameraDummy))
-				//{
-				//	cameraDummy->SetPosition(oldPlayerX, 15, oldPlayerZ);
-				//}
+				//----------------------------------------------------------- COLLISIONS -----------------------------------------------------------//
+
+				if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == FrontBack || ammoBoxCollision(ammoCrate, cameraDummy, oldPlayerPos) == FrontBack || WallCollision(Walls, cameraDummy, oldPlayerPos) == FrontBack)
+				{
+					cameraDummy->SetZ(oldPlayerPos[1]);
+				}
+				else if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == LeftRight || ammoBoxCollision(ammoCrate, cameraDummy, oldPlayerPos) == LeftRight || WallCollision(Walls, cameraDummy, oldPlayerPos) == LeftRight)
+				{
+					cameraDummy->SetX(oldPlayerPos[0]);
+				}
+				//---------------------------------------------------------------------------------------------------------------------------------//
 
 				if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == FrontBack || ammoBoxCollision(ammoCrate, cameraDummy, oldPlayerPos) == FrontBack)
 				{
@@ -522,8 +531,12 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camY
 
 						if (camYCounter > UPPER_CAM_Y_MAX)
 						{
-							cameraDummy->RotateLocalX(-150 * frameTime);
-							camYCounter += -150 * frameTime;
+							for (int i = 0; i < 3; i++)
+							{
+								for (int j = 0; j < 10000; j++) {}
+								cameraDummy->RotateLocalX(RECOIL_SPEED * frameTime);
+								camYCounter += RECOIL_SPEED * frameTime;
+							}
 						}
 					}
 				}
@@ -557,6 +570,16 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camY
 						currentGun->magAmount--;
 						WeaponTime = 0.0f;
 						bulletsFired++;
+
+						if (camYCounter > UPPER_CAM_Y_MAX)
+						{
+							for (int i = 0; i < 3; i++)
+							{
+								for (int j = 0; j < 10000; j++) {}
+								cameraDummy->RotateLocalX(RECOIL_SPEED * frameTime);
+								camYCounter += RECOIL_SPEED * frameTime;
+							}
+						}
 					}
 
 				}
@@ -584,6 +607,16 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camY
 					vMagazine[i]->model->Scale(0.004f);
 					vMagazine[i]->status = Fired;
 					currentGun->magAmount--;
+
+					if (camYCounter > UPPER_CAM_Y_MAX)
+					{
+						for (int i = 0; i < 3; i++)
+						{
+							cameraDummy->RotateLocalX(RECOIL_SPEED * frameTime);
+							camYCounter += RECOIL_SPEED * frameTime;
+						}
+					}
+
 					break;
 				}
 			}
