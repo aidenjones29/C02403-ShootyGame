@@ -1,6 +1,6 @@
 #include "ModelCreation.h"
 
-void CreateScene(I3DEngine * myEngine, IModel* ammoCrate[])
+void CreateScene(IModel* ammoCrate[])
 {
 	IMesh* skyboxMesh = myEngine->LoadMesh("Skybox.x");
 	IMesh* floorMesh = myEngine->LoadMesh("Floor.x");
@@ -104,7 +104,7 @@ void CreateScene(I3DEngine * myEngine, IModel* ammoCrate[])
 }
 
 
-void CreateFences(I3DEngine* myEngine, IModel* fence[])
+void CreateFences(IModel* fence[])
 {
 	IMesh* FenceMesh = myEngine->LoadMesh("ChainLinkFence.x");
 	IMesh* gateMesh = myEngine->LoadMesh("Gate.x");
@@ -152,7 +152,7 @@ void CreateFences(I3DEngine* myEngine, IModel* fence[])
 
 	courseGateSideRight[0] = FenceMesh->CreateModel(130, 0, 121);
 	courseGateSideRight[1] = FenceMesh->CreateModel(134.7f, 0, 323.2f);
-	courseGateSideRight[2] = FenceMesh->CreateModel(179.5, 20, 323);
+	courseGateSideRight[2] = FenceMesh->CreateModel(179.5, 0, 323);
 
 	hallwayFence1[0] = FenceMesh->CreateModel(157, 0, 347);
 	hallwayFence1[1] = FenceMesh->CreateModel(159, 0, 317);
@@ -226,7 +226,7 @@ void CreateFences(I3DEngine* myEngine, IModel* fence[])
 }
 
 
-void CreateWalls(I3DEngine * myEngine)
+void CreateWalls()
 {
 	const int numOfCourseWalls1 = 8;
 	const int numOfCourseWalls2 = 12;

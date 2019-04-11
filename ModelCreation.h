@@ -1,6 +1,7 @@
 #pragma once
 #include <TL-Engine.h>
 #include <vector>
+#include "Engine.h"
 
 using namespace tle;
 
@@ -11,11 +12,11 @@ const int numOfhallwayFences1 = 4;
 const int maxWALLLLLLLZZZ = 42;
 const int numAmmoBoxes = 3;
 
-void CreateScene(I3DEngine* myEngine, IModel* ammoCrate[]);
+void CreateScene(IModel* ammoCrate[]);
 
-void CreateFences(I3DEngine* myEngine, IModel* fence[]);
+void CreateFences(IModel* fence[]);
 
-void CreateWalls(I3DEngine* myEngine);
+void CreateWalls();
 
 const float Walls[maxWALLLLLLLZZZ][5] =
 {

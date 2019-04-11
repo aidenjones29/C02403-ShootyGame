@@ -144,7 +144,7 @@ void main()
 		float oldPlayerPos[2];
 
 		/**** Set up your scene here ****/
-		CreateFences(myEngine, fence); CreateScene(myEngine, ammoCrate); CreateWalls(myEngine);
+		CreateFences(fence); CreateScene(ammoCrate); CreateWalls();
 
 		// The main game loop, repeat until engine is stopped
 		while (myEngine->IsRunning())
