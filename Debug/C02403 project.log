@@ -1,46 +1,175 @@
-<<<<<<< HEAD
-﻿  ModelCreation.cpp
-d:\ajones45\documents\github\c02403-shootygame\modelcreation.cpp(86): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-  C02403 project.vcxproj -> D:\AJones45\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
-=======
-﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+﻿  Collisions.cpp
+d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(7): error C2059: syntax error: '<<'
+d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(77): error C2059: syntax error: '=='
+d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(83): error C2059: syntax error: '>>'
+c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.15.26726\include\excpt.h(14): error C2143: syntax error: missing ';' before '{'
+c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.15.26726\include\excpt.h(14): error C2447: '{': missing function header (old-style formal list?)
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\winnt.h(1372): error C2143: syntax error: missing ';' before '__stdcall'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\winnt.h(1372): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\winnt.h(1378): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\winnt.h(1380): error C2143: syntax error: missing ';' before '*'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\winnt.h(1380): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\winnt.h(1380): error C2365: 'EXCEPTION_ROUTINE': redefinition; previous definition was 'function'
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\winnt.h(1373): note: see declaration of 'EXCEPTION_ROUTINE'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\winnt.h(11202): error C3646: 'Handler': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\winnt.h(11202): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(11): error C2059: syntax error: '<<'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(14): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(14): error C2146: syntax error: missing ';' before identifier 'targetBoxCollision'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(16): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(16): error C2086: 'int sideHit': redefinition
+  d:\ajones45\documents\github\c02403-shootygame\collisions.h(14): note: see declaration of 'sideHit'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(16): error C2146: syntax error: missing ';' before identifier 'ammoBoxCollision'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(18): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(18): error C2086: 'int sideHit': redefinition
+  d:\ajones45\documents\github\c02403-shootygame\collisions.h(14): note: see declaration of 'sideHit'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(18): error C2146: syntax error: missing ';' before identifier 'WallCollision'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(20): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(20): error C2086: 'int sideHit': redefinition
+  d:\ajones45\documents\github\c02403-shootygame\collisions.h(14): note: see declaration of 'sideHit'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(20): error C2146: syntax error: missing ';' before identifier 'allFenceCollisions'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(21): error C2059: syntax error: '=='
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(23): error C2059: syntax error: '>>'
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(5): error C2143: syntax error: missing ';' before '{'
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(5): error C2447: '{': missing function header (old-style formal list?)
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(65): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(65): error C2086: 'int sideHit': redefinition
+  d:\ajones45\documents\github\c02403-shootygame\collisions.h(14): note: see declaration of 'sideHit'
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(65): error C2146: syntax error: missing ';' before identifier 'targetBoxCollision'
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(66): error C2143: syntax error: missing ';' before '{'
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(66): error C2447: '{': missing function header (old-style formal list?)
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(87): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(87): error C2086: 'int sideHit': redefinition
+  d:\ajones45\documents\github\c02403-shootygame\collisions.h(14): note: see declaration of 'sideHit'
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(87): error C2146: syntax error: missing ';' before identifier 'ammoBoxCollision'
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(88): error C2143: syntax error: missing ';' before '{'
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(88): error C2447: '{': missing function header (old-style formal list?)
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(109): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(109): error C2086: 'int sideHit': redefinition
+  d:\ajones45\documents\github\c02403-shootygame\collisions.h(14): note: see declaration of 'sideHit'
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(109): error C2146: syntax error: missing ';' before identifier 'WallCollision'
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(110): error C2143: syntax error: missing ';' before '{'
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(110): error C2447: '{': missing function header (old-style formal list?)
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(197): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(197): error C2086: 'int sideHit': redefinition
+  d:\ajones45\documents\github\c02403-shootygame\collisions.h(14): note: see declaration of 'sideHit'
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(197): error C2146: syntax error: missing ';' before identifier 'allFenceCollisions'
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(198): error C2143: syntax error: missing ';' before '{'
+d:\ajones45\documents\github\c02403-shootygame\collisions.cpp(198): error C2447: '{': missing function header (old-style formal list?)
   C02403 project.cpp
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(32): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(51): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(71): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(90): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(109): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(128): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(147): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(72): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(73): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(77): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(78): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(79): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(265): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(266): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(272): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(273): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(274): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(278): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(279): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(283): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(284): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(285): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(288): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(289): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(336): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(7): error C2059: syntax error: '<<'
+d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(77): error C2059: syntax error: '=='
+d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(83): error C2059: syntax error: '>>'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(11): error C2059: syntax error: '<<'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(14): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(14): error C2146: syntax error: missing ';' before identifier 'targetBoxCollision'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(16): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(16): error C2086: 'int sideHit': redefinition
+  d:\ajones45\documents\github\c02403-shootygame\collisions.h(14): note: see declaration of 'sideHit'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(16): error C2146: syntax error: missing ';' before identifier 'ammoBoxCollision'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(18): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(18): error C2086: 'int sideHit': redefinition
+  d:\ajones45\documents\github\c02403-shootygame\collisions.h(14): note: see declaration of 'sideHit'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(18): error C2146: syntax error: missing ';' before identifier 'WallCollision'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(20): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(20): error C2086: 'int sideHit': redefinition
+  d:\ajones45\documents\github\c02403-shootygame\collisions.h(14): note: see declaration of 'sideHit'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(20): error C2146: syntax error: missing ';' before identifier 'allFenceCollisions'
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(21): error C2059: syntax error: '=='
+d:\ajones45\documents\github\c02403-shootygame\collisions.h(23): error C2059: syntax error: '>>'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\config.hpp(164): error C2143: syntax error: missing ';' before '{'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\config.hpp(164): error C2447: '{': missing function header (old-style formal list?)
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(70): error C3646: 'asMilliseconds': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(70): error C2059: syntax error: '('
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(70): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(80): error C3646: 'asMicroseconds': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(80): error C2059: syntax error: '('
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(80): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(90): error C2061: syntax error: identifier 'Int32'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(91): error C2061: syntax error: identifier 'Int64'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(102): error C2061: syntax error: identifier 'Int64'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(102): error C2535: 'sf::Time::Time(void)': member function already defined or declared
+  d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(50): note: see declaration of 'sf::Time::Time'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(109): error C3646: 'm_microseconds': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(109): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(136): error C2065: 'Int32': undeclared identifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(136): error C2146: syntax error: missing ')' before identifier 'amount'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(149): error C2065: 'Int64': undeclared identifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(149): error C2146: syntax error: missing ')' before identifier 'amount'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(304): error C2061: syntax error: identifier 'Int64'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(328): error C2065: 'Int64': undeclared identifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(328): error C2146: syntax error: missing ')' before identifier 'left'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(352): error C2061: syntax error: identifier 'Int64'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(352): error C2805: binary 'operator *=' has too few parameters
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(376): error C2061: syntax error: identifier 'Int64'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(376): error C2805: binary 'operator /' has too few parameters
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(400): error C2061: syntax error: identifier 'Int64'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\time.hpp(400): error C2805: binary 'operator /=' has too few parameters
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\inputstream.hpp(63): error C3646: 'read': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\inputstream.hpp(63): error C2062: type 'void' unexpected
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\inputstream.hpp(63): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\inputstream.hpp(73): error C3646: 'seek': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\inputstream.hpp(73): error C2065: 'Int64': undeclared identifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\inputstream.hpp(73): error C2146: syntax error: missing ')' before identifier 'position'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\inputstream.hpp(73): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\inputstream.hpp(81): error C3646: 'tell': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\inputstream.hpp(81): error C2059: syntax error: ')'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\inputstream.hpp(81): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\inputstream.hpp(89): error C3646: 'getSize': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\inputstream.hpp(89): error C2059: syntax error: ')'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\inputstream.hpp(89): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\fileinputstream.hpp(92): error C3646: 'read': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\fileinputstream.hpp(92): error C2062: type 'void' unexpected
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\fileinputstream.hpp(92): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\fileinputstream.hpp(102): error C3646: 'seek': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\fileinputstream.hpp(102): error C2065: 'Int64': undeclared identifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\fileinputstream.hpp(102): error C2146: syntax error: missing ')' before identifier 'position'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\fileinputstream.hpp(102): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\fileinputstream.hpp(110): error C3646: 'tell': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\fileinputstream.hpp(110): error C2059: syntax error: ')'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\fileinputstream.hpp(110): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\fileinputstream.hpp(118): error C3646: 'getSize': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\fileinputstream.hpp(118): error C2059: syntax error: ')'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\fileinputstream.hpp(118): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(74): error C3646: 'read': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(74): error C2062: type 'void' unexpected
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(74): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(84): error C3646: 'seek': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(84): error C2065: 'Int64': undeclared identifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(84): error C2146: syntax error: missing ')' before identifier 'position'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(84): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(92): error C3646: 'tell': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(92): error C2059: syntax error: ')'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(92): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(100): error C3646: 'getSize': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(100): error C2059: syntax error: ')'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(100): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(108): error C3646: 'm_size': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(108): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(109): error C3646: 'm_offset': unknown override specifier
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\memoryinputstream.hpp(109): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.hpp(67): error C2061: syntax error: identifier 'Uint32'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.hpp(83): error C2061: syntax error: identifier 'Uint32'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.hpp(274): error C2061: syntax error: identifier 'Uint32'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.hpp(290): error C2061: syntax error: identifier 'Uint32'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.hpp(482): error C2061: syntax error: identifier 'Uint32'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.hpp(499): error C2061: syntax error: identifier 'Uint32'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.hpp(678): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.hpp(678): error C2061: syntax error: identifier 'decodeAnsi'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.hpp(678): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.hpp(693): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.hpp(693): error C2061: syntax error: identifier 'decodeWide'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.hpp(693): error C2238: unexpected token(s) preceding ';'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.hpp(711): error C2061: syntax error: identifier 'Uint32'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.hpp(728): error C2061: syntax error: identifier 'Uint32'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.inl(39): error C2061: syntax error: identifier 'Uint32'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.inl(87): error C2146: syntax error: missing ')' before identifier 'input'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.inl(88): error C2143: syntax error: missing ';' before '{'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.inl(88): error C2447: '{': missing function header (old-style formal list?)
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.inl(283): error C2061: syntax error: identifier 'Uint32'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.inl(323): error C2146: syntax error: missing ')' before identifier 'input'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.inl(324): error C2143: syntax error: missing ';' before '{'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.inl(324): error C2447: '{': missing function header (old-style formal list?)
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.inl(506): error C2061: syntax error: identifier 'Uint32'
+d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.inl(506): fatal error C1003: error count exceeds 100; stopping compilation
   Generating Code...
-  Compiling...
-  Weapons.cpp
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(32): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(51): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(71): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(90): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(109): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(128): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(147): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-  Generating Code...
-  C02403 project.vcxproj -> C:\Users\michael\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
->>>>>>> parent of 28f65e9... fdg
-  Copying DLLs & shaders...

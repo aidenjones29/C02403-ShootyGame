@@ -1,7 +1,6 @@
 #pragma once
 #include "Collisions.h"
 
-
 bool FenceCollision(IModel* cameraDummy)
 {
 	if (-10 < cameraDummy->GetX() && 130 > cameraDummy->GetX() && 50 < cameraDummy->GetZ() && 90 > cameraDummy->GetZ()) //Checks if the car and wall are in collision
@@ -63,7 +62,6 @@ void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMag
 	}
 }
 
-<<<<<<< HEAD
 sideHit targetBoxCollision(std::vector<sTarget*>& vTargets, IModel* camDummy, float oldPos[])
 {
 	float sRad = 2.0f;
@@ -214,5 +212,3 @@ sideHit allFenceCollisions(IModel* camDummy, float oldPos[])
 	}
 	return NoSide;
 }
-=======
->>>>>>> parent of 28f65e9... fdg
