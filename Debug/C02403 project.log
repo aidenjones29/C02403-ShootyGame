@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  Collisions.cpp
 d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(7): error C2059: syntax error: '<<'
 d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(77): error C2059: syntax error: '=='
@@ -172,4 +173,45 @@ d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\ut
 d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.inl(324): error C2447: '{': missing function header (old-style formal list?)
 d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.inl(506): error C2061: syntax error: identifier 'Uint32'
 d:\ajones45\documents\github\c02403-shootygame\sfml-2.3.2\include\sfml\system\utf.inl(506): fatal error C1003: error count exceeds 100; stopping compilation
+=======
+﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  C02403 project.cpp
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(32): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(51): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(71): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(90): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(109): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(128): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(147): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(72): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(73): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(77): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(78): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(79): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(265): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(266): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(272): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(273): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(274): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(278): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(279): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(283): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(284): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(285): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(288): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(289): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(336): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
   Generating Code...
+  Compiling...
+  Weapons.cpp
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(32): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(51): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(71): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(90): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(109): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(128): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(147): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+>>>>>>> parent of 28f65e9... fdg
+  Generating Code...
+  C02403 project.vcxproj -> C:\Users\michael\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
+  Copying DLLs & shaders...

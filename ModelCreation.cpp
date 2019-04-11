@@ -1,12 +1,18 @@
 #include "ModelCreation.h"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 void CreateScene(I3DEngine* myEngine, IModel* ammoCrate[])
 =======
+=======
+>>>>>>> parent of 28f65e9... fdg
 const int FenceAmmount = 15;
 const int OuterWallAmount = 10;
 
 void CreateScene(I3DEngine * myEngine)
+<<<<<<< HEAD
+>>>>>>> parent of 28f65e9... fdg
+=======
 >>>>>>> parent of 28f65e9... fdg
 {
 	IMesh* skyboxMesh = myEngine->LoadMesh("Skybox.x");

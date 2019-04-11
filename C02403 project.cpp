@@ -318,6 +318,7 @@ void main()
 
 				//----------------------------------------------------------- COLLISIONS -----------------------------------------------------------//
 
+<<<<<<< HEAD
 				if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == FrontBack || ammoBoxCollision(ammoCrate, cameraDummy, oldPlayerPos) == FrontBack || WallCollision(Walls, cameraDummy, oldPlayerPos) == FrontBack || allFenceCollisions(cameraDummy, oldPlayerPos) == FrontBack)
 				{
 					cameraDummy->SetZ(oldPlayerPos[1]);
@@ -329,6 +330,8 @@ void main()
 				}
 				//---------------------------------------------------------------------------------------------------------------------------------//
 
+=======
+>>>>>>> parent of 28f65e9... fdg
 				if (myEngine->KeyHit(Key_E))
 				{
 					interactionZspeed = 0.0f;

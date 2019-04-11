@@ -62,6 +62,7 @@ void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMag
 	}
 }
 
+<<<<<<< HEAD
 sideHit targetBoxCollision(std::vector<sTarget*>& vTargets, IModel* camDummy, float oldPos[])
 {
 	float sRad = 2.0f;
@@ -212,3 +213,5 @@ sideHit allFenceCollisions(IModel* camDummy, float oldPos[])
 	}
 	return NoSide;
 }
+=======
+>>>>>>> parent of 28f65e9... fdg

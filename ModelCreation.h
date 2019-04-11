@@ -5,6 +5,7 @@
 using namespace tle;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const int FenceAmmount = 15;
 const int OuterWallAmount = 10;
 const int numOfgates = 3;
@@ -74,6 +75,13 @@ const float Walls[maxWALLLLLLLZZZ][5] =
 	{2,199, -20, 171,0}
 	//Room 2 inner walls end
 };
+=======
+void CreateScene(I3DEngine* myEngine);
+
+void CreateFences(I3DEngine* myEngine, IModel* fence[]);
+
+void CreateWalls(I3DEngine* myEngine);
+>>>>>>> parent of 28f65e9... fdg
 =======
 void CreateScene(I3DEngine* myEngine);
 
