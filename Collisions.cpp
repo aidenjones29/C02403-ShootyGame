@@ -194,3 +194,22 @@ sideHit WallCollision(const float Walls[maxWALLLLLLLZZZ][5], IModel* camDummy, f
 	}
 	return NoSide;
 }
+
+sideHit allFenceCollisions(IModel* camDummy, float oldPos[])
+{
+	const int numFenceCollisions = 2;
+	float minX[numFenceCollisions] = {-50.0f, -20.0f};
+	float maxX[numFenceCollisions] = {116.0f, -13.0f};
+	float minZ[numFenceCollisions] = {90.0f , -20.0f};
+	float maxZ[numFenceCollisions] = {130.0f, 130.0f};
+
+	for (int i = 0; i < numFenceCollisions; i++)
+	{
+		if (camDummy->GetX() > minX[i] && camDummy->GetX() < maxX[i] && camDummy->GetZ() > minZ[i] && camDummy->GetZ() < maxZ[i])
+		{
+			if (oldPos[0] < minX[i] || oldPos[0] > maxX[i]) return LeftRight;
+			if (oldPos[1] < minZ[i] || oldPos[1] > maxZ[i]) return FrontBack;
+		}
+	}
+	return NoSide;
+}
