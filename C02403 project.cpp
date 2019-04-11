@@ -53,6 +53,8 @@ vector <sBullet*> vMagazine;
 vector <sTarget*> vTargets;
 deque <unique_ptr<sWeapon>> vGuns;
 sWeapon* currentGun = nullptr;
+
+//int whichGunEquipped = numGuns;
 fireModes CurrentFireMode = Auto;
 
 void main()
@@ -316,8 +318,12 @@ void main()
 					}
 				}
 
-				//----------------------------------------------------------- COLLISIONS -----------------------------------------------------------//
+				//if (!FenceCollision(cameraDummy))
+				//{
+				//	cameraDummy->SetPosition(oldPlayerX, 15, oldPlayerZ);
+				//}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 				if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == FrontBack || ammoBoxCollision(ammoCrate, cameraDummy, oldPlayerPos) == FrontBack || WallCollision(Walls, cameraDummy, oldPlayerPos) == FrontBack || allFenceCollisions(cameraDummy, oldPlayerPos) == FrontBack)
 				{
@@ -325,10 +331,16 @@ void main()
 				}
 				
 				if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == LeftRight || ammoBoxCollision(ammoCrate, cameraDummy, oldPlayerPos) == LeftRight || WallCollision(Walls, cameraDummy, oldPlayerPos) == LeftRight || allFenceCollisions(cameraDummy, oldPlayerPos) == LeftRight)
+=======
+				if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == FrontBack || ammoBoxCollision(ammoCrate, cameraDummy, oldPlayerPos) == FrontBack)
+				{
+					cameraDummy->SetZ(oldPlayerPos[1]);
+				}
+				else if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == LeftRight || ammoBoxCollision(ammoCrate, cameraDummy, oldPlayerPos) == LeftRight)
+>>>>>>> parent of 37e4753... wallCollisions
 				{
 					cameraDummy->SetX(oldPlayerPos[0]);
 				}
-				//---------------------------------------------------------------------------------------------------------------------------------//
 
 =======
 >>>>>>> parent of 28f65e9... fdg

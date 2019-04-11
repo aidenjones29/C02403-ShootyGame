@@ -26,6 +26,15 @@ void CreateScene(I3DEngine * myEngine)
 	IMesh* nickMesh = myEngine->LoadMesh("nickyBoi.x");
 	IMesh* nickboxGlassMesh = myEngine->LoadMesh("glass.x");
 
+<<<<<<< HEAD
+=======
+	IModel* armyTruckTwo = armyTruckMesh->CreateModel(80, 0, -45);
+	IModel* floor = floorMesh->CreateModel();
+	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
+	IModel* barrier[3];
+	IModel* nickBox[5];
+	IModel* nick = nickMesh->CreateModel(-36, 18, 70);
+>>>>>>> parent of 37e4753... wallCollisions
 	IModel* nickboxGlass = nickboxGlassMesh->CreateModel(-26, 18, 70);
 	nickboxGlass->RotateY(90);
 	nickboxGlass->ScaleX(2);

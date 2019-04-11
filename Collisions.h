@@ -16,6 +16,7 @@ sideHit targetBoxCollision(std::vector<sTarget*>& vTargets, IModel* camDummy, fl
 
 sideHit ammoBoxCollision(IModel* boxes[], IModel* camDummy, float oldPos[]);
 
+<<<<<<< HEAD
 sideHit WallCollision(const float Walls[maxWALLLLLLLZZZ][5], IModel* camDummy, float oldPos[]);
 
 sideHit allFenceCollisions(IModel* camDummy, float oldPos[]);
@@ -25,3 +26,6 @@ void bulletToTarget(vector<sTarget*> &vTargets, vector<sBullet*> &vBullets);
 =======
 void bulletToTarget(vector<sTarget*> &vTargets, vector<sBullet*> &vBullets);
 >>>>>>> parent of 28f65e9... fdg
+=======
+sideHit WallCollision(IModel* Walls[], IModel* camDummy, float oldPos[]);
+>>>>>>> parent of 37e4753... wallCollisions

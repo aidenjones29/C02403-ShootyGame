@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿  Collisions.cpp
 d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(7): error C2059: syntax error: '<<'
 d:\ajones45\documents\github\c02403-shootygame\modelcreation.h(77): error C2059: syntax error: '=='
@@ -215,3 +216,8 @@ c:\users\michael\documents\github\c02403-shootygame\weapons.h(147): warning C424
   Generating Code...
   C02403 project.vcxproj -> C:\Users\michael\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
   Copying DLLs & shaders...
+=======
+﻿  Collisions.cpp
+  C02403 project.vcxproj -> D:\MWoollett\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
+  C02403 project.vcxproj -> D:\MWoollett\Documents\GitHub\C02403-ShootyGame\\C02403 project.pdb (Full PDB)
+>>>>>>> parent of 37e4753... wallCollisions
