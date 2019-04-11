@@ -240,24 +240,44 @@ void CreateWalls(I3DEngine * myEngine)
 	IModel* OuterWallBottom[OuterWallAmount];
 	IModel* OuterWallLeft[OuterWallAmount];
 	IModel* OuterWallRight[OuterWallAmount];
+	IModel* CourseWalls[maxWALLLLLLLZZZ];
 
 	float OuterWallXStart[4] = {-100, -100, -100, 700};
 	float OuterWallZStart[4] = {-100, 800, -100, -100};
 	float outerWallY = 10.0f;
 
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	/*for (int i = 0; i < maxWALLLLLLLZZZ; i++)
+
+	for (int i = 0; i < maxWALLLLLLLZZZ; i++)
+
 	{
+		CourseWalls[i] = CourseWallMesh->CreateModel(Walls[i][1], Walls[i][2], Walls[i][3]);
+
+		CourseWalls[i]->RotateY(Walls[i][4]);
+
+		CourseWalls[i]->Scale(10);
+		if (i == 16 || i == 17 || i == 23)
+
+		{
+
+			CourseWalls[i]->ScaleX(0.5f);
+
+		}
 		if (Walls[i][0] == 1)
 		{
+			CourseWalls[i]->ScaleZ(0.1f);
 
 		}
+
 		else if (Walls[i][0] == 2)
+
 		{
 
+			CourseWalls[i]->ScaleZ(0.02f);
+
+			CourseWalls[i]->ScaleX(0.4f);
+
 		}
-	}*/
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	}
 
 	int currentOuterWall = 0;
 
