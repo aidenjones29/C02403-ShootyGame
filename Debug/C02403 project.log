@@ -1,4 +1,22 @@
 ﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  Weapons.cpp
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(32): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(51): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(71): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(90): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(109): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(128): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\weapons.h(147): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+  Targets.cpp
+  Collisions.cpp
+  ModelCreation.cpp
+c:\users\michael\documents\github\c02403-shootygame\modelcreation.cpp(3): error C2059: syntax error: '<<'
+c:\users\michael\documents\github\c02403-shootygame\modelcreation.cpp(5): error C2374: 'OuterWallAmount': redefinition; multiple initialization
+  c:\users\michael\documents\github\c02403-shootygame\modelcreation.h(10): note: see declaration of 'OuterWallAmount'
+c:\users\michael\documents\github\c02403-shootygame\modelcreation.cpp(8): error C2143: syntax error: missing ';' before '=='
+c:\users\michael\documents\github\c02403-shootygame\modelcreation.cpp(8): error C2059: syntax error: '=='
+c:\users\michael\documents\github\c02403-shootygame\modelcreation.cpp(11): error C2143: syntax error: missing ';' before '{'
+c:\users\michael\documents\github\c02403-shootygame\modelcreation.cpp(11): error C2447: '{': missing function header (old-style formal list?)
   C02403 project.cpp
 c:\users\michael\documents\github\c02403-shootygame\weapons.h(32): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
 c:\users\michael\documents\github\c02403-shootygame\weapons.h(51): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
@@ -24,17 +42,6 @@ c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(284): war
 c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(285): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(288): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(289): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(336): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(345): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+  Bullets.cpp
   Generating Code...
-  Compiling...
-  Weapons.cpp
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(32): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(51): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(71): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(90): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(109): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(128): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(147): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-  Generating Code...
-  C02403 project.vcxproj -> C:\Users\michael\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
-  Copying DLLs & shaders...

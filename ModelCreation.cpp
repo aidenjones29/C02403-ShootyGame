@@ -1,9 +1,13 @@
 #include "ModelCreation.h"
 
+<<<<<<< HEAD
 const int FenceAmmount = 15;
 const int OuterWallAmount = 10;
 
 void CreateScene(I3DEngine * myEngine)
+=======
+void CreateScene(I3DEngine* myEngine, IModel* ammoCrate[])
+0d30e956e7c3374e918d01787099c4f3acee6922
 {
 	IMesh* skyboxMesh = myEngine->LoadMesh("Skybox.x");
 	IMesh* floorMesh = myEngine->LoadMesh("Floor.x");
@@ -16,74 +20,60 @@ void CreateScene(I3DEngine * myEngine)
 	IMesh* nickMesh = myEngine->LoadMesh("nickyBoi.x");
 	IMesh* nickboxGlassMesh = myEngine->LoadMesh("glass.x");
 
+	IModel* armyTruckTwo = armyTruckMesh->CreateModel(80, 0, -45);
+	IModel* floor = floorMesh->CreateModel();
+	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
+	IModel* barrier[3];
+	IModel* nickBox[5];
+	IModel* nick = nickMesh->CreateModel(-36, 18, 70);
 	IModel* nickboxGlass = nickboxGlassMesh->CreateModel(-26, 18, 70);
+	IModel* huey = hueyMesh->CreateModel(200, 14, 650);
+	IModel* hueyTwo = hueyMesh->CreateModel(300, 14, 650);
+	IModel* apache = apacheMesh->CreateModel(0, 14, 650);
+	IModel* apacheTwo = apacheMesh->CreateModel(100, 14, 650);
+	IModel* tTruckOne = transportTruckMesh->CreateModel(170, 0, -50);
+	IModel* armyTruck = armyTruckMesh->CreateModel(-10, 0, -60);
+	
 	nickboxGlass->RotateY(90);
 	nickboxGlass->ScaleX(2);
-
-	IModel* huey = hueyMesh->CreateModel(200, 14, 650);
 	huey->RotateY(-180);
 	huey->RotateLocalX(-2);
 	huey->Scale(10);
-
-	IModel* hueyTwo = hueyMesh->CreateModel(300, 14, 650);
 	hueyTwo->RotateY(-180);
 	hueyTwo->RotateLocalX(-2);
 	hueyTwo->Scale(10);
-
-	IModel* apache = apacheMesh->CreateModel(0, 14, 650);
 	apache->RotateY(-180);
 	apache->RotateLocalX(-2);
 	apache->Scale(10);
-
-	IModel* apacheTwo = apacheMesh->CreateModel(100, 14, 650);
 	apacheTwo->RotateY(-180);
 	apacheTwo->RotateLocalX(-2);
 	apacheTwo->Scale(10);
-
-	IModel* tTruckOne = transportTruckMesh->CreateModel(170, 0, -50);
 	tTruckOne->Scale(10);
 	tTruckOne->RotateY(90);
-
-	IModel* armyTruck = armyTruckMesh->CreateModel(-10, 0, -60);
 	armyTruck->Scale(10);
 	armyTruck->RotateY(90);
-
-	IModel* armyTruckTwo = armyTruckMesh->CreateModel(80, 0, -45);
 	armyTruckTwo->Scale(10);
 	armyTruckTwo->RotateY(90);
-
-	IModel* floor = floorMesh->CreateModel();
-	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
-	IModel* ammoCrate[3];
-	IModel* barrier[3];
-	IModel* nickBox[5];
-
-	IModel* nick = nickMesh->CreateModel(-36, 18, 70);
 	nick->RotateLocalY(270);
 	nick->RotateLocalX(180);
-
 	nickBox[0] = BarrierMesh->CreateModel(-30, 15, 70);
 	nickBox[0]->RotateLocalX(180);
 	nickBox[0]->Scale(3);
 	nickBox[0]->ScaleZ(0.5);
 	nickBox[0]->ScaleX(0.2);
-
 	nickBox[1] = BarrierMesh->CreateModel(-30, 20, 70);
 	nickBox[1]->ScaleX(0.2);
 	nickBox[1]->RotateLocalZ(45);
 	nickBox[1]->ScaleZ(0.5);
 	nickBox[1]->Scale(3);
-
 	nickBox[2] = BarrierMesh->CreateModel(-35, 10, 62);
 	nickBox[2]->RotateLocalX(90);
 	nickBox[2]->RotateLocalZ(180);
 	nickBox[2]->Scale(3);
-
 	nickBox[3] = BarrierMesh->CreateModel(-35, 10, 78);
 	nickBox[3]->RotateLocalX(270);
 	nickBox[3]->RotateLocalZ(180);
 	nickBox[3]->Scale(3);
-
 	nickBox[4] = BarrierMesh->CreateModel(-45, 25, 70);
 	nickBox[4]->RotateLocalZ(180);
 	nickBox[4]->ScaleY(8);
@@ -109,7 +99,7 @@ void CreateScene(I3DEngine * myEngine)
 }
 
 
-void CreateFences(I3DEngine* myEngine, IModel* fence[])
+void CreateFences(I3DEngine* myEngine)
 {
 	IMesh* FenceMesh = myEngine->LoadMesh("ChainLinkFence.x");
 	IMesh* gateMesh = myEngine->LoadMesh("Gate.x");
