@@ -28,6 +28,9 @@ void CreateScene(I3DEngine * myEngine, IModel* ammoCrate[])
 	huey->RotateLocalX(-2);
 	huey->Scale(10);
 
+	nick->RotateLocalY(270);
+	nick->RotateLocalX(180);
+
 	IModel* hueyTwo = hueyMesh->CreateModel(300, 14, 650);
 	hueyTwo->RotateY(-180);
 	hueyTwo->RotateLocalX(-2);
