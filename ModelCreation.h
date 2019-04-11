@@ -20,12 +20,12 @@ void CreateWalls(I3DEngine* myEngine);
 const float Walls[maxWALLLLLLLZZZ][5] =
 {
 	//Room 1 Walls
-	{1, 58.5f , -10, 124.5f,0},		//1 for outer wall, 2 for inner wall.
+	{1, 58.5f , -10, 124.5f, 0},		//1 for outer wall, 2 for inner wall.
 	{1, 138.7f, -10, 169.5f, 90},
 	{1, 3.5f  , -10, 169.5f, 90},
 	{1, 138.7f, -10, 269.5f, 90},
-	{1, 94    , -10, 350, 0},
-	{1, -6    , -10, 350, 0},
+	{1, 94    , -10, 350   , 0},
+	{1, -6    , -10, 350   , 0},
 	{1, 3.5f  , -10, 269.5f, 90},
 	{1, 3.5f  , -10, 369.5f, 90},
 	//Room 1 End

@@ -54,6 +54,9 @@ void CreateScene(I3DEngine * myEngine, IModel* ammoCrate[])
 	armyTruckTwo->Scale(10);
 	armyTruckTwo->RotateY(90);
 
+	nick->RotateLocalY(270);
+	nick->RotateLocalX(180);
+
 	nickBox[0] = BarrierMesh->CreateModel(-30, 15, 70);
 	nickBox[0]->RotateLocalX(180);
 	nickBox[0]->Scale(3);
