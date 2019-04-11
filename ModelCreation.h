@@ -73,4 +73,3 @@ const float Walls[maxWALLLLLLLZZZ][5] =
 	{2,199, -20, 171,0}
 	//Room 2 inner walls end
 };
-

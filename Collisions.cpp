@@ -62,7 +62,6 @@ void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMag
 	}
 }
 
-
 sideHit targetBoxCollision(std::vector<sTarget*>& vTargets, IModel* camDummy, float oldPos[])
 {
 	float sRad = 2.0f;

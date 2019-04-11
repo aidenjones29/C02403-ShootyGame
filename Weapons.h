@@ -75,6 +75,7 @@ struct AR_18 :public sWeapon
 		magCapacity = 20;
 		magAmount = 20;
 		fireRate = 0.2f;
+	
 	}
 };
 

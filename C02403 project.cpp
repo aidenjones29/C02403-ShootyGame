@@ -329,6 +329,15 @@ void main()
 				}
 				//---------------------------------------------------------------------------------------------------------------------------------//
 
+				if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == FrontBack || ammoBoxCollision(ammoCrate, cameraDummy, oldPlayerPos) == FrontBack)
+				{
+					cameraDummy->SetZ(oldPlayerPos[1]);
+				}
+				else if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == LeftRight || ammoBoxCollision(ammoCrate, cameraDummy, oldPlayerPos) == LeftRight)
+				{
+					cameraDummy->SetX(oldPlayerPos[0]);
+				}
+
 				if (myEngine->KeyHit(Key_E))
 				{
 					interactionZspeed = 0.0f;
