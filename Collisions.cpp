@@ -62,7 +62,6 @@ void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMag
 	}
 }
 
-<<<<<<< HEAD
 sideHit targetBoxCollision(std::vector<sTarget*>& vTargets, IModel* camDummy, float oldPos[])
 {
 	float sRad = 2.0f;
@@ -106,7 +105,6 @@ sideHit ammoBoxCollision(IModel* boxes[], IModel* camDummy, float oldPos[])
 	}
 	return NoSide;
 }
-<<<<<<< HEAD
 
 sideHit WallCollision(const float Walls[maxWALLLLLLLZZZ][5], IModel* camDummy, float oldPos[])
 {
@@ -214,32 +212,3 @@ sideHit allFenceCollisions(IModel* camDummy, float oldPos[])
 	}
 	return NoSide;
 }
-=======
->>>>>>> parent of 28f65e9... fdg
-=======
-//sideHit WallCollision(IModel* Walls[], IModel* camDummy, float oldPos[])
-//{
-//	float sRad = 2.0f;
-//	float oWWidth = 20.0f;
-//	float oWDepth = 4.0f;
-//
-//	for (int i = 0; i < maxWALLLLLLLZZZ; i++)
-//	{
-//		if (Walls[i][0] == 1)
-//		{
-//
-//		}
-//		float minX = Walls[i]->GetX() - oWWidth - sRad; //Min x pos before a collision has happened
-//		float maxX = Walls[i]->GetX() + oWWidth + sRad; //Max x pos before a collision has happened
-//		float minZ = -10.0f; //Min z pos before a collision has happened
-//		float maxZ = Walls[i]->GetZ() + oWDepth + sRad; //Max z pos before a collision has happened
-//
-//		if (camDummy->GetX() > minX && camDummy->GetX() < maxX && camDummy->GetZ() > minZ && camDummy->GetZ() < maxZ)
-//		{
-//			if (oldPos[0] < minX || oldPos[0] > maxX) return LeftRight;
-//			if (oldPos[1] < minZ || oldPos[1] > maxZ) return FrontBack;
-//		}
-//	}
-//	return NoSide;
-//}
->>>>>>> parent of 37e4753... wallCollisions

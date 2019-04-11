@@ -1,19 +1,6 @@
 #include "ModelCreation.h"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-void CreateScene(I3DEngine* myEngine, IModel* ammoCrate[])
-=======
-=======
->>>>>>> parent of 28f65e9... fdg
-const int FenceAmmount = 15;
-const int OuterWallAmount = 10;
-
-void CreateScene(I3DEngine * myEngine)
-<<<<<<< HEAD
->>>>>>> parent of 28f65e9... fdg
-=======
->>>>>>> parent of 28f65e9... fdg
+void CreateScene(I3DEngine * myEngine, IModel* ammoCrate[])
 {
 	IMesh* skyboxMesh = myEngine->LoadMesh("Skybox.x");
 	IMesh* floorMesh = myEngine->LoadMesh("Floor.x");
@@ -26,15 +13,12 @@ void CreateScene(I3DEngine * myEngine)
 	IMesh* nickMesh = myEngine->LoadMesh("nickyBoi.x");
 	IMesh* nickboxGlassMesh = myEngine->LoadMesh("glass.x");
 
-<<<<<<< HEAD
-=======
 	IModel* armyTruckTwo = armyTruckMesh->CreateModel(80, 0, -45);
 	IModel* floor = floorMesh->CreateModel();
 	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
 	IModel* barrier[3];
 	IModel* nickBox[5];
 	IModel* nick = nickMesh->CreateModel(-36, 18, 70);
->>>>>>> parent of 37e4753... wallCollisions
 	IModel* nickboxGlass = nickboxGlassMesh->CreateModel(-26, 18, 70);
 	nickboxGlass->RotateY(90);
 	nickboxGlass->ScaleX(2);
@@ -67,19 +51,8 @@ void CreateScene(I3DEngine * myEngine)
 	armyTruck->Scale(10);
 	armyTruck->RotateY(90);
 
-	IModel* armyTruckTwo = armyTruckMesh->CreateModel(80, 0, -45);
 	armyTruckTwo->Scale(10);
 	armyTruckTwo->RotateY(90);
-
-	IModel* floor = floorMesh->CreateModel();
-	IModel* skybox = skyboxMesh->CreateModel(0.0f, -800.0f, 0.0f);
-	IModel* ammoCrate[3];
-	IModel* barrier[3];
-	IModel* nickBox[5];
-
-	IModel* nick = nickMesh->CreateModel(-36, 18, 70);
-	nick->RotateLocalY(270);
-	nick->RotateLocalX(180);
 
 	nickBox[0] = BarrierMesh->CreateModel(-30, 15, 70);
 	nickBox[0]->RotateLocalX(180);
