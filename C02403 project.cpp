@@ -83,10 +83,10 @@ void main()
 		IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 		IMesh* bulletMesh = myEngine->LoadMesh("Bullet.x");
 
+		IModel* fence[80];
 		IModel* cameraDummy = dummyMesh->CreateModel(5, 15, 80);
 		IModel* interactionDummy = dummyMesh->CreateModel(0, 0, 0);
 		IModel* gunFireTest = dummyMesh->CreateModel(0, 0, 0);
-		IModel* ammoCrate[numAmmoBoxes];
 
 		menuState currentGameState = MainMenu;
 		gunState currentGunState = NoGun;
@@ -132,8 +132,8 @@ void main()
 		float camYCounter = 0.0f;
 		float interactionZspeed = 0.0f;
 		float currentInteractionDistance = 0.0f;
-
-		float oldPlayerPos[2] = {0,0};
+		float oldPlayerX = 0;
+		float oldPlayerZ = 0;
 
 		bool canCollide = false;
 		bool crouched = false;
@@ -142,7 +142,7 @@ void main()
 		bool nicktimerWillstartSaid = false;
 
 		/**** Set up your scene here ****/
-		CreateFences(myEngine); CreateScene(myEngine, ammoCrate); CreateWalls(myEngine);
+		CreateFences(myEngine, fence); CreateScene(myEngine); CreateWalls(myEngine);
 
 		// The main game loop, repeat until engine is stopped
 		while (myEngine->IsRunning())
@@ -159,8 +159,8 @@ void main()
 				ammoText.str("");
 			}
 
-			oldPlayerPos[0] = cameraDummy->GetX();
-			oldPlayerPos[1] = cameraDummy->GetZ();
+			oldPlayerX = cameraDummy->GetX();
+			oldPlayerZ = cameraDummy->GetZ();
 
 			movementSpeed = currentMoveSpeed * frameTime;
 
@@ -310,8 +310,8 @@ void main()
 						currentGun->magAmount = currentGun->magCapacity;
 						if (nicktimerWillstartSaid == false)
 						{
-							//nickTimerSound.play();
-							//nicktimerWillstartSaid = true;
+							nickTimerSound.play();
+							nicktimerWillstartSaid = true;
 						}
 					}
 				}
@@ -329,15 +329,6 @@ void main()
 				}
 				//---------------------------------------------------------------------------------------------------------------------------------//
 
-				if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == FrontBack || ammoBoxCollision(ammoCrate, cameraDummy, oldPlayerPos) == FrontBack)
-				{
-					cameraDummy->SetZ(oldPlayerPos[1]);
-				}
-				else if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == LeftRight || ammoBoxCollision(ammoCrate, cameraDummy, oldPlayerPos) == LeftRight)
-				{
-					cameraDummy->SetX(oldPlayerPos[0]);
-				}
-
 				if (myEngine->KeyHit(Key_E))
 				{
 					interactionZspeed = 0.0f;
@@ -350,7 +341,7 @@ void main()
 				if (myEngine->KeyHit(Key_Q) && currentGun != nullptr)
 				{
 					currentGun->weaponModel->DetachFromParent();
-					currentGun->weaponModel->SetPosition(oldPlayerPos[0], 0.2, oldPlayerPos[1]);
+					currentGun->weaponModel->SetPosition(oldPlayerX, 0.2, oldPlayerZ);
 					currentGun->weaponModel->RotateLocalZ(90.0f);
 					currentGun->weaponModel->RotateY(rand());
 					currentGun = nullptr;

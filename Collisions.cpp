@@ -44,10 +44,11 @@ void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMag
 	{
 		for (auto& x : vMagazine)
 		{
-			float minX = i->model->GetX() - bWidth / 2 - sRad; 
-			float maxX = i->model->GetX() + bWidth / 2 + sRad; 
-			float minZ = i->model->GetZ() - bDepth / 2 - sRad; 
-			float maxZ = i->model->GetZ() + bDepth / 2 + sRad; 
+
+			float minX = i->model->GetX() - bWidth / 2 - sRad; //Min x pos before a collision has happened
+			float maxX = i->model->GetX() + bWidth / 2 + sRad; //Max x pos before a collision has happened
+			float minZ = i->model->GetZ() - bDepth / 2 - sRad; //Min z pos before a collision has happened
+			float maxZ = i->model->GetZ() + bDepth / 2 + sRad; //Max z pos before a collision has happened
 			float minY = i->model->GetY() - height / 2 - sRad;
 			float maxY = i->model->GetY() + height / 2 + sRad;
 
@@ -62,6 +63,7 @@ void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMag
 	}
 }
 
+<<<<<<< HEAD
 sideHit targetBoxCollision(std::vector<sTarget*>& vTargets, IModel* camDummy, float oldPos[])
 {
 	float sRad = 2.0f;
@@ -212,3 +214,5 @@ sideHit allFenceCollisions(IModel* camDummy, float oldPos[])
 	}
 	return NoSide;
 }
+=======
+>>>>>>> parent of 28f65e9... fdg
