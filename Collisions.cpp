@@ -75,7 +75,7 @@ sideHit WallCollision(const float Walls[maxWALLLLLLLZZZ][5], IModel* camDummy, f
 {
 	float sRad = 2.0f;
 	float oWWidth = 50.0f;
-	float oWDepth = 4.0f;
+	float oWDepth = 4.5f;
 	float iWWidth = 20.0f;
 	float iWDepth = 2.0f;
 
