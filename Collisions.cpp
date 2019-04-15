@@ -1,19 +1,6 @@
 #pragma once
 #include "Collisions.h"
 
-bool FenceCollision(IModel* cameraDummy)
-{
-	if (-10 < cameraDummy->GetX() && 130 > cameraDummy->GetX() && 50 < cameraDummy->GetZ() && 90 > cameraDummy->GetZ()) //Checks if the car and wall are in collision
-	{
-		return true;     //Returns true if collision happens for the collision resolution.
-	}
-	else
-	{
-		return false;    //Returns a false when a collision hasnt happened.
-	}
-	return false;
-}
-
 bool gunInteraction(IModel* gunInteractionDummy, IModel* Gun)
 {
 	float xVect;
@@ -74,28 +61,6 @@ sideHit targetBoxCollision(std::vector<sTarget*>& vTargets, IModel* camDummy, fl
 		float maxX = i->box->GetX() + bWidth + sRad; //Max x pos before a collision has happened
 		float minZ = i->box->GetZ() - bDepth - sRad; //Min z pos before a collision has happened
 		float maxZ = i->box->GetZ() + bDepth + sRad; //Max z pos before a collision has happened
-
-		if (camDummy->GetX() > minX && camDummy->GetX() < maxX && camDummy->GetZ() > minZ && camDummy->GetZ() < maxZ)
-		{
-			if (oldPos[0] < minX || oldPos[0] > maxX) return LeftRight;
-			if (oldPos[1] < minZ || oldPos[1] > maxZ) return FrontBack;
-		}
-	}
-	return NoSide;
-}
-
-sideHit ammoBoxCollision(IModel* boxes[], IModel* camDummy, float oldPos[])
-{
-	float sRad = 2.0f;
-	float bWidth = 18.0f;
-	float bDepth = 5.0f;
-
-	for (int i = 0; i < numAmmoBoxes; i++)
-	{
-		float minX = boxes[i]->GetX() - bWidth - sRad; //Min x pos before a collision has happened
-		float maxX = boxes[i]->GetX() + bWidth + sRad; //Max x pos before a collision has happened
-		float minZ = -10.0f; //Min z pos before a collision has happened
-		float maxZ = boxes[i]->GetZ() + bDepth + sRad; //Max z pos before a collision has happened
 
 		if (camDummy->GetX() > minX && camDummy->GetX() < maxX && camDummy->GetZ() > minZ && camDummy->GetZ() < maxZ)
 		{
@@ -196,11 +161,11 @@ sideHit WallCollision(const float Walls[maxWALLLLLLLZZZ][5], IModel* camDummy, f
 
 sideHit allFenceCollisions(IModel* camDummy, float oldPos[])
 {
-	const int numFenceCollisions = 2;
-	float minX[numFenceCollisions] = {-50.0f, -20.0f};
-	float maxX[numFenceCollisions] = {116.0f, -13.0f};
-	float minZ[numFenceCollisions] = {90.0f , -20.0f};
-	float maxZ[numFenceCollisions] = {130.0f, 130.0f};
+	const int numFenceCollisions = 8;
+	float minX[numFenceCollisions] = {-50.0f, -20.0f, 130.0f,  50.0f, 130.0f, -55.0f, 133.0f, 133.0f};
+	float maxX[numFenceCollisions] = {113.0f, -13.0f, 175.0f, 135.0f, 175.0f,  95.0f, 175.0f, 175.0f};
+	float minZ[numFenceCollisions] = { 90.0f, -20.0f,  64.0f, -40.0f, -10.0f, -12.0f, 300.0f, 345.0f};
+	float maxZ[numFenceCollisions] = {124.0f, 124.0f, 124.0f,  -2.0f,  49.0f,  50.0f, 323.0f, 360.0f};
 
 	for (int i = 0; i < numFenceCollisions; i++)
 	{

@@ -318,17 +318,12 @@ void main()
 					}
 				}
 
-				//if (!FenceCollision(cameraDummy))
-				//{
-				//	cameraDummy->SetPosition(oldPlayerX, 15, oldPlayerZ);
-				//}
-
-				if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == FrontBack || ammoBoxCollision(ammoCrate, cameraDummy, oldPlayerPos) == FrontBack || WallCollision(Walls, cameraDummy, oldPlayerPos) == FrontBack || allFenceCollisions(cameraDummy, oldPlayerPos) == FrontBack)
+				if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == FrontBack || WallCollision(Walls, cameraDummy, oldPlayerPos) == FrontBack || allFenceCollisions(cameraDummy, oldPlayerPos) == FrontBack)
 				{
 					cameraDummy->SetZ(oldPlayerPos[1]);
 				}
 				
-				if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == LeftRight || ammoBoxCollision(ammoCrate, cameraDummy, oldPlayerPos) == LeftRight || WallCollision(Walls, cameraDummy, oldPlayerPos) == LeftRight || allFenceCollisions(cameraDummy, oldPlayerPos) == LeftRight)
+				if (targetBoxCollision(vTargets, cameraDummy, oldPlayerPos) == LeftRight || WallCollision(Walls, cameraDummy, oldPlayerPos) == LeftRight || allFenceCollisions(cameraDummy, oldPlayerPos) == LeftRight)
 				{
 					cameraDummy->SetX(oldPlayerPos[0]);
 				}

@@ -103,7 +103,6 @@ void CreateScene(IModel* ammoCrate[])
 	}
 }
 
-
 void CreateFences(IModel* fence[])
 {
 	IMesh* FenceMesh = myEngine->LoadMesh("ChainLinkFence.x");
@@ -115,23 +114,15 @@ void CreateFences(IModel* fence[])
 	IModel* fenceRight[FenceAmmount];
 	IModel* fenceInnerTop[5];
 	IModel* fenceInnerRight[5];
-	IModel* gateSides[2];
 	IModel* fenceWalkway = FenceMesh->CreateModel(108, 0, 107);
 	fenceWalkway->RotateY(-90);
 	fenceWalkway->Scale(10);
-
-	IModel* gate = gateMesh->CreateModel(121.3, 9, 94);
-	gate->ScaleZ(0.05f);
-	gate->ScaleX(1.15f);
-	gate->ScaleY(1.7f);
 
 	float fenceXStart[4] = {-5.0f, -5.0f, -15.0f, 360.0f};
 	float fenceZStart[4] = { 370.0f, -7.0f, 7.0f, 7.0f };
 
 	int currentFencePos = 0;
 
-	gateSides[0] = FenceMesh->CreateModel(112, 0, 95);
-	gateSides[1] = FenceMesh->CreateModel(130, 0, 95);
 
 	const int numOfgates = 3;
 	const int numOfhallwayFences1 = 4;
@@ -143,16 +134,16 @@ void CreateFences(IModel* fence[])
 	IModel* hallwayFence1[numOfhallwayFences1];
 
 	courseGates[0] = gateMesh->CreateModel(121.3, 9, 120);
-	courseGates[1] = gateMesh->CreateModel(133.5f, 9, 332);
-	courseGates[2] = gateMesh->CreateModel(180.5, 9, 332);
+	courseGates[1] = gateMesh->CreateModel(180.5, 9, 332);
+	courseGates[2] = gateMesh->CreateModel(172.8f, 9, 56);
 
-	courseGateSideLeft[0] = FenceMesh->CreateModel(112, 0, 121);
-	courseGateSideLeft[1] = FenceMesh->CreateModel(134.7f, 0, 341.5f);
-	courseGateSideLeft[2] = FenceMesh->CreateModel(179.5, 0, 341);
+	courseGateSideLeft[0] = FenceMesh->CreateModel(112.0f, 0.0f, 121.0f);
+	courseGateSideLeft[1] = FenceMesh->CreateModel(179.5f, 0.0f, 341.0f);
+	courseGateSideLeft[2] = FenceMesh->CreateModel(174.0f, 0.0f, 65.0f);
 
-	courseGateSideRight[0] = FenceMesh->CreateModel(130, 0, 121);
-	courseGateSideRight[1] = FenceMesh->CreateModel(134.7f, 0, 323.2f);
-	courseGateSideRight[2] = FenceMesh->CreateModel(179.5, 0, 323);
+	courseGateSideRight[0] = FenceMesh->CreateModel(130.0f, 0.0f, 121.0f);
+	courseGateSideRight[1] = FenceMesh->CreateModel(179.5f, 0.0f, 323.0f);
+	courseGateSideRight[2] = FenceMesh->CreateModel(174.0f, 0.0f, 47.5f);
 
 	hallwayFence1[0] = FenceMesh->CreateModel(157, 0, 347);
 	hallwayFence1[1] = FenceMesh->CreateModel(159, 0, 317);
@@ -162,12 +153,12 @@ void CreateFences(IModel* fence[])
 	hallwayFence1[3]->ScaleX(1.5);
 
 	courseGates[1]->RotateY(90);
-	courseGateSideLeft[1]->RotateY(90);
-	courseGateSideRight[1]->RotateY(90);
+	courseGateSideLeft[1]->RotateY(-90);
+	courseGateSideRight[1]->RotateY(-90);
 
 	courseGates[2]->RotateY(90);
-	courseGateSideLeft[2]->RotateY(-90);
-	courseGateSideRight[2]->RotateY(-90);
+	courseGateSideLeft[2]->RotateY(90);
+	courseGateSideRight[2]->RotateY(90);
 
 	hallwayFence1[1]->RotateY(180);
 
@@ -191,12 +182,6 @@ void CreateFences(IModel* fence[])
 
 	for (int i = 0; i < FenceAmmount; i++)
 	{
-		if (i < 2)
-		{
-			gateSides[i]->Scale(10);
-			gateSides[i]->ScaleX(0.25f);
-		}
-
 		if (i < 5)
 		{
 			fenceInnerTop[i] = FenceMesh->CreateModel(fenceXStart[0] + currentFencePos, 0.0f, 95);
@@ -230,7 +215,6 @@ void CreateWalls()
 {
 	const int numOfCourseWalls1 = 8;
 	const int numOfCourseWalls2 = 12;
-
 	const int numOfCourseWalls1Inner = 2;
 	const int numOfCourseWalls2Inner = 11;
 

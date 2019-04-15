@@ -240,7 +240,7 @@ Frame {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "GateTexture.png";
+     "GateTexture_tlxcutout.png";
     }
    }
   }

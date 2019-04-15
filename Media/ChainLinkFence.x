@@ -36,7 +36,7 @@ Material ChainLinkFence_Barbed {
 	0.000000;0.000000;0.000000;;
 	1.000000;1.000000;1.000000;;
 	TextureFilename {
-		"FncWireA.tga";
+		"FncWireA_tlxcutout.tga";
 	}
 }
 
@@ -46,7 +46,7 @@ Material Edge__sub_ {
 	0.000000;0.000000;0.000000;;
 	1.000000;1.000000;1.000000;;
 	TextureFilename {
-		"FncEdgeA.tga";
+		"FncEdgeA_tlxcutout.tga";
 	}
 }
 
@@ -56,7 +56,7 @@ Material Links__sub_ {
 	0.000000;0.000000;0.000000;;
 	1.000000;1.000000;1.000000;;
 	TextureFilename {
-		"FncLnksA.tga";
+		"FncLnksA_tlxcutout.tga";
 	}
 }
 
