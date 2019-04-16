@@ -73,8 +73,9 @@ void main()
 		
 		ISprite* Crosshair = myEngine->CreateSprite("crosshair.png", (horizontal / 2) - 6000, (vertical / 2) - 60);
 		ISprite* ammoUI = myEngine->CreateSprite("ammoUIPNG.png", -10000, vertical - 150);
-		ISprite* menuUI = myEngine->CreateSprite("mainMenuUI.jpg", -10000, 0, 0.1);
-		ISprite* controlsUI = myEngine->CreateSprite("controlsMenuUI.jpg", -10000, 0, 0.1);
+		ISprite* menuUI = myEngine->CreateSprite("mainMenuUI.png", -10000, 0, 0.1);
+		//ISprite* menuBackground = myEngine->CreateSprite("MenuBackground.png", 10000, 0, 0.2f);
+		ISprite* controlsUI = myEngine->CreateSprite("controlsMenuUI.png", -100000, 0, 0.1);
 		ISprite* menuSelectionUI = myEngine->CreateSprite("menuSelectionUISprite.png", 90, 425);
 		ISprite* fireModeSemi = myEngine->CreateSprite("SemiAutoUI.png", -20, vertical - 105);
 		ISprite* fireModeBurstUI = myEngine->CreateSprite("burstFireUI.png", -29, vertical - 105);
@@ -171,7 +172,8 @@ void main()
 			if (currentGameState == MainMenu)
 			{
 				menuUI->SetPosition(0, 0);
-				controlsUI->SetPosition(-1000, 0);
+				menuBackground->SetPosition(0, 0);
+				controlsUI->SetPosition(-100000, 0);
 
 				if (myEngine->KeyHit(Key_Up))
 				{
@@ -245,6 +247,7 @@ void main()
 			else if (currentGameState == ControlsMenu)
 			{
 				menuUI->SetX(-10000);
+				menuBackground->SetPosition(0, 0);
 				menuSelectionUI->SetX(-10000);
 				controlsUI->SetPosition(0, 0);
 				
@@ -266,6 +269,7 @@ void main()
 					menuUI->SetX(-10000);
 					menuSelectionUI->SetX(-10000);
 					controlsUI->SetX(-10000);
+					menuBackground->SetPosition(10000, 0);
 					Crosshair->SetPosition((horizontal / 2) - 60, (vertical / 2) - 60);
 					ammoUI->SetPosition(10, vertical - 150);
 					spritesInPosition = true;
