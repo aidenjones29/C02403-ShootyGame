@@ -161,11 +161,12 @@ sideHit WallCollision(const float Walls[maxWALLLLLLLZZZ][5], IModel* camDummy, f
 
 sideHit allFenceCollisions(IModel* camDummy, float oldPos[])
 {
-	const int numFenceCollisions = 8;
-	float minX[numFenceCollisions] = {-50.0f, -20.0f, 130.0f,  50.0f, 130.0f, -55.0f, 133.0f, 133.0f};
-	float maxX[numFenceCollisions] = {113.0f, -13.0f, 175.0f, 135.0f, 175.0f,  95.0f, 175.0f, 175.0f};
-	float minZ[numFenceCollisions] = { 90.0f, -20.0f,  64.0f, -40.0f, -10.0f, -12.0f, 300.0f, 345.0f};
-	float maxZ[numFenceCollisions] = {124.0f, 124.0f, 124.0f,  -2.0f,  49.0f,  50.0f, 323.0f, 360.0f};
+	const int numFenceCollisions = 14;
+	                               //     Top, FarLFT, TopRt, BotRt, botCorRt, AmmCrt, Gt2Btm, Gt2Top, Gt1Lft,  Gt1Rt,  Gt3Lt,  Gt3Rt, Gt2Btm, Gt2Top,
+	float minX[numFenceCollisions] = { -70.0f, -50.0f, 130.0f,  50.0f, 130.0f, -70.0f, 133.0f, 133.0f,  95.0f, 125.0f, 171.0f, 171.0f, 177.0f, 177.0f};
+	float maxX[numFenceCollisions] = { 113.0f, -13.0f, 175.0f, 135.0f, 175.0f,  95.0f, 175.0f, 175.0f, 117.0f, 133.0f, 177.0f, 177.0f, 184.0f, 184.0f};
+	float minZ[numFenceCollisions] = {  90.0f,  50.0f,  64.0f, -40.0f, -10.0f, -12.0f, 300.0f, 345.0f, 118.0f, 118.0f, 60.0f ,  49.0f, 320.0f, 336.0f};
+	float maxZ[numFenceCollisions] = { 118.0f, 118.0f, 118.0f,  -2.0f,  49.0f,  50.0f, 323.0f, 360.0f, 122.0f, 122.0f, 64.0f ,  52.0f, 328.0f, 350.0f};
 
 	for (int i = 0; i < numFenceCollisions; i++)
 	{
