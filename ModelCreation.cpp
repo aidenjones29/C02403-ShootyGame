@@ -106,7 +106,6 @@ void CreateScene(IModel* ammoCrate[])
 void CreateFences(IModel* fence[])
 {
 	IMesh* FenceMesh = myEngine->LoadMesh("ChainLinkFence.x");
-	IMesh* gateMesh = myEngine->LoadMesh("Gate.x");
 
 	IModel* fenceTop[FenceAmmount];
 	IModel* fenceBottom[FenceAmmount];
@@ -127,15 +126,10 @@ void CreateFences(IModel* fence[])
 	const int numOfgates = 3;
 	const int numOfhallwayFences1 = 4;
 
-	IModel* courseGates[numOfgates];
 	IModel* courseGateSideLeft[numOfgates];
 	IModel* courseGateSideRight[numOfgates];
 
 	IModel* hallwayFence1[numOfhallwayFences1];
-
-	courseGates[0] = gateMesh->CreateModel(121.3, 9, 120);
-	courseGates[1] = gateMesh->CreateModel(180.5, 9, 332);
-	courseGates[2] = gateMesh->CreateModel(172.8f, 9, 56);
 
 	courseGateSideLeft[0] = FenceMesh->CreateModel(112.0f, 0.0f, 121.0f);
 	courseGateSideLeft[1] = FenceMesh->CreateModel(179.5f, 0.0f, 341.0f);
@@ -151,22 +145,15 @@ void CreateFences(IModel* fence[])
 	hallwayFence1[2]->ScaleX(1.5);
 	hallwayFence1[3] = FenceMesh->CreateModel(152, 0, 45);
 	hallwayFence1[3]->ScaleX(1.5);
-
-	courseGates[1]->RotateY(90);
-	courseGateSideLeft[1]->RotateY(-90);
-	courseGateSideRight[1]->RotateY(-90);
-
-	courseGates[2]->RotateY(90);
-	courseGateSideLeft[2]->RotateY(90);
-	courseGateSideRight[2]->RotateY(90);
-
 	hallwayFence1[1]->RotateY(180);
+
+	courseGateSideLeft[0]->RotateY(-90);
+	courseGateSideRight[0]->RotateY(-90);
 
 	for (int i = 0; i < numOfgates; i++)
 	{
-		courseGates[i]->ScaleZ(0.05f);
-		courseGates[i]->ScaleX(1.15f);
-		courseGates[i]->ScaleY(1.7f);
+		courseGateSideLeft[i]->RotateY(90);
+		courseGateSideRight[i]->RotateY(90);
 
 		courseGateSideLeft[i]->Scale(10);
 		courseGateSideLeft[i]->ScaleX(0.25f);

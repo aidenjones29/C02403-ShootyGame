@@ -22,3 +22,5 @@ void bulletToTarget(vector<sTarget*> &vTargets, vector<sBullet*> &vBullets);
 void bulletToTarget(vector<sTarget*> &vTargets, vector<sBullet*> &vBullets);
 
 sideHit allFenceCollisions(IModel* camDummy, float oldPos[]);
+
+sideHit gateCollisions(IModel* gate, IModel* camDummy, float oldPos[], bool horizontal);

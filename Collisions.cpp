@@ -178,3 +178,36 @@ sideHit allFenceCollisions(IModel* camDummy, float oldPos[])
 	}
 	return NoSide;
 }
+
+sideHit gateCollisions(IModel* gate, IModel* camDummy, float oldPos[], bool horizontal)
+{
+	float sRad;
+	float bWidth;
+	float bDepth;
+
+	if (horizontal == true)
+	{
+		sRad = 2.0f;
+		bWidth = 5.0f;
+		bDepth = 0.3f;
+	}
+	else
+	{
+		sRad = 2.0f;
+		bWidth = 0.3f;
+		bDepth = 5.0f;
+	}
+
+	float minX = gate->GetX() - bWidth - sRad; //Min x pos before a collision has happened
+	float maxX = gate->GetX() + bWidth + sRad; //Max x pos before a collision has happened
+	float minZ = gate->GetZ() - bDepth - sRad; //Min z pos before a collision has happened
+	float maxZ = gate->GetZ() + bDepth + sRad; //Max z pos before a collision has happened
+
+	if (camDummy->GetX() > minX && camDummy->GetX() < maxX && camDummy->GetZ() > minZ && camDummy->GetZ() < maxZ)
+	{
+		if (oldPos[0] < minX || oldPos[0] > maxX) return LeftRight;
+		if (oldPos[1] < minZ || oldPos[1] > maxZ) return FrontBack;
+	}
+
+	return NoSide;
+}

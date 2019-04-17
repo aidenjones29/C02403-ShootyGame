@@ -74,7 +74,6 @@ void main()
 		ISprite* Crosshair = myEngine->CreateSprite("crosshair.png", (horizontal / 2) - 6000, (vertical / 2) - 60);
 		ISprite* ammoUI = myEngine->CreateSprite("ammoUIPNG.png", -10000, vertical - 150);
 		ISprite* menuUI = myEngine->CreateSprite("mainMenuUI.png", -10000, 0, 0.1);
-		//ISprite* menuBackground = myEngine->CreateSprite("MenuBackground.png", 10000, 0, 0.2f);
 		ISprite* controlsUI = myEngine->CreateSprite("controlsMenuUI.png", -100000, 0, 0.1);
 		ISprite* menuSelectionUI = myEngine->CreateSprite("menuSelectionUISprite.png", 90, 425);
 		ISprite* fireModeSemi = myEngine->CreateSprite("SemiAutoUI.png", -20, vertical - 105);
@@ -83,12 +82,32 @@ void main()
 
 		IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 		IMesh* bulletMesh = myEngine->LoadMesh("Bullet.x");
+		IMesh* gateMesh = myEngine->LoadMesh("Gate.x");
 
 		IModel* fence[80];
 		IModel* cameraDummy = dummyMesh->CreateModel(5, 15, 80);
 		IModel* interactionDummy = dummyMesh->CreateModel(0, 0, 0);
 		IModel* gunFireTest = dummyMesh->CreateModel(0, 0, 0);
 		IModel* ammoCrate[numAmmoBoxes];
+		IModel* gates[2];
+		IModel* gateDummy[2];
+
+		gateDummy[0] = dummyMesh->CreateModel(127, 9, 120);
+		gates[0] = gateMesh->CreateModel(-6, 0, 0);
+		gates[0]->AttachToParent(gateDummy[0]);
+
+		gateDummy[1] = dummyMesh->CreateModel(172.8f, 9, 50.8);
+		gates[1] = gateMesh->CreateModel(0, 0, 5.5);
+		gates[1]->AttachToParent(gateDummy[1]);
+
+
+		gates[1]->RotateY(90);
+		gates[0]->ScaleZ(0.05f);
+		gates[0]->ScaleX(1.15f);
+		gates[0]->ScaleY(1.7f);
+		gates[1]->ScaleZ(0.05f);
+		gates[1]->ScaleX(1.15f);
+		gates[1]->ScaleY(1.7f);
 
 		menuState currentGameState = MainMenu;
 		gunState currentGunState = NoGun;
@@ -134,9 +153,9 @@ void main()
 		float camYCounter = 0.0f;
 		float interactionZspeed = 0.0f;
 		float currentInteractionDistance = 0.0f;
-		float oldPlayerX = 0;
-		float oldPlayerZ = 0;
 
+		bool gateOpen[2] = { false, false };
+		bool gateHorizontal[2] = { true, false };
 		bool canCollide = false;
 		bool crouched = false;
 		bool prone = false;
@@ -172,7 +191,6 @@ void main()
 			if (currentGameState == MainMenu)
 			{
 				menuUI->SetPosition(0, 0);
-				menuBackground->SetPosition(0, 0);
 				controlsUI->SetPosition(-100000, 0);
 
 				if (myEngine->KeyHit(Key_Up))
@@ -247,11 +265,8 @@ void main()
 			else if (currentGameState == ControlsMenu)
 			{
 				menuUI->SetX(-10000);
-				menuBackground->SetPosition(0, 0);
 				menuSelectionUI->SetX(-10000);
 				controlsUI->SetPosition(0, 0);
-				
-				MainFont->Draw("Return - Go back", horizontal / 2, vertical - 50, kDarkGrey, kCentre);
 
 				if (myEngine->KeyHit(Key_Return))
 				{
@@ -269,7 +284,6 @@ void main()
 					menuUI->SetX(-10000);
 					menuSelectionUI->SetX(-10000);
 					controlsUI->SetX(-10000);
-					menuBackground->SetPosition(10000, 0);
 					Crosshair->SetPosition((horizontal / 2) - 60, (vertical / 2) - 60);
 					ammoUI->SetPosition(10, vertical - 150);
 					spritesInPosition = true;
@@ -332,6 +346,37 @@ void main()
 					cameraDummy->SetX(oldPlayerPos[0]);
 				}
 
+				for (int i = 0; i < 2; i++)
+				{
+					if (gateOpen[i] == false && gateCollisions(gates[i], cameraDummy, oldPlayerPos, gateHorizontal[i]) == FrontBack)
+					{
+						cameraDummy->SetZ(oldPlayerPos[1]);
+					}
+					else if (gateOpen[i] == false && gateCollisions(gates[i], cameraDummy, oldPlayerPos, gateHorizontal[i]) == LeftRight)
+					{
+						cameraDummy->SetX(oldPlayerPos[0]);
+					}
+				}
+
+				for (int i = 0; i < 2; i++)
+				{
+					if (canCollide == true && gunInteraction(interactionDummy, gates[i]))
+					{
+						if (gateOpen[i] == false)
+						{
+							gateDummy[i]->RotateY(120);
+							gateOpen[i] = true;
+						}
+						else
+						{
+							gateDummy[i]->RotateY(-120);
+							gateOpen[i] = false;
+						}
+						canCollide = false;
+						gateHorizontal[i] != gateHorizontal[i];
+					}
+				}
+
 				if (myEngine->KeyHit(Key_E))
 				{
 					interactionZspeed = 0.0f;
@@ -344,7 +389,7 @@ void main()
 				if (myEngine->KeyHit(Key_Q) && currentGun != nullptr)
 				{
 					currentGun->weaponModel->DetachFromParent();
-					currentGun->weaponModel->SetPosition(oldPlayerX, 0.2, oldPlayerZ);
+					currentGun->weaponModel->SetPosition(oldPlayerPos[0], 0.2, oldPlayerPos[1]);
 					currentGun->weaponModel->RotateLocalZ(90.0f);
 					currentGun->weaponModel->RotateY(rand());
 					currentGun = nullptr;
