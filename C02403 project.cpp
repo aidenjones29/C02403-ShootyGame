@@ -406,19 +406,27 @@ void main()
 				interactionDummy->MoveLocalZ(interactionZspeed);
 				currentInteractionDistance += interactionZspeed;
 
-				if (myEngine->KeyHit(Key_X))
+				if (myEngine->KeyHit(Key_X) && currentGun != nullptr)
 				{
 					if (CurrentFireMode == Auto)
 					{
 						CurrentFireMode = Burst;
 					}
-					else if (CurrentFireMode == Burst)
+					else if (CurrentFireMode == Burst)						
 					{
 						CurrentFireMode = Single;
 					}
 					else if (CurrentFireMode == Single)
 					{
 						CurrentFireMode = Auto;
+					}
+				}
+
+				if (currentGun != nullptr)
+				{
+					if (currentGun->name == "Glock")
+					{
+						CurrentFireMode = Single;
 					}
 				}
 
