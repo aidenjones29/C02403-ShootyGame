@@ -30,7 +30,6 @@ void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMag
 	{
 		for (auto& x : vMagazine)
 		{
-
 			float minX = i->model->GetX() - bWidth / 2 - sRad; //Min x pos before a collision has happened
 			float maxX = i->model->GetX() + bWidth / 2 + sRad; //Max x pos before a collision has happened
 			float minZ = i->model->GetZ() - bDepth / 2 - sRad; //Min z pos before a collision has happened
@@ -210,4 +209,94 @@ sideHit gateCollisions(IModel* gate, IModel* camDummy, float oldPos[], bool hori
 	}
 
 	return NoSide;
+}
+
+void bulletToWalls(const float Walls[maxWALLLLLLLZZZ][5], std::vector<sBullet*>& vMagazine)
+{
+	float sRad = 0.2f;
+	float oWWidth = 50.0f;
+	float oWDepth = 4.5f;
+	float iWWidth = 20.0f;
+	float iWDepth = 2.0f;
+
+	float minX = 0;
+	float maxX = 0;
+	float minZ = 0;
+	float maxZ = 0;
+
+	for (auto& x : vMagazine)
+	{
+		for (int i = 0; i < maxWALLLLLLLZZZ; i++)
+		{
+			if (Walls[i][0] == 1)
+			{
+				if (Walls[i][4] == 0)
+				{
+					minX = Walls[i][1] - oWWidth - sRad; //Min x pos before a collision has happened
+					maxX = Walls[i][1] + oWWidth + sRad; //Max x pos before a collision has happened
+					minZ = Walls[i][3] - oWDepth - sRad;
+					maxZ = Walls[i][3] + oWDepth + sRad; //Max z pos before a collision has happened
+
+					if (x->model->GetX() > minX && x->model->GetX() < maxX && x->model->GetZ() > minZ && x->model->GetZ() < maxZ)
+					{
+						x->status = Spent;
+						x->model->SetY(0.2f);
+					}
+				}
+				else
+				{
+					if (i == 16 || i == 17 || i == 23)
+					{
+						minX = Walls[i][1] - oWDepth - sRad;
+						maxX = Walls[i][1] + oWDepth + sRad;
+						minZ = Walls[i][3] - (oWWidth / 2) - sRad;
+						maxZ = Walls[i][3] + (oWWidth / 2) + sRad;
+					}
+					else
+					{
+						minX = Walls[i][1] - oWDepth - sRad; //Min x pos before a collision has happened
+						maxX = Walls[i][1] + oWDepth + sRad; //Max x pos before a collision has happened
+						minZ = Walls[i][3] - oWWidth - sRad;
+						maxZ = Walls[i][3] + oWWidth + sRad; //Max z pos before a collision has happened
+					}
+
+					if (x->model->GetX() > minX && x->model->GetX() < maxX && x->model->GetZ() > minZ && x->model->GetZ() < maxZ)
+					{
+						x->status = Spent;
+						x->model->SetY(0.2f);
+					}
+				}
+			}
+			else
+			{
+				if (Walls[i][4] == 0)
+				{
+					minX = Walls[i][1] - iWWidth - sRad; //Min x pos before a collision has happened
+					maxX = Walls[i][1] + iWWidth + sRad; //Max x pos before a collision has happened
+					minZ = Walls[i][3] - iWDepth - sRad;
+					maxZ = Walls[i][3] + iWDepth + sRad; //Max z pos before a collision has happened
+
+					if (x->model->GetX() > minX && x->model->GetX() < maxX && x->model->GetZ() > minZ && x->model->GetZ() < maxZ)
+					{
+						x->status = Spent;
+						x->model->SetY(0.2f);
+					}
+				}
+				else
+				{
+					minX = Walls[i][1] - iWDepth - sRad; //Min x pos before a collision has happened
+					maxX = Walls[i][1] + iWDepth + sRad; //Max x pos before a collision has happened
+					minZ = Walls[i][3] - iWWidth - sRad;
+					maxZ = Walls[i][3] + iWWidth + sRad; //Max z pos before a collision has happened
+
+					if (x->model->GetX() > minX && x->model->GetX() < maxX && x->model->GetZ() > minZ && x->model->GetZ() < maxZ)
+					{
+						x->status = Spent;
+						x->model->SetY(0.2f);
+					}
+				}
+
+			}
+		}
+	}
 }

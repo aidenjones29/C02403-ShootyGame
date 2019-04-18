@@ -328,6 +328,7 @@ void main()
 						currentGun = (Guns.get());
 						reloadMagazine(currentGun->magCapacity, vMagazine);
 						currentGun->magAmount = currentGun->magCapacity;
+
 						if (nicktimerWillstartSaid == false)
 						{
 							nickTimerSound.play();
@@ -458,6 +459,8 @@ void main()
 				moveBullets(100, vMagazine, frameTime);
 				moveTargets(vTargets, frameTime);
 				bulletToTarget(vTargets, vMagazine);
+				bulletToWalls(Walls, vMagazine);
+
 				//END
 			}
 

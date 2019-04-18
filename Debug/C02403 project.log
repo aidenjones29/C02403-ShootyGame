@@ -23,7 +23,7 @@ d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(306): warning 
 d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(307): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(310): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(311): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(376): warning C4552: '!=': result of expression not used
-d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(394): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(377): warning C4552: '!=': result of expression not used
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(395): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
   C02403 project.vcxproj -> D:\AJones45\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
   Copying DLLs & shaders...
