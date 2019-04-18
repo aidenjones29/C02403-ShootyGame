@@ -115,6 +115,9 @@ void main()
 		standingState currPlayerStandState = Standing;
 		
 		stringstream ammoText;
+		stringstream FPS;
+
+		
 
 		sf::SoundBuffer nickStartBuffer;
 		sf::SoundBuffer nickTimerBuffer;
@@ -464,10 +467,15 @@ void main()
 				//END
 			}
 
+			FPS << "FPS: " << int(1 / frameTime);
+			MainFont->Draw(FPS.str(), 0, 0, kWhite);
+			FPS.str(" ");
+
 			if (myEngine->KeyHeld(Key_Escape))
 			{
 				myEngine->Stop();
 			}
+
 		}
 		myEngine->Delete();	// Delete the 3D engine now we are finished with it
 	}
