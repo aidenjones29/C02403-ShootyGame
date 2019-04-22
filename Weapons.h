@@ -94,6 +94,7 @@ struct MINI_UZI :public sWeapon
 		magCapacity = 25;
 		magAmount = 25;
 		fireRate = 0.03f;
+		
 	}
 };
 
@@ -129,6 +130,9 @@ struct MP5 :public sWeapon
 		magCapacity = 25;
 		magAmount = 25;
 		fireRate = 0.07f;
+		shootingBuffer.loadFromFile("soundeffects\\MP5.wav");
+		shootingSound.setBuffer(shootingBuffer);
+		shootingSound.setVolume(soundVolume);
 	}
 };
 

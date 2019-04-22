@@ -37,6 +37,7 @@ float Time = 0;
 float countDownTime = 1.0f;
 float WeaponTime = 0;
 int bulletsFired = 0;
+int HitScore = 0;
 bool canShoot = true;
 float currentGunMoveBack = 0;
 
@@ -116,8 +117,8 @@ void main()
 		
 		stringstream ammoText;
 		stringstream FPS;
-
-		
+		stringstream TimerCount;
+		stringstream ScoreCounter;
 
 		sf::SoundBuffer nickStartBuffer;
 		sf::SoundBuffer nickTimerBuffer;
@@ -470,7 +471,12 @@ void main()
 			FPS << "FPS: " << int(1 / frameTime);
 			MainFont->Draw(FPS.str(), 0, 0, kWhite);
 			FPS.str(" ");
-
+			
+			/*int timerincrease = 1;
+			TimerCount << "TimerCount: " << timerincrease + frameTime;
+			MainFont->Draw(TimerCount.str(), 0, 0, kWhite);
+			TimerCount.str(" ");*/
+			
 			if (myEngine->KeyHeld(Key_Escape))
 			{
 				myEngine->Stop();
