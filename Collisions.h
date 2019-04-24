@@ -9,7 +9,7 @@ enum sideHit { NoSide, LeftRight, FrontBack };
 
 bool gunInteraction(IModel* gunInteractionDummy, IModel* Gun);
 
-void bulletToTarget(vector<sTarget*> &vTargets, vector<sBullet*> &vBullets);
+void bulletToTarget(vector<sTarget*> &vTargets, vector<sBullet*> &vBullets, int& Score);
 
 sideHit targetBoxCollision(std::vector<sTarget*>& vTargets, IModel* camDummy, float oldPos[]);
 

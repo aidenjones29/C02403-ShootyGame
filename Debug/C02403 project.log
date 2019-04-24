@@ -1,41 +1,29 @@
-﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  C02403 project.cpp
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(32): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(51): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(71): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(90): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(109): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(128): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(147): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(75): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(76): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(80): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(81): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(82): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(291): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(292): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(298): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(299): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(300): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(304): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(305): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(309): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(310): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(311): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(314): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(315): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(381): warning C4552: '!=': result of expression not used
-c:\users\michael\documents\github\c02403-shootygame\c02403 project.cpp(399): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-  Generating Code...
-  Compiling...
-  Weapons.cpp
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(32): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(51): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(71): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(90): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(109): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(128): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\michael\documents\github\c02403-shootygame\weapons.h(147): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-  Generating Code...
-  C02403 project.vcxproj -> C:\Users\michael\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
+﻿  C02403 project.cpp
+d:\ajones45\documents\github\c02403-shootygame\weapons.h(32): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\weapons.h(51): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\weapons.h(71): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\weapons.h(90): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\weapons.h(107): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\weapons.h(126): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\weapons.h(145): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(80): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(81): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(85): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(86): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(87): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(296): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(297): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(304): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(309): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(310): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(311): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(315): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(316): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(320): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(321): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(322): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(325): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(326): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(431): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+  C02403 project.vcxproj -> D:\AJones45\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
   Copying DLLs & shaders...

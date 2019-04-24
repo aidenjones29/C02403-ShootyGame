@@ -19,12 +19,13 @@ bool gunInteraction(IModel* gunInteractionDummy, IModel* Gun)
 	return false;
 }
 
-void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMagazine)
+void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMagazine, int& Score)
 {
 	float sRad = 0.02f;
 	float bWidth = 10.0f;
 	float bDepth = 10.0f;
 	float height = 16.0f;
+	bool hit = false;
 
 	for (auto& i : vTargets)
 	{
@@ -39,6 +40,14 @@ void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMag
 
 			if (x->model->GetX() > minX && x->model->GetX() < maxX && x->model->GetZ() > minZ && x->model->GetZ() < maxZ && x->model->GetY() > minY && x->model->GetY() < maxY)
 			{
+				hit = true;
+
+				if (hit == true && x->status != Spent)
+				{
+					Score++;
+					hit = false;
+				}
+
 				i->state = Hit;
 				x->status = Spent;
 				x->model->SetY(0.2f);

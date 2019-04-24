@@ -34,6 +34,11 @@ const float RECOIL_SPEED = -50;
 const float gunMovementMax = -3;
 
 float Time = 0;
+int finalTime = 0;
+bool runStarted = false;
+int Score = 0;
+int finalScore = 0;
+
 float countDownTime = 1.0f;
 float WeaponTime = 0;
 int bulletsFired = 0;
@@ -63,7 +68,7 @@ void main()
 	int horizontal = 0; int vertical = 0;
 	float reloadTimer = 0;
 	desktopResolution(horizontal, vertical);
-	myEngine->StartFullscreen(horizontal, vertical);
+	myEngine->StartWindowed(horizontal, vertical);
 	myEngine->StartMouseCapture();
 
 	// Add default folder for meshes and other media
@@ -293,6 +298,12 @@ void main()
 					spritesInPosition = true;
 				}
 
+				if (runStarted == false)
+				{
+					Score = finalScore;
+					Time = finalTime;
+				}
+
 				if (CurrentFireMode == Auto)
 				{
 					fireModeBurstUI->SetPosition(29, vertical - 105);
@@ -363,23 +374,44 @@ void main()
 					}
 				}
 
-				for (int i = 0; i < 2; i++)
+				if (canCollide == true && gunInteraction(interactionDummy, gates[0]))
 				{
-					if (canCollide == true && gunInteraction(interactionDummy, gates[i]))
+					if (gateOpen[0] == false && runStarted == false)
 					{
-						if (gateOpen[i] == false)
-						{
-							gateDummy[i]->RotateY(120);
-							gateOpen[i] = true;
-						}
-						else
-						{
-							gateDummy[i]->RotateY(-120);
-							gateOpen[i] = false;
-						}
-						canCollide = false;
-						gateHorizontal[i] != gateHorizontal[i];
+						gateDummy[0]->RotateY(120);
+						gateOpen[0] = true;
+						runStarted = true;
 					}
+
+					canCollide = false;
+				}
+
+				//------------------------------------ RUN STARTED ------------------------------------//
+
+				if (runStarted == true)
+				{
+					Time += frameTime;
+
+					if (Time >= 2 && gateOpen[0] == true)
+					{
+						gateOpen[0] = false;
+						gateDummy[0]->RotateY(-120);
+					}
+
+				}
+
+				if (canCollide == true && gunInteraction(interactionDummy, gates[1]))
+				{
+					if (gateOpen[1] == false && runStarted == true)
+					{
+						gateDummy[1]->RotateY(-120);
+						gateOpen[1] = true;
+						runStarted = false;
+						finalTime = int(Time);
+						finalScore = Score;
+					}
+
+					canCollide = false;
 				}
 
 				if (myEngine->KeyHit(Key_E))
@@ -446,14 +478,23 @@ void main()
 					}
 				}
 
-				if (myEngine->KeyHit(Key_N))
+				if (myEngine->KeyHit(Key_N) && runStarted == false)
 				{
 					for (auto& i : vTargets)
 					{
 						i->model->SetY(12);
 						i->state = Ready;
-
 					}
+
+					for (int i = 0; i < 2; i++)
+					{
+						if (gateOpen[i] == true)
+						{
+							gateOpen[i] = false;
+							gateDummy[i]->RotateY(120);
+						}
+					}
+					Score = 0;
 				}
 				if (currentGun != nullptr)
 				{
@@ -462,21 +503,24 @@ void main()
 
 				moveBullets(100, vMagazine, frameTime);
 				moveTargets(vTargets, frameTime);
-				bulletToTarget(vTargets, vMagazine);
+				bulletToTarget(vTargets, vMagazine, Score);
 				bulletToWalls(Walls, vMagazine);
+
+				FPS << "FPS: " << int(1 / frameTime);
+				MainFont->Draw(FPS.str(), 20, 0, kWhite);
+				FPS.str(" ");
+
+				TimerCount << "Time: " << int(Time);
+				MainFont->Draw(TimerCount.str(), horizontal - 250, 0, kWhite);
+				TimerCount.str(" ");
+
+				ScoreCounter << "Score: " << Score;
+				MainFont->Draw(ScoreCounter.str(), horizontal / 2, 0, kWhite);
+				ScoreCounter.str(" ");
 
 				//END
 			}
 
-			FPS << "FPS: " << int(1 / frameTime);
-			MainFont->Draw(FPS.str(), 0, 0, kWhite);
-			FPS.str(" ");
-			
-			/*int timerincrease = 1;
-			TimerCount << "TimerCount: " << timerincrease + frameTime;
-			MainFont->Draw(TimerCount.str(), 0, 0, kWhite);
-			TimerCount.str(" ");*/
-			
 			if (myEngine->KeyHeld(Key_Escape))
 			{
 				myEngine->Stop();
