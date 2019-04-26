@@ -8,9 +8,7 @@
 #include <conio.h>
 #include <ctype.h>
 #include <memory>
-//#include <SFML/Audio.hpp>
 #include <time.h>
-
 #include "ModelCreation.h"
 #include "Collisions.h"
 #include "wtypes.h" 
@@ -377,7 +375,7 @@ void main()
 
 				if (canCollide == true && gunInteraction(interactionDummy, gates[0]))
 				{
-					if (gateOpen[0] == false && runStarted == false)
+					if (gateOpen[0] == false && runStarted == false && currentGun != NULL)
 					{
 						gateDummy[0]->RotateY(120);
 						gateOpen[0] = true;
