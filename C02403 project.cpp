@@ -8,16 +8,17 @@
 #include <conio.h>
 #include <ctype.h>
 #include <memory>
+//#include <SFML/Audio.hpp>
+#include <time.h>
+
 #include "ModelCreation.h"
 #include "Collisions.h"
 #include "wtypes.h" 
 #include "Bullets.h"
 #include "Weapons.h"
 #include "Targets.h"
-#include <time.h>
 #include "Weapons.h"
 #include "Engine.h"
-#include <SFML/Audio.hpp>
 
 using namespace tle;
 
@@ -53,13 +54,25 @@ void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, 
 
 void desktopResolution(int& horizontal, int& vertical);
 
+void loadSounds();
+
 vector <sBullet*> vBullets;
 vector <sBullet*> vMagazine;
 vector <sTarget*> vTargets;
 deque <unique_ptr<sWeapon>> vGuns;
 sWeapon* currentGun = nullptr;
-
 fireModes CurrentFireMode = Auto;
+
+sf::SoundBuffer nickStartBuffer;
+sf::SoundBuffer nickTimerBuffer;
+sf::SoundBuffer nickWellDoneBuffer;
+sf::SoundBuffer nickPatheticBuffer;
+sf::SoundBuffer nickWhatBuffer;
+sf::Sound nickWhatSound;
+sf::Sound nickStartSound;
+sf::Sound nickTimerSound;
+sf::Sound nickWelldoneSound;
+sf::Sound nickPatheticSound;
 
 void main()
 {
@@ -98,6 +111,8 @@ void main()
 		IModel* gates[2];
 		IModel* gateDummy[2];
 
+		loadSounds();
+
 		gateDummy[0] = dummyMesh->CreateModel(127, 9, 120);
 		gates[0] = gateMesh->CreateModel(-6, 0, 0);
 		gates[0]->AttachToParent(gateDummy[0]);
@@ -105,7 +120,6 @@ void main()
 		gateDummy[1] = dummyMesh->CreateModel(172.8f, 9, 50.8);
 		gates[1] = gateMesh->CreateModel(0, 0, 5.5);
 		gates[1]->AttachToParent(gateDummy[1]);
-
 
 		gates[1]->RotateY(90);
 		gates[0]->ScaleZ(0.05f);
@@ -124,20 +138,6 @@ void main()
 		stringstream FPS;
 		stringstream TimerCount;
 		stringstream ScoreCounter;
-
-		sf::SoundBuffer nickStartBuffer;
-		sf::SoundBuffer nickTimerBuffer;
-
-		sf::Sound nickStartSound;
-		sf::Sound nickTimerSound;
-
-		nickStartBuffer.loadFromFile("soundeffects\\NICKwelcomeRecruit.wav");
-		nickStartSound.setBuffer(nickStartBuffer);
-		nickStartSound.setVolume(soundVolume);
-
-		nickTimerBuffer.loadFromFile("soundeffects\\NICKtimerWillStart.wav");
-		nickTimerSound.setBuffer(nickTimerBuffer);
-		nickTimerSound.setVolume(soundVolume);
 
 		gunFireTest->AttachToParent(cameraDummy);
 
@@ -170,6 +170,7 @@ void main()
 		bool prone = false;
 		bool spritesInPosition = false;
 		bool nicktimerWillstartSaid = false;
+		bool whatSaidOnce = false;
 		float oldPlayerPos[2];
 
 		/**** Set up your scene here ****/
@@ -409,6 +410,15 @@ void main()
 						runStarted = false;
 						finalTime = int(Time);
 						finalScore = Score;
+
+						if (finalScore > 18)
+						{
+							nickWelldoneSound.play();
+						}
+						else
+						{
+							nickPatheticSound.play();
+						}
 					}
 
 					canCollide = false;
@@ -503,7 +513,7 @@ void main()
 
 				moveBullets(100, vMagazine, frameTime);
 				moveTargets(vTargets, frameTime);
-				bulletToTarget(vTargets, vMagazine, Score);
+				bulletToTarget(vTargets, vMagazine, Score, nickWhatSound, whatSaidOnce);
 				bulletToWalls(Walls, vMagazine);
 
 				FPS << "FPS: " << int(1 / frameTime);
@@ -530,6 +540,10 @@ void main()
 		myEngine->Delete();	// Delete the 3D engine now we are finished with it
 	}
 }
+
+
+
+
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamX, float &mouseMoveY, float& camYCounter, standingState& currPlayerStandState, float& movementSpeed, float& currentMoveSpeed)
 {
@@ -734,3 +748,25 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camY
 	}
 }
 
+void loadSounds()
+{
+	nickStartBuffer.loadFromFile("soundeffects\\NICKwelcomeRecruit.wav");
+	nickStartSound.setBuffer(nickStartBuffer);
+	nickStartSound.setVolume(soundVolume);
+
+	nickTimerBuffer.loadFromFile("soundeffects\\NICKtimerWillStart.wav");
+	nickTimerSound.setBuffer(nickTimerBuffer);
+	nickTimerSound.setVolume(soundVolume);
+
+	nickWellDoneBuffer.loadFromFile("soundeffects\\NICKwellDone.wav");
+	nickWelldoneSound.setBuffer(nickWellDoneBuffer);
+	nickWelldoneSound.setVolume(soundVolume);
+
+	nickPatheticBuffer.loadFromFile("soundeffects\\NICKthatWasPathetic.wav");
+	nickPatheticSound.setBuffer(nickPatheticBuffer);
+	nickPatheticSound.setVolume(soundVolume);
+	
+	nickWhatBuffer.loadFromFile("soundeffects\\NICKwhatAreYouDoing.wav");
+	nickWhatSound.setBuffer(nickWhatBuffer);
+	nickWhatSound.setVolume(soundVolume);
+}

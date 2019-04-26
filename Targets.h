@@ -16,6 +16,7 @@ struct sTarget
 	IMesh* boxMesh;
 	IModel* box;
 	targetStates state;
+	bool hostage;
 };
 
 struct Terrorist_target :public sTarget
@@ -26,6 +27,7 @@ struct Terrorist_target :public sTarget
 		boxMesh = myEngine->LoadMesh("LargeCrate.x");
 		model = targetMesh->CreateModel(spawnX, spawnY, spawnZ);
 		box = boxMesh->CreateModel(spawnX, 0, spawnZ);
+		hostage = false;
 
 		box->Scale(1.5);
 		box->ScaleX(2);
@@ -37,8 +39,8 @@ struct Terrorist_target :public sTarget
 		state = Ready;
 	}
 };
-
-const int numRedTargets = 22;
+//22 enemies //8 Hostages
+const int numRedTargets = 30;
 const int numGreenTargets = 0;
 
 void spawnTargets(vector<sTarget*> &vTargets);

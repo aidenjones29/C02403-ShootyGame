@@ -19,7 +19,7 @@ bool gunInteraction(IModel* gunInteractionDummy, IModel* Gun)
 	return false;
 }
 
-void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMagazine, int& Score)
+void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMagazine, int& Score, sf::Sound& nickWhatSound, bool& said)
 {
 	float sRad = 0.02f;
 	float bWidth = 10.0f;
@@ -42,9 +42,20 @@ void bulletToTarget(std::vector<sTarget*>& vTargets, std::vector<sBullet*>& vMag
 			{
 				hit = true;
 
-				if (hit == true && x->status != Spent)
+				if (hit == true && x->status != Spent && i->hostage == false)
 				{
 					Score++;
+					hit = false;
+				}
+
+				if (hit == true && x->status != Spent && i->hostage == true)
+				{
+					if (said == false)
+					{
+						nickWhatSound.play();
+						said = true;
+					}
+					Score--;
 					hit = false;
 				}
 
