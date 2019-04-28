@@ -17,6 +17,7 @@
 #include "Targets.h"
 #include "Weapons.h"
 #include "Engine.h"
+//#include <list>
 
 using namespace tle;
 
@@ -45,8 +46,14 @@ int HitScore = 0;
 bool canShoot = true;
 float currentGunMoveBack = 0;
 
+vector <sBullet*> vBullets;
+vector <sBullet*> vMagazine;
+vector <sTarget*> vTargets;
+deque <unique_ptr<sWeapon>> vGuns;
+sWeapon* currentGun = nullptr;
+fireModes CurrentFireMode = Auto;
 
-void Fire(IModel* &cameraDummy, float& frametime, float& shoottimer, float& camYCounter);
+void Fire(IModel* &cameraDummy, float& frametime, float& shoottimer, float& camYCounter, sWeapon* &currentGun);
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter, standingState& currPlayerStandState, float& movementSpeed, float& currentMoveSpeed);
 
@@ -54,12 +61,20 @@ void desktopResolution(int& horizontal, int& vertical);
 
 void loadSounds();
 
-vector <sBullet*> vBullets;
-vector <sBullet*> vMagazine;
-vector <sTarget*> vTargets;
-deque <unique_ptr<sWeapon>> vGuns;
-sWeapon* currentGun = nullptr;
-fireModes CurrentFireMode = Auto;
+struct Particle
+{
+	// Content to be added
+	float positionX, positionY, positionZ;
+	float velocityX, velocityY, velocityZ;
+	float lifeTimer;
+};
+
+//list<Particle> Particles;
+//
+//float emitterPosX = currentGun->weaponModel->GetLocalX, emitterPosY = currentGun->weaponModel->GetLocalY, emitterPosZ = currentGun->weaponModel->GetLocalZ;
+//
+//float emitterPeriod = 0.1f;
+//float countdown = emitterPeriod;
 
 sf::SoundBuffer nickStartBuffer;
 sf::SoundBuffer nickTimerBuffer;
@@ -71,6 +86,19 @@ sf::Sound nickStartSound;
 sf::Sound nickTimerSound;
 sf::Sound nickWelldoneSound;
 sf::Sound nickPatheticSound;
+
+//void EmitParticle()
+//{
+//	Particle SParticle;
+//
+//	SParticle.positionX = emitterPosX;
+//	SParticle.positionY = emitterPosY;
+//	SParticle.positionZ = emitterPosZ;
+//
+//	SParticle.lifeTimer = 1.0f;
+//
+//	Particles.push_back(SParticle);
+//}
 
 void main()
 {
@@ -100,6 +128,7 @@ void main()
 		IMesh* dummyMesh = myEngine->LoadMesh("Dummy.x");
 		IMesh* bulletMesh = myEngine->LoadMesh("Bullet.x");
 		IMesh* gateMesh = myEngine->LoadMesh("Gate.x");
+		IMesh* particleMesh = myEngine->LoadMesh("Bullet.x");
 
 		IModel* fence[80];
 		IModel* cameraDummy = dummyMesh->CreateModel(5, 15, 80);
@@ -108,7 +137,7 @@ void main()
 		IModel* ammoCrate[numAmmoBoxes];
 		IModel* gates[2];
 		IModel* gateDummy[2];
-
+		IModel* particle;
 		loadSounds();
 
 		gateDummy[0] = dummyMesh->CreateModel(127, 9, 120);
@@ -506,7 +535,7 @@ void main()
 				}
 				if (currentGun != nullptr)
 				{
-					Fire(cameraDummy, frameTime, shoottimer, camYCounter);
+					Fire(cameraDummy, frameTime, shoottimer, camYCounter, currentGun);
 				}
 
 				moveBullets(100, vMagazine, frameTime);
@@ -620,8 +649,9 @@ void desktopResolution(int& horizontal, int& vertical)
 	vertical = desktop.bottom;				  //Holds the values for the screen resolution.
 }
 
-void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camYCounter)
+void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camYCounter, sWeapon* &currentGun)
 {
+	int gunMoveAmount = 0;
 	switch (CurrentFireMode)
 	{
 	case Auto:
@@ -649,6 +679,24 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camY
 						vMagazine[i]->status = Fired;
 						currentGun->magAmount--;
 						WeaponTime = 0.0f;
+
+						/*if (gunMoveAmount == 0)		//What was menat to be the new recoil, too fats to be seen, if timer in for loop is increased, FPS takes a very large hit.
+						{
+							for (int i = 0; i < 10000; i++)
+							{
+								currentGun->weaponModel->MoveLocalZ(-0.01 * frameTime);
+								gunMoveAmount++;
+							}
+						}
+
+						if (gunMoveAmount == 10000)
+						{
+							for (int i = 10001; i > 0; i--)
+							{
+								currentGun->weaponModel->MoveLocalZ(0.01 * frameTime);
+								gunMoveAmount--;
+							}
+						}*/
 
 						if (camYCounter > UPPER_CAM_Y_MAX)
 						{
@@ -692,6 +740,24 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camY
 						WeaponTime = 0.0f;
 						bulletsFired++;
 
+						/*if (gunMoveAmount == 0)		//What was menat to be the new recoil, too fats to be seen, if timer in for loop is increased, FPS takes a very large hit.
+						{
+							for (int i = 0; i < 10000; i++)
+							{
+								currentGun->weaponModel->MoveLocalZ(-0.01 * frameTime);
+								gunMoveAmount++;
+							}
+						}
+
+						if (gunMoveAmount == 10000)
+						{
+							for (int i = 10001; i > 0; i--)
+							{
+								currentGun->weaponModel->MoveLocalZ(0.01 * frameTime);
+								gunMoveAmount--;
+							}
+						}*/
+
 						if (camYCounter > UPPER_CAM_Y_MAX)
 						{
 							for (int i = 0; i < 3; i++)
@@ -728,6 +794,24 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camY
 					vMagazine[i]->model->Scale(0.004f);
 					vMagazine[i]->status = Fired;
 					currentGun->magAmount--;
+
+					/*if (gunMoveAmount == 0)		//What was menat to be the new recoil, too fats to be seen, if timer in for loop is increased, FPS takes a very large hit.
+						{
+							for (int i = 0; i < 10000; i++)
+							{
+								currentGun->weaponModel->MoveLocalZ(-0.01 * frameTime);
+								gunMoveAmount++;
+							}
+						}
+
+						if (gunMoveAmount == 10000)
+						{
+							for (int i = 10001; i > 0; i--)
+							{
+								currentGun->weaponModel->MoveLocalZ(0.01 * frameTime);
+								gunMoveAmount--;
+							}
+						}*/
 
 					if (camYCounter > UPPER_CAM_Y_MAX)
 					{
