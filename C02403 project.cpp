@@ -43,7 +43,12 @@ float countDownTime = 1.0f;
 float WeaponTime = 0;
 int bulletsFired = 0;
 int HitScore = 0;
+
 bool canShoot = true;
+bool recoil = false;
+const float recoilLimit = 10.0f;
+float currentRecoil = 0.0f;
+const float recoilAmount = 6.0f;
 float currentGunMoveBack = 0;
 
 vector <sBullet*> vBullets;
@@ -53,7 +58,7 @@ deque <unique_ptr<sWeapon>> vGuns;
 sWeapon* currentGun = nullptr;
 fireModes CurrentFireMode = Auto;
 
-void Fire(IModel* &cameraDummy, float& frametime, float& shoottimer, float& camYCounter, sWeapon* &currentGun);
+void Fire(IModel* &cameraDummy, float& frametime, float& shoottimer, float& camYCounter, sWeapon* &currentGun, bool& recoil);
 
 void movement(I3DEngine* myEngine, IModel* camDummy, float& currentCamRotation, float& currentCamY, float& camYCounter, standingState& currPlayerStandState, float& movementSpeed, float& currentMoveSpeed);
 
@@ -69,13 +74,6 @@ struct Particle
 	float lifeTimer;
 };
 
-//list<Particle> Particles;
-//
-//float emitterPosX = currentGun->weaponModel->GetLocalX, emitterPosY = currentGun->weaponModel->GetLocalY, emitterPosZ = currentGun->weaponModel->GetLocalZ;
-//
-//float emitterPeriod = 0.1f;
-//float countdown = emitterPeriod;
-
 sf::SoundBuffer nickStartBuffer;
 sf::SoundBuffer nickTimerBuffer;
 sf::SoundBuffer nickWellDoneBuffer;
@@ -86,19 +84,6 @@ sf::Sound nickStartSound;
 sf::Sound nickTimerSound;
 sf::Sound nickWelldoneSound;
 sf::Sound nickPatheticSound;
-
-//void EmitParticle()
-//{
-//	Particle SParticle;
-//
-//	SParticle.positionX = emitterPosX;
-//	SParticle.positionY = emitterPosY;
-//	SParticle.positionZ = emitterPosZ;
-//
-//	SParticle.lifeTimer = 1.0f;
-//
-//	Particles.push_back(SParticle);
-//}
 
 void main()
 {
@@ -401,6 +386,8 @@ void main()
 						cameraDummy->SetX(oldPlayerPos[0]);
 					}
 				}
+				
+				//------------------------------------ RUN STARTED ------------------------------------//
 
 				if (canCollide == true && gunInteraction(interactionDummy, gates[0]))
 				{
@@ -409,12 +396,12 @@ void main()
 						gateDummy[0]->RotateY(120);
 						gateOpen[0] = true;
 						runStarted = true;
+						Time = 0;
+						Score = 0;
 					}
 
 					canCollide = false;
 				}
-
-				//------------------------------------ RUN STARTED ------------------------------------//
 
 				if (runStarted == true)
 				{
@@ -506,13 +493,9 @@ void main()
 
 				if (myEngine->KeyHeld(Key_R) && currentGun != nullptr)
 				{
-					reloadTimer += frameTime;
-					if (reloadTimer > 1.2f)
-					{
 						reloadMagazine(currentGun->magCapacity, vMagazine);
 						currentGun->magAmount = currentGun->magCapacity;
-						reloadTimer = 0;
-					}
+
 				}
 
 				if (myEngine->KeyHit(Key_N) && runStarted == false)
@@ -535,7 +518,25 @@ void main()
 				}
 				if (currentGun != nullptr)
 				{
-					Fire(cameraDummy, frameTime, shoottimer, camYCounter, currentGun);
+					Fire(cameraDummy, frameTime, shoottimer, camYCounter, currentGun, recoil);
+				}
+
+				if (recoil == true)
+				{
+					if (currentRecoil < 50)
+					{
+						currentGun->weaponModel->MoveLocalZ(-recoilAmount * frameTime);
+						currentRecoil += recoilAmount * frameTime;
+						recoil = false;
+					}
+				}
+				else
+				{
+					if (currentRecoil > 0)
+					{
+						currentGun->weaponModel->MoveLocalZ(1 * frameTime);
+						currentRecoil -= 1 * frameTime;
+					}
 				}
 
 				moveBullets(100, vMagazine, frameTime);
@@ -649,7 +650,7 @@ void desktopResolution(int& horizontal, int& vertical)
 	vertical = desktop.bottom;				  //Holds the values for the screen resolution.
 }
 
-void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camYCounter, sWeapon* &currentGun)
+void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camYCounter, sWeapon* &currentGun, bool& recoil)
 {
 	int gunMoveAmount = 0;
 	switch (CurrentFireMode)
@@ -679,24 +680,7 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camY
 						vMagazine[i]->status = Fired;
 						currentGun->magAmount--;
 						WeaponTime = 0.0f;
-
-						/*if (gunMoveAmount == 0)		//What was menat to be the new recoil, too fats to be seen, if timer in for loop is increased, FPS takes a very large hit.
-						{
-							for (int i = 0; i < 10000; i++)
-							{
-								currentGun->weaponModel->MoveLocalZ(-0.01 * frameTime);
-								gunMoveAmount++;
-							}
-						}
-
-						if (gunMoveAmount == 10000)
-						{
-							for (int i = 10001; i > 0; i--)
-							{
-								currentGun->weaponModel->MoveLocalZ(0.01 * frameTime);
-								gunMoveAmount--;
-							}
-						}*/
+						recoil = true;
 
 						if (camYCounter > UPPER_CAM_Y_MAX)
 						{
@@ -739,24 +723,7 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camY
 						currentGun->magAmount--;
 						WeaponTime = 0.0f;
 						bulletsFired++;
-
-						/*if (gunMoveAmount == 0)		//What was menat to be the new recoil, too fats to be seen, if timer in for loop is increased, FPS takes a very large hit.
-						{
-							for (int i = 0; i < 10000; i++)
-							{
-								currentGun->weaponModel->MoveLocalZ(-0.01 * frameTime);
-								gunMoveAmount++;
-							}
-						}
-
-						if (gunMoveAmount == 10000)
-						{
-							for (int i = 10001; i > 0; i--)
-							{
-								currentGun->weaponModel->MoveLocalZ(0.01 * frameTime);
-								gunMoveAmount--;
-							}
-						}*/
+						recoil = true;
 
 						if (camYCounter > UPPER_CAM_Y_MAX)
 						{
@@ -794,24 +761,7 @@ void Fire(IModel* &cameraDummy, float& frameTime, float& shoottimer, float& camY
 					vMagazine[i]->model->Scale(0.004f);
 					vMagazine[i]->status = Fired;
 					currentGun->magAmount--;
-
-					/*if (gunMoveAmount == 0)		//What was menat to be the new recoil, too fats to be seen, if timer in for loop is increased, FPS takes a very large hit.
-						{
-							for (int i = 0; i < 10000; i++)
-							{
-								currentGun->weaponModel->MoveLocalZ(-0.01 * frameTime);
-								gunMoveAmount++;
-							}
-						}
-
-						if (gunMoveAmount == 10000)
-						{
-							for (int i = 10001; i > 0; i--)
-							{
-								currentGun->weaponModel->MoveLocalZ(0.01 * frameTime);
-								gunMoveAmount--;
-							}
-						}*/
+					recoil = true;
 
 					if (camYCounter > UPPER_CAM_Y_MAX)
 					{

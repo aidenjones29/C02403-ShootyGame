@@ -1,59 +1,31 @@
-﻿  C02403 project.cpp
-d:\my computer files\github\c02403-shootygame\weapons.h(41): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\weapons.h(60): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\weapons.h(80): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\weapons.h(99): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\weapons.h(116): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\weapons.h(135): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\weapons.h(154): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(91): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(92): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(96): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(97): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(98): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(295): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(296): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(303): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(308): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(309): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(310): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(314): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(315): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(319): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(320): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(321): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(324): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(325): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\my computer files\github\c02403-shootygame\c02403 project.cpp(439): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-  Generating Code...
-  Compiling...
-  Weapons.cpp
-d:\my computer files\github\c02403-shootygame\weapons.h(41): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\weapons.h(60): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\weapons.h(80): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\weapons.h(99): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\weapons.h(116): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\weapons.h(135): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-d:\my computer files\github\c02403-shootygame\weapons.h(154): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-  Generating Code...
-TL-Engine2017Debug.lib(TL-Engine.obj) : warning LNK4099: PDB 'TL-Engine.pdb' was not found with 'TL-Engine2017Debug.lib(TL-Engine.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\TL-Engine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(Errors.obj) : warning LNK4099: PDB 'Common.pdb' was not found with 'TL-Engine2017Debug.lib(Errors.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\Common.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(TLXSprite.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXSprite.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(TLXSceneNode.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXSceneNode.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(TLXModelNode.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXModelNode.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(TLXModel.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXModel.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(TLXMesh.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXMesh.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(TLXLight.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXLight.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(TLXFont.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXFont.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(TLXEngine.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXEngine.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(TLXCamera.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXCamera.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(IrrlichtSceneNode.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtSceneNode.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(IrrlichtModel.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtModel.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(IrrlichtMesh.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtMesh.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(IrrlichtLight.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtLight.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(IrrlichtInput.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtInput.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(IrrlichtFont.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtFont.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(IrrlichtEngine.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtEngine.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-TL-Engine2017Debug.lib(IrrlichtCamera.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(IrrlichtCamera.obj)' or at 'D:\My Computer Files\GitHub\C02403-ShootyGame\3DEngine.pdb'; linking object as if no debug info
-  C02403 project.vcxproj -> D:\My Computer Files\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
+﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  C02403 project.cpp
+d:\ajones45\documents\github\c02403-shootygame\weapons.h(32): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\weapons.h(51): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\weapons.h(71): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\weapons.h(90): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\weapons.h(107): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\weapons.h(126): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\weapons.h(145): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(104): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(105): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(109): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(110): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(111): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(309): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(310): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(317): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(322): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(323): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(324): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(328): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(329): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(333): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(334): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(335): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(338): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(339): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(455): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\ajones45\documents\github\c02403-shootygame\c02403 project.cpp(125): warning C4101: 'particle': unreferenced local variable
+  C02403 project.vcxproj -> D:\AJones45\Documents\GitHub\C02403-ShootyGame\\C02403 projectDebug.exe
   Copying DLLs & shaders...
