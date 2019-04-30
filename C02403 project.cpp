@@ -89,11 +89,10 @@ sf::Sound nickPatheticSound;
 void main()
 {
 	// Create a 3D engine (using TLX engine here) and open a window for it
-
 	int horizontal = 0; int vertical = 0;
 	float reloadTimer = 0;
 	desktopResolution(horizontal, vertical);
-	myEngine->StartWindowed(horizontal, vertical);
+	myEngine->StartFullscreen(horizontal, vertical);
 	myEngine->StartMouseCapture();
 
 	// Add default folder for meshes and other media
