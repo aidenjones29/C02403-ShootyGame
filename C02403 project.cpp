@@ -25,6 +25,7 @@ enum menuSelection { Play, Options, Controls, Quit};
 enum standingState { Standing, Crouching, Prone };
 enum menuState {MainMenu, PauseMenu, GameRunning, ControlsMenu};
 enum gunState {NoGun, HoldingGun};
+enum EReloadState {GunReloaded,GunReloading};
 
 I3DEngine* myEngine = New3DEngine(kTLX);
 
@@ -85,6 +86,7 @@ sf::Sound nickStartSound;
 sf::Sound nickTimerSound;
 sf::Sound nickWelldoneSound;
 sf::Sound nickPatheticSound;
+EReloadState ReloadState = GunReloaded;
 
 void main()
 {
@@ -114,6 +116,7 @@ void main()
 		IMesh* bulletMesh = myEngine->LoadMesh("Bullet.x");
 		IMesh* gateMesh = myEngine->LoadMesh("Gate.x");
 		IMesh* particleMesh = myEngine->LoadMesh("Bullet.x");
+		IMesh* muzzlemesh = myEngine->LoadMesh("muzzleFlash.x");
 
 		IModel* fence[80];
 		IModel* cameraDummy = dummyMesh->CreateModel(5, 15, 80);
@@ -124,6 +127,7 @@ void main()
 		IModel* gateDummy[2];
 		IModel* particle;
 		loadSounds();
+		SetupFlash(muzzlemesh);
 
 		gateDummy[0] = dummyMesh->CreateModel(127, 9, 120);
 		gates[0] = gateMesh->CreateModel(-6, 0, 0);
@@ -174,6 +178,7 @@ void main()
 		float camYCounter = 0.0f;
 		float interactionZspeed = 0.0f;
 		float currentInteractionDistance = 0.0f;
+		float GunReloadTimer= 0.0f;
 
 		bool gateOpen[2] = { false, false };
 		bool gateHorizontal[2] = { true, false };
@@ -191,10 +196,11 @@ void main()
 		// The main game loop, repeat until engine is stopped
 		while (myEngine->IsRunning())
 		{
-			WeaponTime = WeaponTime + frameTime;
-			frameTime = myEngine->Timer();
-			myEngine->DrawScene();
 
+			frameTime = myEngine->Timer();
+			WeaponTime = WeaponTime + frameTime;
+			myEngine->DrawScene();
+            MuzzleFlash(frameTime);
 			if (currentGun != nullptr)
 			{
 				ammoText << currentGun->magAmount << " / " << currentGun->magCapacity;
@@ -505,13 +511,33 @@ void main()
 						CurrentFireMode = Single;
 					}
 				}
-
-				if (myEngine->KeyHeld(Key_R) && currentGun != nullptr)
+			/*	if (myEngine->KeyHeld(Key_R) && currentGun != nullptr)
 				{
-						reloadMagazine(currentGun->magCapacity, vMagazine);
-						currentGun->magAmount = currentGun->magCapacity;
+					reloadMagazine(currentGun->magCapacity, vMagazine);
+					currentGun->magAmount = currentGun->magCapacity;
+				}*/
 
+
+			if (myEngine->KeyHit(Key_R) && currentGun != nullptr)
+				{
+					ReloadState = GunReloading;
 				}
+				
+				if (ReloadState == GunReloading)
+				{
+					if (GunReloadTimer > 1.5f)
+					{
+	                    reloadMagazine(currentGun->magCapacity, vMagazine);
+						currentGun->magAmount = currentGun->magCapacity;
+						ReloadState = GunReloaded;
+						GunReloadTimer = 0.0f;
+					}
+					else
+					{
+						GunReloadTimer += frameTime;
+					}
+				}
+			
 
 				if (myEngine->KeyHit(Key_N) && runStarted == false)
 				{
@@ -544,6 +570,7 @@ void main()
 						currentGun->weaponModel->MoveLocalZ(-recoilAmount * frameTime);
 						currentRecoil += recoilAmount * frameTime;
 						recoil = false;
+						GenerateMuzzleFlash(cameraDummy);
 					}
 				}
 				else

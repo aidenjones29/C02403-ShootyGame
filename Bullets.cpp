@@ -2,6 +2,9 @@
 #include "Bullets.h"
 
 
+
+vector<sMuzzleFlash*> vFlash;
+sMuzzleFlash* flash = new sMuzzleFlash;
 void spawnBullets(int maxBullets,IMesh* bulletMesh, vector<sBullet*> &vBullets)
 {
 	for (int i = 0; i < maxBullets; i++)
@@ -47,4 +50,26 @@ void reloadMagazine(int magSize, vector<sBullet*> &vMagazine)
 		vMagazine[i]->model->SetPosition(0.0f, -25.0f, 0.0f);
 		vMagazine[i]->timeAlive = 0.0f;
 	}
+}
+void SetupFlash(IMesh* muzzleMesh) {
+	flash->model = muzzleMesh->CreateModel(0, -30, 0);
+	flash->model->SetSkin("muzzleFlash.png");
+	flash->model->Scale(0.5f);
+}
+void GenerateMuzzleFlash(IModel* &cameraDummy )
+{
+float matrix[4][4];
+cameraDummy->GetMatrix(&matrix[0][0]);
+flash->model->SetMatrix(&matrix[0][0]);
+flash->model->MoveLocalZ(30.0f);
+flash->model->MoveLocalX(5.0f);
+flash->model->MoveLocalY(-2.0f);
+}
+
+void MuzzleFlash(float ft)
+{
+
+		flash->model->SetY(-50);	
+
+	
 }
