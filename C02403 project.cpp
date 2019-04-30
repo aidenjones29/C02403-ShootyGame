@@ -35,6 +35,7 @@ const float gunMovementMax = -3;
 
 float Time = 0;
 int finalTime = 0;
+float targetTime[3] = { 0,0,0 };
 bool runStarted = false;
 int Score = 0;
 int finalScore = 0;
@@ -311,6 +312,21 @@ void main()
 					spritesInPosition = true;
 				}
 
+				for (int i = 0; i < 3; i++)
+				{
+					if (vTargets[i]->state == Down)
+					{
+						targetTime[i] += frameTime;
+					}
+
+					if (targetTime[i] > 2)
+					{
+						vTargets[i]->model->SetY(12);
+						vTargets[i]->state = Ready;
+						targetTime[i] = 0;
+					}
+				}
+
 				if (runStarted == false)
 				{
 					Score = finalScore;
@@ -443,7 +459,7 @@ void main()
 					interactionZspeed = 0.0f;
 					currentInteractionDistance = 0.0f;
 					interactionDummy->SetLocalPosition(0, 0, 0);
-					interactionZspeed = 0.01f;
+					interactionZspeed = 0.1f;
 					canCollide = true;
 				}
 
@@ -516,6 +532,7 @@ void main()
 					}
 					Score = 0;
 				}
+
 				if (currentGun != nullptr)
 				{
 					Fire(cameraDummy, frameTime, shoottimer, camYCounter, currentGun, recoil);
