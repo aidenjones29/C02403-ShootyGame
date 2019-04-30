@@ -200,7 +200,7 @@ void main()
 			frameTime = myEngine->Timer();
 			WeaponTime = WeaponTime + frameTime;
 			myEngine->DrawScene();
-            MuzzleFlash(frameTime);
+            MuzzleFlash(cameraDummy);
 			if (currentGun != nullptr)
 			{
 				ammoText << currentGun->magAmount << " / " << currentGun->magCapacity;
@@ -570,7 +570,7 @@ void main()
 						currentGun->weaponModel->MoveLocalZ(-recoilAmount * frameTime);
 						currentRecoil += recoilAmount * frameTime;
 						recoil = false;
-						GenerateMuzzleFlash(cameraDummy);
+						GenerateMuzzleFlash(cameraDummy,currentGun->gunlength);
 					}
 				}
 				else

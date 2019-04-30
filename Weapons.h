@@ -19,6 +19,7 @@ struct sWeapon
 	int magCapacity;
 	int magAmount;
 	float fireRate;
+	float gunlength;
 	sf::SoundBuffer shootingBuffer;
 	sf::Sound shootingSound;
 };
@@ -27,6 +28,7 @@ struct M4 :public sWeapon
 {	
 	M4 (int spawnX, int SpawnY, int SpawnZ)
 	{
+		gunlength = 35.0f;
 		weaponMesh = myEngine->LoadMesh("M4Colt.x");
 		name = "m4";
 		weaponModel = weaponMesh->CreateModel(spawnX, SpawnY, SpawnZ);
@@ -36,6 +38,7 @@ struct M4 :public sWeapon
 		magCapacity = 30;
 		magAmount = 30;
 		fireRate = 0.04f;
+	
 		shootingBuffer.loadFromFile("soundeffects\\gunshot.wav");
 		shootingSound.setBuffer(shootingBuffer);
 		shootingSound.setVolume(soundVolume);
@@ -46,6 +49,7 @@ struct AK :public sWeapon
 {
 	AK(int spawnX,int SpawnY,int SpawnZ) 
 	{
+		gunlength = 35.0f;
 		name = "AK-47";
 		weaponMesh = myEngine->LoadMesh("kalashinkov.x");
 		weaponModel = weaponMesh->CreateModel(spawnX,SpawnY, SpawnZ);
@@ -55,6 +59,7 @@ struct AK :public sWeapon
 		magCapacity = 30;
 		magAmount = 30;
 		fireRate = 0.04f;
+		
 		shootingBuffer.loadFromFile("soundeffects\\ak-47.wav");
 		shootingSound.setBuffer(shootingBuffer);
 		shootingSound.setVolume(soundVolume);
@@ -66,6 +71,7 @@ struct AR_18 :public sWeapon
 
 	AR_18(int spawnX, int SpawnY, int SpawnZ)
 	{
+		gunlength = 35.0f;
 		name = "AR-18";
 		weaponMesh = myEngine->LoadMesh("ar18_rifle.x");
 		weaponModel = weaponMesh->CreateModel(spawnX, SpawnY, SpawnZ);
@@ -85,6 +91,7 @@ struct MINI_UZI :public sWeapon
 {
 	MINI_UZI (int spawnX, int SpawnY, int SpawnZ)
 	{
+		gunlength = 20.0f;
 		name = "Uzi";
 		weaponMesh = myEngine->LoadMesh("Mini_Uzi.x");
 		weaponModel = weaponMesh->CreateModel(spawnX, SpawnY, SpawnZ);
@@ -102,6 +109,7 @@ struct TOMMY_GUN :public sWeapon
 {
 	TOMMY_GUN (int spawnX, int SpawnY, int SpawnZ)
 	{
+		gunlength = 35.0f;
 		name = "Thompson";
 		weaponMesh = myEngine->LoadMesh("TommyGun.x");
 		weaponModel = weaponMesh->CreateModel(spawnX, SpawnY, SpawnZ);
@@ -121,6 +129,7 @@ struct MP5 :public sWeapon
 {
 	MP5 (int spawnX, int SpawnY, int SpawnZ)
 	{
+		gunlength = 33.0f;
 		name = "MP5";
 		weaponMesh = myEngine->LoadMesh("MachineGun.x");
 		weaponModel = weaponMesh->CreateModel(spawnX, SpawnY, SpawnZ);
@@ -140,6 +149,7 @@ struct  Glock:public sWeapon
 {
 	Glock(int spawnX, int SpawnY, int SpawnZ)
 	{
+		gunlength = 27.0f;
 		name = "Glock";
 		weaponMesh = myEngine->LoadMesh("glock.x");
 		weaponModel = weaponMesh->CreateModel(spawnX, SpawnY, SpawnZ);

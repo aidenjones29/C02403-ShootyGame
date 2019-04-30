@@ -56,20 +56,24 @@ void SetupFlash(IMesh* muzzleMesh) {
 	flash->model->SetSkin("muzzleFlash.png");
 	flash->model->Scale(0.5f);
 }
-void GenerateMuzzleFlash(IModel* &cameraDummy )
+void GenerateMuzzleFlash(IModel* &cameraDummy ,float currentgunlength)
 {
-float matrix[4][4];
-cameraDummy->GetMatrix(&matrix[0][0]);
-flash->model->SetMatrix(&matrix[0][0]);
-flash->model->MoveLocalZ(30.0f);
-flash->model->MoveLocalX(5.0f);
-flash->model->MoveLocalY(-2.0f);
+//float matrix[4][4];
+//cameraDummy->GetMatrix(&matrix[0][0]);
+//flash->model->SetMatrix(&matrix[0][0]);
+//flash->model->MoveLocalZ(30.0f);
+//flash->model->MoveLocalX(5.0f);
+//flash->model->MoveLocalY(-2.0f);
+	flash->model->ResetOrientation();
+	flash->model->AttachToParent(cameraDummy);
+	//mp4 33
+	flash->model->SetLocalPosition(5.0f, -3.0f, currentgunlength);
 }
 
-void MuzzleFlash(float ft)
+void MuzzleFlash(IModel* &cameraDummy)
 {
-
-		flash->model->SetY(-50);	
+	flash->model->DetachFromParent();
+	flash->model->SetY(-50);	
 
 	
 }

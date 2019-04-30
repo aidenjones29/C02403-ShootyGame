@@ -34,6 +34,6 @@ void reloadMagazine(int magSize, vector<sBullet*> &vMagazine);
 
 void SetupFlash(IMesh* muzzleMesh);
 
-void GenerateMuzzleFlash(IModel* &cameraDummy);
+void GenerateMuzzleFlash(IModel* &cameraDummy, float currentgunlength);
 
-void MuzzleFlash(float ft);
+void MuzzleFlash(IModel* &cameraDummy);
